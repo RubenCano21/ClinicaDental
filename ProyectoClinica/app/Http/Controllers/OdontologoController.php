@@ -41,16 +41,18 @@ class OdontologoController extends Controller
             'sexo' => 'required|string|max:10',
             'telefono' => 'required|integer',
             'matricula' => 'required|string',
-            'email'=>'required|unique:users',
-            'password'=>'required|confirmed'
+            'email' => 'required|unique:users,email',
+            'password' => 'required|confirmed'
         ]);
-
+    
+        // Crear un nuevo usuario
         $usuario = new User();
         $usuario->name = $request->nombre;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request['password']);
         $usuario->save();
-
+    
+        // Crear un nuevo odontólogo
         $odontologo = new Odontologo();
         $odontologo->ci = $request->ci;
         $odontologo->nombre = $request->nombre;
@@ -58,9 +60,10 @@ class OdontologoController extends Controller
         $odontologo->sexo = $request->sexo;
         $odontologo->telefono = $request->telefono;
         $odontologo->matricula = $request->matricula;
+        $odontologo->id_user = $usuario->id; // Asignar el ID del usuario recién creado
         $odontologo->save();
-
-        return redirect()->route('admin.odontologos.index',$odontologo)->with('success', 'Odontologo creado exitosamente');
+    
+        return redirect()->route('admin.odontologos.index')->with('success', 'Odontólogo creado exitosamente');
     }
 
     /**

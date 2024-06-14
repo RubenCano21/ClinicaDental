@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\OdontologoController;
+use App\Http\Controllers\PacienteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CursoController;
@@ -40,18 +42,6 @@ Route::get('/acercaDe', function () {
 
 Route::resource('home', 'App\Http\Controllers\HomeController');
 
-//Route:: resource('pacientes', 'App\Http\Controllers\PacienteController');
-/*Route::resource('/admin/pacientes', App\Http\Controllers\PacienteController::class)
-    ->names('admin.pacientes')
-    ->middleware('auth');*/
-//Route:: resource('pacientes', 'App\Http\Controllers\PacienteController');
-/*Route::resource('/admin/pacientes', App\Http\Controllers\PacienteController::class)
-    ->names('admin.pacientes')
-    ->middleware('auth');*/
-
-
-
-Route:: resource('odontologos', OdontologoController::class)->names('admin.odontologos');
 
 Route:: resource('recepcionistas', 'App\Http\Controllers\RecepcionistaController');
 
@@ -81,11 +71,17 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('pacientes/{id}', [PacienteController::class, 'destroy'])->name('admin.pacientes.destroy');
 });
 
-
-
-Route::controller(PacienteController::class)->group(function () {
-   Route::get('admin/pacientes', 'index')->name('admin.pacientes.index');
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('odontologos', [OdontologoController::class, 'index'])->name('admin.odontologos.index');
+    Route::get('odontologos/create', [OdontologoController::class, 'create'])->name('admin.odontologos.create');
+    Route::post('odontologos', [OdontologoController::class, 'store'])->name('admin.odontologos.store');
+    Route::get('odontologos/{id}', [OdontologoController::class, 'show'])->name('admin.odontologos.show');
+    Route::get('odontologos/{id}/edit', [OdontologoController::class, 'edit'])->name('admin.odontologos.edit');
+    Route::put('odontologos/{id}', [OdontologoController::class, 'update'])->name('admin.odontologos.update');
+    Route::get('odontologos/{id}/confirm-delete', [OdontologoController::class, 'confirmDelete'])->name('admin.odontologos.confirmDelete');
+    Route::delete('odontologos/{id}', [OdontologoController::class, 'destroy'])->name('admin.odontologos.destroy');
 });
+
 
 Route::controller(CursoController::class)->group(function(){
     Route::get('cursos', 'index');

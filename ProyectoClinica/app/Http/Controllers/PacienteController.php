@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Hash;
 use Illuminate\Http\Request;
 use App\Models\Paciente;
 
@@ -37,7 +38,7 @@ class PacienteController extends Controller
             'ci'=>'required|unique:pacientes',
             'nombre'=>'required|max:250',
             'apellido'=>'required|max:250',
-            'correo'=>'required|unique:users',
+            'email' => 'required|unique:users,email',
             'sexo'=>'required|max:20',
             'telefono'=>'required',
             'fechaNacimiento'=>'required',
@@ -47,21 +48,21 @@ class PacienteController extends Controller
 
         $usuario = new User();
         $usuario->name = $request->nombre;
-        $usuario->email = $request->correo;
+        $usuario->email = $request->email;
         $usuario->password = Hash::make($request['password']);
         $usuario->save();
 
-        $pacientes = new Paciente();
-
-        $pacientes->ci = $request->get('ci');
-        $pacientes->nombre = $request->get('nombre');
-        $pacientes->apellido = $request->get('apellido');
-        $pacientes->email = $request->get('email');
-        $pacientes->sexo = $request->get('sexo');
-        $pacientes->telefono = $request->get('telefono');
-        $pacientes->fechaNacimiento = $request->get('fechaNacimiento');
-        $pacientes->direccion = $request->get('direccion');
-        $pacientes->save();
+        $paciente = new Paciente();
+        $paciente->ci = $request->ci;
+        $paciente->nombre = $request->nombre;
+        $paciente->apellido = $request->apellido;
+        $paciente->email = $request->email;
+        $paciente->sexo = $request->sexo;
+        $paciente->telefono = $request->telefono;
+        $paciente->fechaNacimiento = $request->fechaNacimiento;
+        $paciente->direccion = $request->direccion;
+        $paciente->id_user = $usuario->id; // Asignar el id del usuario al paciente
+        $paciente->save();
 
         return redirect()->route('admin.pacientes.index')
             ->with('mensaje', 'Se ha registrado un nuevo paciente.')

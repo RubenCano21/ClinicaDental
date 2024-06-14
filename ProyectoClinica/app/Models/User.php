@@ -41,7 +41,7 @@ class User extends Authenticatable
         'two_factor_secret',
     ];
 
-    
+
 
     /**
      * The accessors to append to the model's array form.
@@ -63,5 +63,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function pacientes(){
+        return $this->hasMany(Paciente::class);
     }
 }

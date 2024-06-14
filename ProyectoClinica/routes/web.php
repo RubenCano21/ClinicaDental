@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PacienteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CursoController;
@@ -40,11 +41,16 @@ Route::get('/acercaDe', function () {
 
 Route::resource('home', 'App\Http\Controllers\HomeController');
 
-Route:: resource('pacientes', 'App\Http\Controllers\PacienteController');
+//Route:: resource('pacientes', 'App\Http\Controllers\PacienteController');
+/*Route::resource('/admin/pacientes', App\Http\Controllers\PacienteController::class)
+    ->names('admin.pacientes')
+    ->middleware('auth');*/
+
 
 Route:: resource('odontologos', 'App\Http\Controllers\OdontologoController');
 
 Route:: resource('recepcionistas', 'App\Http\Controllers\RecepcionistaController');
+
 
 route::resource('usuarios',UserController::class,)->names('admin.usuarios');
 
@@ -60,9 +66,13 @@ Route::get('users/auth', function () {
     return view('profile.update-password-form');
 });
 
+Route::controller(PacienteController::class)->group(function () {
+   Route::get('admin/pacientes', 'index')->name('admin.pacientes.index');
+});
+
 Route::controller(CursoController::class)->group(function(){
     Route::get('cursos', 'index');
-    Route::get('cursos/create', 'create');    
+    Route::get('cursos/create', 'create');
     Route::get('cursos/{curso}/{categoria?}', 'show');
 });
 
@@ -79,7 +89,7 @@ Route::post('/registro', [RegistroController::class,'store'])->name('registro.st
 
  Route::middleware(['auth:sanctum','verified'])->get('/dash', function () {
         return view('dash.index');
-    })->name('dash'); 
+    })->name('dash');
 
 Route::get('/dash','App\Http\Controllers\DashboardController@index');
 

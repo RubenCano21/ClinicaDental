@@ -7,11 +7,11 @@
 @stop
 
 @section('content')
+<div class="row">
+    <a href="{{url('recepcionistas/create')}}" class="btn btn-primary mb-3">REGISTRAR RECEPCIONISTA</a>
 
-<a href="recepcionistas/create" class="btn btn-primary mb-3">REGISTRAR RECEPCIONISTA</a>
-
-<table id="recepcionistas" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
-    <thead class="bg-primary text-white">
+    <table id="recepcionistas" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
+        <thead class="bg-primary text-white">
         <tr>
             <th scope="col">CI</th>
             <th scope="col">Nombre</th>
@@ -23,43 +23,43 @@
             <th scope="col">Sueldo</th>
             <th scope="col">Acciones</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         @foreach ($recepcionistas as $recepcionista)
-        <tr>
-            <td>{{$recepcionista->ci}}</td>
-            <td>{{$recepcionista->nombre}}</td>
-            <td>{{$recepcionista->apellido}}</td>
-            <td>{{$recepcionista->correo}}</td>
-            <td>{{$recepcionista->sexo}}</td>
-            <td>{{$recepcionista->telefono}}</td>
-            <td>{{$recepcionista->turno}}</td>
-            <td>{{$recepcionista->sueldo}}</td>
-            <td>
-                <form action="{{route('recepcionistas.destroy',$recepcionista->ci)}}" method="POST">
-                    <a href="/recepcionistas/{{$recepcionista->ci}}/editar" class="btn btn-info">Editar</a>
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Borrar</button>
-                </form>                    
-            </td>
-        </tr>
-            
+            <tr>
+                <td>{{$recepcionista->ci}}</td>
+                <td>{{$recepcionista->nombre}}</td>
+                <td>{{$recepcionista->apellido}}</td>
+                <td>{{$recepcionista->correo}}</td>
+                <td>{{$recepcionista->sexo}}</td>
+                <td>{{$recepcionista->telefono}}</td>
+                <td>{{$recepcionista->turno}}</td>
+                <td>{{$recepcionista->sueldo}}</td>
+                <td>
+                    <form action="{{route('recepcionistas.destroy',$recepcionista->ci)}}" method="POST">
+                        <a href="{{url('/recepcionistas/'.$recepcionista->ci,'/editar')}}" class="btn btn-info">Editar</a>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Borrar</button>
+                    </form>
+                </td>
+            </tr>
         @endforeach
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
 @stop
 
 @section('css')
     {{-- Add here extra stylesheets --}}
-    <link rel="stylesheet" href="/css/admin_custom.css"> 
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="{{asset('https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css')}}">
 @stop
 
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
+<script src="{{url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{url('https://cdn.datatables.net/2.0.7/js/dataTables.js')}}"></script>
+<script src="{{url('https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js')}}"></script>
 
 <script>
     $(document).ready(function(){

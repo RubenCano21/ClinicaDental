@@ -22,4 +22,7 @@ class paciente extends Model
     ];
 
     //metods
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

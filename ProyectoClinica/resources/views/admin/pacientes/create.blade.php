@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <form action="/pacientes" method="POST">
+    <form action="{{url('/admin/pacientes')}}" method="POST">
         @csrf
         <div class="mb-3">
             <label for="" class="form-label">CI</label>
@@ -46,16 +46,16 @@
             <input type="text" class="form-control" id="direccion" name="direccion" placeholder="1234 Marical scz"
                 tabindex="8">
         </div>
-        <a href="/pacientes" class="btn btn-secundary"> Cancelar</a>
+        <a href="{{url('admin/pacientes')}}" class="btn btn-secundary"> Cancelar</a>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 @stop
 
 @section('css')
     {{-- Add here extra stylesheets --}}
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')
-    
+
 @stop

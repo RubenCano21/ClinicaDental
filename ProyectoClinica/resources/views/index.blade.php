@@ -25,9 +25,9 @@
   <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
   <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet" />
+  <link href="{{url('css/style.css')}}" rel="stylesheet" />
   <!-- responsive style -->
-  <link href="css/responsive.css" rel="stylesheet" />
+  <link href="{{url('css/responsive.css')}}" rel="stylesheet" />
 </head>
 
 <body>
@@ -63,7 +63,7 @@
               </li>
             </ul>
             <form class="form-inline">
-             
+
               <a class="nav-link" href="/auth/register">Registrate</a>
               <a class="nav-link" href="/auth/login">Iniciar</a>
             </form>

@@ -16,11 +16,15 @@ class Odontologo extends Model
         'sexo',
         'telefono',
         'matricula',
-        'id_user'
+        'id_user'.
+        'id_especialidad'
     ];
 
     //metods
     public function user(){
         return $this->belongsTo(User::class, 'id_user');
+    }
+    public function especialidades(){
+        return $this->belongsToMany(Especialidad::class, 'ejerces');
     }
 }

@@ -3,14 +3,14 @@
 @section('title', 'Administracion')
 
 @section('content_header')
-    <h1>VISTA DE USUARIOS</h1>
+    <h1>VISTA DE Odontologos</h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-body">
             <p class=h5>Nombre:</p>
-            <p class="form-control">{{$usuario->name}}</p>
+            <p class="form-control">{{$odontologo->nombre}}</p>
         </div>
     </div>
 @stop

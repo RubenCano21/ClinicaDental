@@ -12,7 +12,8 @@ class EspecialidadController extends Controller
      */
     public function index()
     {
-        //
+        $especialidades = especialidad::all();
+        return view('admin.especialidades.index', compact('especialidades'));
     }
 
     /**
@@ -20,7 +21,7 @@ class EspecialidadController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.especialidades.create');
     }
 
     /**
@@ -28,23 +29,32 @@ class EspecialidadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+
+        Especialidad::create($validatedData);
+
+        return redirect()->route('admin.especialidades.index')->with('success', 'Especialidad creada exitosamente');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(especialidad $especialidad)
+    public function show($id)
     {
-        //
+        $especialidade = especialidad::findOrFail($id);
+        return view('admin.especialidades.show', compact('especialidade'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(especialidad $especialidad)
+    public function edit($id)
     {
-        //
+        $especialidade = especialidad::findOrFail($id);
+        return view('admin.especialidades.edit', compact('especialidade'));
+
     }
 
     /**
@@ -55,11 +65,21 @@ class EspecialidadController extends Controller
         //
     }
 
+    public function confirmDelete($id){
+        $especialidade = especialidad::findOrFail($id);
+        return view('admin.especialidades.delete', compact('especialidade'));
+    }
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(especialidad $especialidad)
+    public function destroy($id)
     {
-        //
+        $especialidade = especialidad::find($id);
+        $especialidade->delete();
+
+        return redirect()->route('admin.especialidades.index')
+            ->with('mensaje', 'Consultorio Eliminado.')
+            ->with('icono', 'success');
     }
 }

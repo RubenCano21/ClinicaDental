@@ -3,37 +3,80 @@
 @section('title', 'Administracion')
 
 @section('content')
-<div class="container">
-    <h1>Crear Usuario</h1>
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+    <div class="row">
+        <h1>Registro de Usuarios</h1>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Llene los datos</font></font></h3>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.usuarios.store') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form group">
+                                    <label for="">Nombre del Usuario</label><b>*</b>
+                                    <input type="text" value="{{old('name')}}" name="name" class="form-control" required>
+                                    @error('name')
+                                    <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form group">
+                                    <label for="">Email</label><b>*</b>
+                                    <input type="email" value="{{old('email')}}" name="email" class="form-control" required>
+                                    @error('email')
+                                    <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form group">
+                                    <label for="">Contraseña</label><b>*</b>
+                                    <input type="password" value="{{old('password')}}" name="password" class="form-control" required>
+                                    @error('password')
+                                    <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form group">
+                                    <label for="">Confirmar Contraseña</label><b>*</b>
+                                    <input type="password" name="password_confirmation" class="form-control" required>
+                                    @error('password_confirmation')
+                                    <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form group">
+                                    <a href="{{url('usuarios')}}" class="btn btn-secondary">Cancelar</a>
+                                    <button type="submit" class="btn btn-primary">Registrar usuario</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    @endif
-    <form action="{{ route('admin.usuarios.store') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="name">Nombre</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
-        </div>
-        <div class="form-group">
-            <label for="password">Contraseña</label>
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
-        <div class="form-group">
-            <label for="password_confirmation">Confirmar Contraseña</label>
-            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
-        </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </form>
-</div>
+    </div>
 @endsection
+
 

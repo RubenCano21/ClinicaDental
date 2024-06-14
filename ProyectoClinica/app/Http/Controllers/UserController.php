@@ -12,7 +12,7 @@ class UserController extends Controller
     public function index()
     {   $usuarios = User::all();
         return view('admin.usuarios.index', compact('usuarios'));
-    
+
         }    /**
      * Show the form for creating a new resource.
      */
@@ -53,7 +53,7 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(User $usuario)
-    {   
+    {
         return view('admin.usuarios.edit',compact('usuario'));
     }
 
@@ -79,15 +79,20 @@ class UserController extends Controller
         return redirect()->route('admin.usuarios.index')->with('success', 'Usuario actualizado exitosamente');
 
 
-    
+
+    }
+
+    public function confirmDelete($id){
+        $usuario = User::findOrFail($id);
+        return view('admin.usuarios.delete', compact('usuario'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $usuario)
+    public function destroy($id)
     {
-        $usuario->delete();
+        User::destroy($id);
         return redirect()->route('admin.usuarios.index')->with('success', 'Usuario eliminado exitosamente');
     }
 }

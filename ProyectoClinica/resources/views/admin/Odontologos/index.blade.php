@@ -26,6 +26,7 @@
                     <th scope="col" style="text-align: center">Telefono</th>
                     <th scope="col" style="text-align: center">Matricula</th>
                     <th scope="col" style="text-align: center">Email</th>
+                    <th scope="col" style="text-align: center">Especialidades</th>
                     <th scope="col" style="text-align: center">Acciones</th>
                 </tr>
                 </thead>
@@ -42,14 +43,14 @@
                         <td>{{$odontologo->matricula}}</td>
                         <td>{{$odontologo->user->email}}</td>
                         <td>
-                            <a href="{{ route('admin.odontologos.show', $odontologo) }}" class="btn btn-info">Ver</a>
-                            <a class="btn btn-primary" href="{{route('admin.odontologos.edit',$odontologo)}}">Editar</a>
-                            <form action="{{ route('admin.odontologos.destroy', $odontologo) }}" method="POST"
-                                  style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                            </form>
+                            @foreach ($odontologo->especialidades as $especialidad)
+                                {{ $especialidad->nombre }}@if (!$loop->last), @endif
+                            @endforeach
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.odontologos.show', $odontologo) }}" class="btn btn-info ">Ver</a>
+                            <a class="btn btn-primary " href="{{ route('admin.odontologos.edit', $odontologo) }}">Editar</a>
+                            <a href="{{url('admin/odontologos/'.$odontologo->id.'/confirm-delete')}}" type="button" class="btn btn-danger">Eliminar</a>
                         </td>
                     </tr>
                 @endforeach

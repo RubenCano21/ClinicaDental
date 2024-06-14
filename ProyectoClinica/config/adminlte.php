@@ -343,7 +343,13 @@ return [
             'label_color' => 'info',
             'can' => 'admin.usuarios.index',
         ],
-
+        [
+            'text' => 'Especialidades',
+            'url' => 'admin/especialidades',
+            'icon' => 'far fa-fw fa-user',
+            'label_color' => 'info',
+            'can' => 'admin.usuarios.index',
+        ],
         [
             'text' => 'Citas',
             'route' => 'admin.citas.index',

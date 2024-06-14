@@ -1,37 +1,79 @@
 @extends('adminlte::page')
 
 @section('content')
-    <div class="container">
-        <h1>Editar Usuario</h1>
-        <form action="{{ route('admin.usuarios.update', $usuario) }}" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="form-group">
-                <label for="name">Nombre</label>
-                <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $usuario->name) }}" required>
-                @error('name')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+    <div class="row">
+        <h1><b>Actualizar Usuario: {{$usuario->name}}</b></h1>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-outline card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Llene los datos</h3>
+                </div>
+                <div class="card-body">
+                    <form action="{{url('admin/usuarios',$usuario->id)}}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form group">
+                                    <label for="">Nombre del Usuario</label><b>*</b>
+                                    <input type="text" value="{{$usuario->name}}" name="name" class="form-control" required>
+                                    @error('name')
+                                    <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form group">
+                                    <label for="">Email</label><b>*</b>
+                                    <input type="email" value="{{$usuario->email}}" name="email" class="form-control" required>
+                                    @error('email')
+                                    <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form group">
+                                    <label for="">Contraseña</label>
+                                    <input type="password" value="{{old('password')}}" name="password" class="form-control">
+                                    @error('password')
+                                    <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form group">
+                                    <label for="">Confirmar Contraseña</label>
+                                    <input type="password" name="password_confirmation" class="form-control">
+                                    @error('password_confirmation')
+                                    <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form group">
+                                    <a href="{{url('usuarios')}}" class="btn btn-secondary">Cancelar</a>
+                                    <button type="submit" class="btn btn-success">Actualizar usuario</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $usuario->email) }}" required>
-                @error('email')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="password">Contraseña</label>
-                <input type="password" name="password" id="password" class="form-control">
-                @error('password')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="password_confirmation">Confirmar Contraseña</label>
-                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">Actualizar</button>
-        </form>
+        </div>
     </div>
 @endsection

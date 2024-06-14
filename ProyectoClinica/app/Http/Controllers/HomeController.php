@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Odontologo;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,12 +25,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $totalUsuarios = User::count();
+        $totalOdontologos = Odontologo::count();
+        return view('home', compact('totalUsuarios', 'totalOdontologos'));
     }
 
    /* public function servicio(){
         return view('home.servicio');
-    } 
+    }
 
     public function contacto(){
         return view('home.contacto');

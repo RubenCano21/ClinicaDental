@@ -12,12 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ejerces', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_especialidad');
+           /* $table->unsignedBigInteger('id_especialidad');
             $table->unsignedBigInteger('ci_odontologo');
 
             $table->primary('id_especialidad','ci_odontologo');
             $table->foreign('id_especialidad')->references('id')->on('especialidads')->onDelete('cascade');
-            $table->foreign('ci_odontologo')->references('id')->on('odontologos')->onDelete('cascade');
+            $table->foreign('ci_odontologo')->references('id')->on('odontologos')->onDelete('cascade');*/
+            $table->foreignId('odontologo_id')->constrained()->onDelete('cascade');
+            $table->foreignId('especialidad_id')->constrained()->onDelete('cascade');
+
             $table->timestamps();
         });
     }

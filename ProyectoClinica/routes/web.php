@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\PacienteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CursoController;
@@ -45,9 +44,14 @@ Route::resource('home', 'App\Http\Controllers\HomeController');
 /*Route::resource('/admin/pacientes', App\Http\Controllers\PacienteController::class)
     ->names('admin.pacientes')
     ->middleware('auth');*/
+//Route:: resource('pacientes', 'App\Http\Controllers\PacienteController');
+/*Route::resource('/admin/pacientes', App\Http\Controllers\PacienteController::class)
+    ->names('admin.pacientes')
+    ->middleware('auth');*/
 
 
-Route:: resource('odontologos', 'App\Http\Controllers\OdontologoController');
+
+Route:: resource('odontologos', OdontologoController::class)->names('admin.odontologos');
 
 Route:: resource('recepcionistas', 'App\Http\Controllers\RecepcionistaController');
 
@@ -65,6 +69,19 @@ Route::resource('users', 'App\Http\Controllers\UserController');
 Route::get('users/auth', function () {
     return view('profile.update-password-form');
 });
+
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('pacientes', [PacienteController::class, 'index'])->name('admin.pacientes.index');
+    Route::get('pacientes/create', [PacienteController::class, 'create'])->name('admin.pacientes.create');
+    Route::post('pacientes', [PacienteController::class, 'store'])->name('admin.pacientes.store');
+    Route::get('pacientes/{id}', [PacienteController::class, 'show'])->name('admin.pacientes.show');
+    Route::get('pacientes/{id}/edit', [PacienteController::class, 'edit'])->name('admin.pacientes.edit');
+    Route::put('pacientes/{id}', [PacienteController::class, 'update'])->name('admin.pacientes.update');
+    Route::get('pacientes/{id}/confirm-delete', [PacienteController::class, 'confirmDelete'])->name('admin.pacientes.confirmDelete');
+    Route::delete('pacientes/{id}', [PacienteController::class, 'destroy'])->name('admin.pacientes.destroy');
+});
+
+
 
 Route::controller(PacienteController::class)->group(function () {
    Route::get('admin/pacientes', 'index')->name('admin.pacientes.index');

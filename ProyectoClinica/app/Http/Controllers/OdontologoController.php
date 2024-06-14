@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Odontologo;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class OdontologoController extends Controller
 {
@@ -13,18 +15,18 @@ class OdontologoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index(){
+
         $odontologos = Odontologo::all();
-        return view("odontologo.index")->with("odontologos", $odontologos);
+        return view('admin.odontologos.index', compact('odontologos'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
+ * Show the form for creating a new resource.
+ */
     public function create()
     {
-        return view("odontologo.create");
+        return view('admin.odontologos.create');
     }
 
     /**
@@ -32,65 +34,82 @@ class OdontologoController extends Controller
      */
     public function store(Request $request)
     {
-        $odontologos = new Odontologo();
+        $request->validate([
+            'ci' => 'required',
+            'nombre' => 'required|string|max:40',
+            'apellido' => 'required|string|max:40',
+            'sexo' => 'required|string|max:10',
+            'telefono' => 'required|integer',
+            'matricula' => 'required|string',
+            'email'=>'required|unique:users',
+            'password'=>'required|confirmed'
+        ]);
 
-        $odontologos->ci = $request->get('ci');
-        $odontologos->nombre = $request->get('nombre');
-        $odontologos->apellido = $request->get('apellido');
-        $odontologos->email = $request->get('email');
-        $odontologos->sexo = $request->get('sexo');
-        $odontologos->telefono = $request->get('telefono');
-        $odontologos->matricula = $request->get('matricula');
+        $usuario = new User();
+        $usuario->name = $request->nombre;
+        $usuario->email = $request->email;
+        $usuario->password = Hash::make($request['password']);
+        $usuario->save();
 
-        $odontologos->save();
+        $odontologo = new Odontologo();
+        $odontologo->ci = $request->ci;
+        $odontologo->nombre = $request->nombre;
+        $odontologo->apellido = $request->apellido;
+        $odontologo->sexo = $request->sexo;
+        $odontologo->telefono = $request->telefono;
+        $odontologo->matricula = $request->matricula;
+        $odontologo->save();
 
-        return redirect('/odontologos');
+        return redirect()->route('admin.odontologos.index',$odontologo)->with('success', 'Odontologo creado exitosamente');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Odontologo $odontologo)
     {
-        //
+        return view('admin.odontologos.show',compact('odontologo'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Odontologo $odontologo)
     {
-        $odontologos = Odontologo::find($id);
-        return view('odontologo.editar')->with('odontologos', $odontologos);
+        return view('admin.odontologos.edit',compact('odontologo'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Odontologo $odontologo)
     {
-        $odontologo = Odontologo::find($id);
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $odontologo->id,
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
 
-        $odontologo->ci = $request->get('ci');
-        $odontologo->nombre = $request->get('nombre');
-        $odontologo->apellido = $request->get('apellido');
-        $odontologo->email = $request->get('email');
-        $odontologo->sexo = $request->get('sexo');
-        $odontologo->telefono = $request->get('telefono');
-        $odontologo->matricula = $request->get('matricula');
-
+        $odontologo->name = $validatedData['name'];
+        $odontologo->email = $validatedData['email'];
+        if ($request->filled('password')) {
+            $odontologo->password = bcrypt($validatedData['password']);
+        }
         $odontologo->save();
-        return redirect('/odontologos');
+
+        return redirect()->route('admin.odontologos.index')->with('success', 'Odontologo actualizado exitosamente');
+
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( $id)
+    public function destroy(Odontologo $odontologo)
     {
-        $odontologo = odontologo::find($id);
         $odontologo->delete();
-        
-        return redirect('/odontologos');
+        return redirect()->route('admin.odontologos.index')->with('success', 'Odontologo eliminado exitosamente');
     }
 }

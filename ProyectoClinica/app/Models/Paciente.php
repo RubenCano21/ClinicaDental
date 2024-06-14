@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class paciente extends Model
+class Paciente extends Model
 {
     use HasFactory;
 
@@ -13,10 +13,9 @@ class paciente extends Model
         'ci',
         'nombre',
         'apellido',
-        'correo',
         'sexo',
         'telefono',
-        'fechanacimiento',
+        'fechaNacimiento',
         'direccion',
         'id_user'
     ];

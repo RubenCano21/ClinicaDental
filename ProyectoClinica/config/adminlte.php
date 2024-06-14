@@ -275,7 +275,7 @@ return [
     | For detailed instructions you can look the laravel mix section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
     |
-    */   
+    */
     'enabled_laravel_mix' => false,
     'laravel_mix_css_path' => 'css/app.css',
     'laravel_mix_js_path' => 'js/app.js',
@@ -314,19 +314,25 @@ return [
          'can' => 'admin.usuarios.index',
         ],
         [
+            'text' => 'Usuarios',
+            'route' => 'admin.usuarios.index',
+            'icon' => "fa fa-users",
+            'can' => 'admin.usuarios.index'
+        ],
+        [
             'text' => 'Pacientes',
-            'url' => 'pacientes',
+            'url' => 'admin/pacientes',
             'icon' => 'far fa-fw fa-user',
             'label' => 'CRUD',
-            'label_color' => 'warning',
+            'label_color' => 'info',
             'can' => 'admin.usuarios.index',
         ],
         [
             'text' => 'Odontologos',
-            'url' => 'odontologos',
+            'route' => 'admin.odontologos.index',
             'icon' => 'far fa-fw fa-user',
             'label' => 'CRUD',
-            'label_color' => 'warning',
+            'label_color' => 'info',
             'can' => 'admin.usuarios.index',
         ],
         [
@@ -334,15 +340,10 @@ return [
             'url' => 'recepcionistas',
             'icon' => 'far fa-fw fa-user',
             'label' => 'CRUD',
-            'label_color' => 'warning',
+            'label_color' => 'info',
             'can' => 'admin.usuarios.index',
         ],
-        [
-            'text' => 'Usuarios',
-            'route' => 'admin.usuarios.index',
-            'icon' => "fa fa-users",
-            'can' => 'admin.usuarios.index'
-        ],
+
         [
             'text' => 'Citas',
             'route' => 'admin.citas.index',
@@ -360,14 +361,14 @@ return [
                 ],
                 [
                     'text' => 'Lista de Reservas',
-                    'route' => 'admin.reservas.index', 
+                    'route' => 'admin.reservas.index',
                     'icon' => "fas fa-user-md",
-                    
-                ],     
+
+                ],
             ],
-    
+
         ],
-    
+
         [
             'text' => 'Servicios',
             'route' => 'admin.servicios.index',

@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cr;
+use App\Models\bitacora;
 use Illuminate\Http\Request;
 
-class myspacecontroller extends Controller
+class BitacoraController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:ver bitacora')->only('index');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
+        return view('admin.bitacora.index');
     }
 
     /**
@@ -23,22 +27,18 @@ class myspacecontroller extends Controller
         //
     }
 
-    public function home(Request $request)
-    {
-        return view('myspace');
-    }
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        return $request->all();
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(cr $cr)
+    public function show(bitacora $bitacora)
     {
         //
     }
@@ -46,7 +46,7 @@ class myspacecontroller extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(cr $cr)
+    public function edit(bitacora $bitacora)
     {
         //
     }
@@ -54,7 +54,7 @@ class myspacecontroller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, cr $cr)
+    public function update(Request $request, bitacora $bitacora)
     {
         //
     }
@@ -62,7 +62,7 @@ class myspacecontroller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(cr $cr)
+    public function destroy(bitacora $bitacora)
     {
         //
     }

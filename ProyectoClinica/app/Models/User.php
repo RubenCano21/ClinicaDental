@@ -24,6 +24,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
@@ -67,5 +68,21 @@ class User extends Authenticatable
 
     public function pacientes(){
         return $this->hasMany(Paciente::class);
+    }
+
+    public function recepcionistas(){
+        return $this->hasMany(Recepcionista::class);
+    }
+
+    public function odontologos(){
+        return $this->hasMany(Odontologo::class);
+    }
+
+    public function inventarios(){
+        return $this->hasMany(inventario::class);
+    }
+
+    public function bitacoras(){
+        return $this->hasMany(bitacora::class);
     }
 }

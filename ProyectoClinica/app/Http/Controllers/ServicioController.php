@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Servicio;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\bitacora;
 
 class ServicioController extends Controller
 {
@@ -27,13 +29,23 @@ class ServicioController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   $servicio = new Servicio();
-        $servicio->nombre = $request->nombre;
-        $servicio->precio = $request->precio;
+    {   
+            $servicio = new Servicio();
+            $servicio->nombre = $request->nombre;
+            $servicio->precio = $request->precio;
+    
+            $servicio->save();
+    
+            $bitacora = new Bitacora();
+            $bitacora->accion = 'creacion de servicio';
+            $bitacora->fecha_hora = now();
+            $bitacora->fecha = now()->format('Y-m-d');
+            $bitacora->user_id = auth()->id();
+            $bitacora->save();
+    
+            return redirect()->route('admin.servicios.index',$servicio)->with('success', 'Servicio creado exitosamente');
 
-        $servicio->save();
 
-    return redirect()->route('admin.servicios.index',$servicio)->with('success', 'Servicio creado exitosamente');
     }
 
     /**
@@ -69,7 +81,13 @@ class ServicioController extends Controller
             'nombre' => $request->nombre,
             'precio' => $request->precio,
         ]);
-
+        
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'actualizacion de servicio';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
         
         // Redirecciona de vuelta a la página de detalles del servicio
         return redirect()->route('admin.servicios.show', $servicio)->with('success', 'Servicio actualizado correctamente');
@@ -81,6 +99,14 @@ class ServicioController extends Controller
     public function destroy(Servicio $servicio)
     {
         $servicio->delete();
+   
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'eliminacion de servicio';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
+
         return redirect()->route('admin.servicios.index',$servicio)->with('success', 'Servicio eliminado exitosamente');
     }
 }

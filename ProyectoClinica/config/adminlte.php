@@ -311,15 +311,15 @@ return [
             'can' => 'manage-blog',
         ],
         ['header' => 'Usuarios',
-         'can' => 'admin.usuarios.index',
+         'can' => 'ver usuarios',
         ],
         [
             'text' => 'Pacientes',
-            'url' => 'pacientes',
+            'url' => 'admin.pacientes.index',
             'icon' => 'far fa-fw fa-user',
             'label' => 'CRUD',
             'label_color' => 'warning',
-            'can' => 'admin.usuarios.index',
+            'can' => 'ver pacientes',
         ],
         [
             'text' => 'Odontologos',
@@ -327,27 +327,28 @@ return [
             'icon' => 'far fa-fw fa-user',
             'label' => 'CRUD',
             'label_color' => 'warning',
-            'can' => 'admin.usuarios.index',
+            'can' => 'ver odontologos',
         ],
         [
             'text' => 'Recepcionista',
-            'url' => 'recepcionistas',
+            'url' => 'admin.recepcionistas.index',
             'icon' => 'far fa-fw fa-user',
             'label' => 'CRUD',
             'label_color' => 'warning',
-            'can' => 'admin.usuarios.index',
+            'can' => 'ver recepcionistas'
         ],
         [
             'text' => 'Usuarios',
             'route' => 'admin.usuarios.index',
             'icon' => "fa fa-users",
-            'can' => 'admin.usuarios.index'
+            'active' => ['usuarios*'],
+            'can' => 'ver usuarios'
         ],
         [
             'text' => 'Citas',
             'route' => 'admin.citas.index',
             'icon' => "fa fa-calendar",
-            'can' => 'admin.citas.index'
+            'can' => 'ver citas'
         ],
         [
             'text' => ' Reservas',
@@ -372,7 +373,24 @@ return [
             'text' => 'Servicios',
             'route' => 'admin.servicios.index',
             'icon' => "fas fa-tooth",
-            'can' => 'admin.servicios.index'
+            'active' => ['servicios*'],
+            'can' => 'ver servicios'
+        ],
+
+        [
+            'text' => 'Bitacora',
+            'route' => "admin.usuarios.index",
+            'icon' => "fas fa-book",
+            'active' => ['bitacora*'],
+            'can' => 'ver bitacora'
+        ],
+
+        [
+            'text' => "hola",
+            'route' => 'admin.usuarios.index',
+            'icon' => "fas fa-book",
+            'active' => ['hola*'],
+            'can' => 'crear usuario'
         ],
 
         ['header' => 'Configuracion de la Cuenta'],

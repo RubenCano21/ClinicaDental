@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tipo_pieza extends Model
+class bitacora extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'descripcion'
+        'accion',
+        'fecha_hora',
+        'fecha',
+        'id_user'
     ];
 
-    public function pieza_dentals(){
-        return $this->hasMany(pieza_dental::class);
+    public function user(){
+        return $this->belongsTo(user::class);
     }
 }

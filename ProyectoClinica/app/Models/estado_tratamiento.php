@@ -14,4 +14,8 @@ class estado_tratamiento extends Model
         'ci_paciente',
         'id_servicio'
     ];
+
+    public function tratamiento(){
+        return $this->belongsTo(tratamiento::class);
+    }
 }

@@ -14,4 +14,12 @@ class servicio extends Model
         'precio',
         'duracion'
     ];
+
+    public function reservas(){
+        return $this->hasMany(reserva::class);
+    }
+
+    public function citas(){
+        return $this->hasMany(cita::class);
+    }
 }

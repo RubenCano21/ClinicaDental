@@ -18,4 +18,20 @@ class cita extends Model
         'id_servicio',
         'id_historialclinico'
     ];
+
+    public function odontologo(){
+        return $this->belongsTo(odontologo::class);
+    }
+
+    public function reserva(){
+        return $this->belongsTo(reserva::class);
+    }
+
+    public function servicio(){
+        return $this->belongsTo(servicio::class);
+    }   
+
+    public function historial_clinico(){
+        return $this->belongsTo(historial_clinico::class);
+    }
 }

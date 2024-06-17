@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\myspacecontroller;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ServicioController;
@@ -39,6 +38,10 @@ Route::get('/acercaDe', function () {
     return view('auth.register');
  });
 
+Route::get('/bitacora', function() {
+    return view('admin.bitacora.index');
+});
+
 Route::resource('home', 'App\Http\Controllers\HomeController');
 
 //Route:: resource('pacientes', 'App\Http\Controllers\PacienteController');
@@ -53,6 +56,7 @@ Route:: resource('recepcionistas', 'App\Http\Controllers\RecepcionistaController
 
 
 route::resource('usuarios',UserController::class,)->names('admin.usuarios');
+route::get('/usuarios/{usuario}/edit', [UserController::class, 'edit'])->name('admin.usuarios.edit');
 
 route::resource('reservas',ReservaController::class,)->names('admin.reservas');
 
@@ -70,36 +74,36 @@ Route::controller(PacienteController::class)->group(function () {
    Route::get('admin/pacientes', 'index')->name('admin.pacientes.index');
 });
 
-Route::controller(CursoController::class)->group(function(){
-    Route::get('cursos', 'index');
-    Route::get('cursos/create', 'create');
-    Route::get('cursos/{curso}/{categoria?}', 'show');
-});
+// Route::controller(CursoController::class)->group(function(){
+//     Route::get('cursos', 'index');
+//     Route::get('cursos/create', 'create');
+//     Route::get('cursos/{curso}/{categoria?}', 'show');
+// });
 
 
 // Route::get('cursos/{variable}', function($variable) {
 //     return "Bienvenido al curso: $variable";
 // });
-Route::get('/myspace', [myspaceController::class,'home']);
-Route::post('/myspace', [myspacecontroller::class,'store'])->name('myspace.store');
+// Route::get('/myspace', [myspaceController::class,'home']);
+// Route::post('/myspace', [myspacecontroller::class,'store'])->name('myspace.store');
 
-Route::get('/registro', [RegistroController::class,'index']);
-Route::post('/registro', [RegistroController::class,'store'])->name('registro.store');
+// Route::get('/registro', [RegistroController::class,'index']);
+// Route::post('/registro', [RegistroController::class,'store'])->name('registro.store');
 
 
- Route::middleware(['auth:sanctum','verified'])->get('/dash', function () {
-        return view('dash.index');
-    })->name('dash');
+//  Route::middleware(['auth:sanctum','verified'])->get('/dash', function () {
+//         return view('dash.index');
+//     })->name('dash');
 
-Route::get('/dash','App\Http\Controllers\DashboardController@index');
+// Route::get('/dash','App\Http\Controllers\DashboardController@index');
 
-Route::get('/dash/crud', function () {
-    return view('crud.index');
-});
+// Route::get('/dash/crud', function () {
+//     return view('crud.index');
+// });
 
-Route::get('/dash/crud/create', function () {
-    return view('crud.create');
-});
+// Route::get('/dash/crud/create', function () {
+//     return view('crud.create');
+// });
 
 Auth::routes();
 

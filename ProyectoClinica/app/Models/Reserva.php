@@ -20,9 +20,14 @@ class reserva extends Model
     {
         return $this->belongsTo(Odontologo::class, 'id_user', 'id');
     }
+    
     public function servicio()
     {
         return $this->belongsTo(Servicio::class, 'id_servicio');
+    }
+
+    public function cita(){
+        return $this->belongsTo(cita::class);
     }
 }
 

@@ -13,4 +13,8 @@ class producto extends Model
         'descripcion',
         'modelo'
     ];
+
+    public function nota_compra(){
+        return $this->hasMany(nota_compra::class);
+    }
 }

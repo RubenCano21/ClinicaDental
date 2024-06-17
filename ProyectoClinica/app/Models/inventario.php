@@ -16,4 +16,12 @@ class inventario extends Model
         'fechasalida',
         'id_user'
     ];
+
+    public function user(){
+        return $this->belongsTo(user::class);
+    }
+
+    public function nota_compra(){
+        return $this->hasMany(nota_compra::class);
+    }
 }

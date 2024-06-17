@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\bitacora;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:ver usuarios')->only('index');
+        $this->middleware('can:actualizar usuario')->only('update');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -37,6 +44,13 @@ class UserController extends Controller
         $usuarios->email = $validatedData['email'];
         $usuarios->password = bcrypt($validatedData['password']);
         $usuarios->save();
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'creacion del usuario';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = $usuarios->id;
+        $bitacora->save();
 
         return redirect()->route('admin.usuarios.index',$usuarios)->with('success', 'Usuario creado exitosamente');
     }
@@ -75,11 +89,15 @@ class UserController extends Controller
             $usuario->password = bcrypt($validatedData['password']);
         }
         $usuario->save();
+        
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'actualizacion del usuario';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = $usuario->id;
+        $bitacora->save();
 
         return redirect()->route('admin.usuarios.index')->with('success', 'Usuario actualizado exitosamente');
-
-
-    
     }
 
     /**
@@ -87,7 +105,15 @@ class UserController extends Controller
      */
     public function destroy(User $usuario)
     {
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'eliminacion del usuario';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = $usuario->id;
+        $bitacora->save();
+
         $usuario->delete();
+
         return redirect()->route('admin.usuarios.index')->with('success', 'Usuario eliminado exitosamente');
     }
 }

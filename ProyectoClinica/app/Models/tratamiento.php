@@ -15,4 +15,8 @@ class tratamiento extends Model
         'fechainicio',
         'fechafin'
     ];
+
+    public function estado_tratamientos(){
+        return $this->hasMany(estado_tratamiento::class);
+    }
 }

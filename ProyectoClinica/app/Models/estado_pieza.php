@@ -12,4 +12,8 @@ class estado_pieza extends Model
     protected $fillable = [
         'descripcion'
     ];
+
+    public function pieza_dental(){
+        return $this->hasMany(pieza_dental::class);
+    }
 }

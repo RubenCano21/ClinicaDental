@@ -13,4 +13,8 @@ class historial_clinico extends Model
         'descripcion',
         'ci_paciente'
     ];
+
+    public function citas(){
+        return $this->hasMany(cita::class);
+    }
 }

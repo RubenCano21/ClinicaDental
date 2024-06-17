@@ -15,4 +15,12 @@ class pieza_dental extends Model
         'id_estadopieza',
         'id_tipopieza'
     ];
+
+    public function tipo_pieza(){
+        return $this->belongsTo(tipo_pieza::class);
+    }
+
+    public function estado_pieza(){
+        return $this->belongsTo(estado_pieza::class);
+    }
 }

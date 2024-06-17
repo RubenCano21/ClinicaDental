@@ -18,4 +18,16 @@ class nota_compra extends Model
         'id_producto',
         'id_inventario'
     ];
+
+    public function producto(){
+        return $this->belongsTo(producto::class);
+    }
+
+    public function proveedor(){
+        return $this->belongsTo(proveedor::class);
+    }
+
+    public function inventario(){
+        return $this->belongsTo(inventario::class);
+    }
 }

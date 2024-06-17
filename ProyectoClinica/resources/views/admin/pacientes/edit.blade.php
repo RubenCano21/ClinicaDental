@@ -43,7 +43,7 @@
                                 <div class="form group">
                                     <label for="" class="form-label">Email</label>
                                     <input id="email" name="email" type="email" class="form-control" placeholder="ejemplo@gmail.com"
-                                           value="{{ $paciente->correo }}">
+                                           value="{{ $paciente->email }}">
                                 </div>
                             </div>
                         </div>

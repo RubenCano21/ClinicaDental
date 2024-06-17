@@ -3,6 +3,9 @@
 use App\Http\Controllers\EspecialidadController;
 use App\Http\Controllers\OdontologoController;
 use App\Http\Controllers\PacienteController;
+use App\Http\Controllers\PagoController;
+use App\Http\Controllers\RecepcionistaController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CursoController;
@@ -43,10 +46,6 @@ Route::get('/acercaDe', function () {
 
 Route::resource('home', 'App\Http\Controllers\HomeController');
 
-
-Route:: resource('recepcionistas', 'App\Http\Controllers\RecepcionistaController');
-
-
 route::resource('usuarios',UserController::class,)->names('admin.usuarios');
 
 route::resource('reservas',ReservaController::class,)->names('admin.reservas');
@@ -61,6 +60,8 @@ Route::get('users/auth', function () {
     return view('profile.update-password-form');
 });
 
+
+// Rutas para el admin - pacientes
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('pacientes', [PacienteController::class, 'index'])->name('admin.pacientes.index');
     Route::get('pacientes/create', [PacienteController::class, 'create'])->name('admin.pacientes.create');
@@ -72,6 +73,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('pacientes/{id}', [PacienteController::class, 'destroy'])->name('admin.pacientes.destroy');
 });
 
+// Rutas para el admin - odontologos
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('odontologos', [OdontologoController::class, 'index'])->name('admin.odontologos.index');
     Route::get('odontologos/create', [OdontologoController::class, 'create'])->name('admin.odontologos.create');
@@ -83,6 +85,19 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('odontologos/{id}', [OdontologoController::class, 'destroy'])->name('admin.odontologos.destroy');
 });
 
+// Rutas para el admin - recepcionistas
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('recepcionistas', [RecepcionistaController::class, 'index'])->name('admin.recepcionistas.index');
+    Route::get('recepcionistas/create', [RecepcionistaController::class, 'create'])->name('admin.recepcionistas.create');
+    Route::post('recepcionistas', [RecepcionistaController::class, 'store'])->name('admin.recepcionistas.store');
+    Route::get('recepcionistas/{id}', [RecepcionistaController::class, 'show'])->name('admin.recepcionistas.show');
+    Route::get('recepcionistas/{id}/edit', [RecepcionistaController::class, 'edit'])->name('admin.recepcionistas.edit');
+    Route::put('recepcionistas/{id}', [RecepcionistaController::class, 'update'])->name('admin.recepcionistas.update');
+    Route::get('recepcionistas/{id}/confirm-delete', [RecepcionistaController::class, 'confirmDelete'])->name('admin.recepcionistas.confirmDelete');
+    Route::delete('recepcionistas/{id}', [RecepcionistaController::class, 'destroy'])->name('admin.recepcionistas.destroy');
+});
+
+// Rutas para el admin - epecialidades
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('especialidades', [EspecialidadController::class, 'index'])->name('admin.especialidades.index');
     Route::get('especialidades/create', [EspecialidadController::class, 'create'])->name('admin.especialidades.create');
@@ -93,6 +108,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('especialidades/{id}/confirm-delete', [EspecialidadController::class, 'confirmDelete'])->name('admin.especialidades.confirmDelete');
     Route::delete('especialidades/{id}', [EspecialidadController::class, 'destroy'])->name('admin.especialidades.destroy');
 });
+
+Route::resource('pagos', PagoController::class)->middleware('auth');
 
 
 Route::controller(CursoController::class)->group(function(){

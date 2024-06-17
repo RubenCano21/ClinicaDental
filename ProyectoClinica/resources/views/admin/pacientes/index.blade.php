@@ -40,8 +40,8 @@
                         <tr>
                             <td style="text-align: center">{{$contador++}}</td>
                             <td>{{$paciente->ci}}</td>
-                            <td>{{$paciente->nombres}}</td>
-                            <td>{{$paciente->apellidos}}</td>
+                            <td>{{$paciente->nombre}}</td>
+                            <td>{{$paciente->apellido}}</td>
                             <td>{{$paciente->sexo}}</td>
                             <td>{{$paciente->celular}}</td>
                             <td>{{$paciente->fechaNacimiento}}</td>

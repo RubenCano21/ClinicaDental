@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row">
-        <h1>Odontologo: {{$odontologo->nombre}} {{$odontologo->apellido}}</h1>
+        <h1>Recepcionista: {{$recepcionista->nombre}} {{$recepcionista->apellido}}</h1>
     </div>
     <hr>
     <div class="row">
@@ -19,60 +19,53 @@
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">CI</label>
-                                <p>{{$odontologo->ci}}</p>
+                                <p>{{$recepcionista->ci}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Nombres</label>
-                                <p>{{$odontologo->nombre}}</p>
+                                <p>{{$recepcionista->nombre}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Apellidos</label>
-                                <p>{{$odontologo->apellido}}</p>
+                                <p>{{$recepcionista->apellido}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
-                                <label for="">Sexo</label>
-                                <p>{{$odontologo->sexo}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form group">
-                                <label for="">Telefono</label>
-                                <p>{{$odontologo->telefono}}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form group">
-                                <label for="">Matricula</label>
-                                <p>{{$odontologo->matricula}}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="">Especialidad</label>
-                                @if ($odontologo->especialidad)
-                                    <p>{{ $odontologo->especialidad->nombre }}</p>
-                                @else
-                                    <p>No se ha especificado especialidad</p>
-                                @endif
+                                <label for="">Email</label>
+                                <p>{{$recepcionista->user->email}}</p>
                             </div>
                         </div>
 
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form group">
-                                <label for="">Email</label>
-                                <p>{{$odontologo->user->email}}</p>
+                                <label for="">Sexo</label>
+                                <p>{{$recepcionista->sexo}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form group">
+                                <label for="">Telefono</label>
+                                <p>{{$recepcionista->telefono}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form group">
+                                <label for="">Turno</label>
+                                <p>{{$recepcionista->turno}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form group">
+                                <label for="">Sueldo</label>
+                                <p>{{$recepcionista->sueldo}}</p>
                             </div>
                         </div>
                     </div>
@@ -80,7 +73,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form group">
-                                <a href="{{url('admin/odontologos')}}" class="btn btn-secondary">Cancelar</a>
+                                <a href="{{url('admin/recepcionistas')}}" class="btn btn-secondary">Cancelar</a>
                             </div>
                         </div>
                     </div>

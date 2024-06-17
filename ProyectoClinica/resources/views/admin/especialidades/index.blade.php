@@ -8,7 +8,7 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Especialidades Registrados</h3>
@@ -35,9 +35,9 @@
                                 <td>{{$especialidade->nombre}}</td>
                                 <td style="text-align: center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{url('admin/especialidades/'.$especialidade->id)}}" type="button" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
-                                        <a href="{{url('admin/especialidades/'.$especialidade->id.'/edit')}}" type="button" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a>
-                                        <a href="{{url('admin/especialidades/'.$especialidade->id.'/confirm-delete')}}" type="button" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                                        <a href="{{url('admin/especialidades/'.$especialidade->id)}}" type="button" class="btn btn-info btn-sm">Ver</a>
+                                        <a href="{{url('admin/especialidades/'.$especialidade->id.'/edit')}}" type="button" class="btn btn-success btn-sm">Editar</a>
+                                        <a href="{{url('admin/especialidades/'.$especialidade->id.'/confirm-delete')}}" type="button" class="btn btn-danger btn-sm">Eliminar</a>
                                     </div>
                                 </td>
                             </tr>

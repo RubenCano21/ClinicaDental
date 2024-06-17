@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EspecialidadController;
 use App\Http\Controllers\OdontologoController;
 use App\Http\Controllers\PacienteController;
 use Illuminate\Support\Facades\Route;
@@ -63,7 +64,7 @@ Route::get('users/auth', function () {
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('pacientes', [PacienteController::class, 'index'])->name('admin.pacientes.index');
     Route::get('pacientes/create', [PacienteController::class, 'create'])->name('admin.pacientes.create');
-    Route::post('pacientes', [PacienteController::class, 'store'])->name('admin.pacientes.store');
+    Route::post('pacientes/create', [PacienteController::class, 'store'])->name('admin.pacientes.store');
     Route::get('pacientes/{id}', [PacienteController::class, 'show'])->name('admin.pacientes.show');
     Route::get('pacientes/{id}/edit', [PacienteController::class, 'edit'])->name('admin.pacientes.edit');
     Route::put('pacientes/{id}', [PacienteController::class, 'update'])->name('admin.pacientes.update');
@@ -80,6 +81,17 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::put('odontologos/{id}', [OdontologoController::class, 'update'])->name('admin.odontologos.update');
     Route::get('odontologos/{id}/confirm-delete', [OdontologoController::class, 'confirmDelete'])->name('admin.odontologos.confirmDelete');
     Route::delete('odontologos/{id}', [OdontologoController::class, 'destroy'])->name('admin.odontologos.destroy');
+});
+
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('especialidades', [EspecialidadController::class, 'index'])->name('admin.especialidades.index');
+    Route::get('especialidades/create', [EspecialidadController::class, 'create'])->name('admin.especialidades.create');
+    Route::post('especialidades/create', [EspecialidadController::class, 'store'])->name('admin.especialidades.store');
+    Route::get('especialidades/{id}', [EspecialidadController::class, 'show'])->name('admin.especialidades.show');
+    Route::get('especialidades/{id}/edit', [EspecialidadController::class, 'edit'])->name('admin.especialidades.edit');
+    Route::put('especialidades/{id}', [EspecialidadController::class, 'update'])->name('admin.especialidades.update');
+    Route::get('especialidades/{id}/confirm-delete', [EspecialidadController::class, 'confirmDelete'])->name('admin.especialidades.confirmDelete');
+    Route::delete('especialidades/{id}', [EspecialidadController::class, 'destroy'])->name('admin.especialidades.destroy');
 });
 
 

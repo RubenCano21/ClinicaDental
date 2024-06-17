@@ -49,10 +49,10 @@
                             <td>{{$paciente->user->email}}</td>
                             <td style="text-align: center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="{{url('admin/pacientes/'.$paciente->id)}}" type="button" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
-                                    <a href="{{url('admin/pacientes/'.$paciente->id.'/edit')}}" type="button" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a>
+                                    <a href="{{url('admin/pacientes/'.$paciente->id)}}" type="button" class="btn btn-info btn-sm">Ver</a>
+                                    <a href="{{url('admin/pacientes/'.$paciente->id.'/edit')}}" type="button" class="btn btn-success btn-sm">Editar</a>
                                     <a href="{{url('admin/pacientes/'.$paciente->id.'/confirm-delete')}}"
-                                       type="button" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                                       type="button" class="btn btn-danger btn-sm">Eliminar</a>
                                 </div>
                             </td>
                         </tr>

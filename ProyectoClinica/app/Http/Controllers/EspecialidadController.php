@@ -43,8 +43,8 @@ class EspecialidadController extends Controller
      */
     public function show($id)
     {
-        $especialidade = especialidad::findOrFail($id);
-        return view('admin.especialidades.show', compact('especialidade'));
+        $especialidad = especialidad::findOrFail($id);
+        return view('admin.especialidades.show', compact('especialidad'));
     }
 
     /**
@@ -52,22 +52,35 @@ class EspecialidadController extends Controller
      */
     public function edit($id)
     {
-        $especialidade = especialidad::findOrFail($id);
-        return view('admin.especialidades.edit', compact('especialidade'));
+        $especialidad = especialidad::findOrFail($id);
+        return view('admin.especialidades.edit', compact('especialidad'));
 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, especialidad $especialidad)
+    public function update(Request $request, $id)
     {
-        //
+        // Validar los datos del formulario
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+
+        // Buscar la especialidad por su ID
+        $especialidad = Especialidad::findOrFail($id);
+
+        // Actualizar los datos de la especialidad
+        $especialidad->nombre = $request->input('nombre');
+        $especialidad->save();
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('admin.especialidades.index')->with('success', 'Especialidad actualizada exitosamente.');
     }
 
     public function confirmDelete($id){
-        $especialidade = especialidad::findOrFail($id);
-        return view('admin.especialidades.delete', compact('especialidade'));
+        $especialidad = especialidad::findOrFail($id);
+        return view('admin.especialidades.delete', compact('especialidad'));
     }
 
     /**
@@ -75,8 +88,8 @@ class EspecialidadController extends Controller
      */
     public function destroy($id)
     {
-        $especialidade = especialidad::find($id);
-        $especialidade->delete();
+        $especialidad = especialidad::find($id);
+        $especialidad->delete();
 
         return redirect()->route('admin.especialidades.index')
             ->with('mensaje', 'Consultorio Eliminado.')

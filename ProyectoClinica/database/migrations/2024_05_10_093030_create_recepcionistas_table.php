@@ -16,11 +16,11 @@ return new class extends Migration
             $table->integer('ci');
             $table->string('nombre',40);
             $table->string('apellido',40);
+            $table->string('email',255);
             $table->string('sexo',10);
             $table->integer('telefono')->nullable();
             $table->string('turno',10);
             $table->integer('sueldo');
-
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
 

@@ -458,7 +458,7 @@ return [
             'url' => '/pagos',
         ],
         [
-            'text' => 'URGENTES',
+            'text' => 'Facturas',
             'icon_color' => 'yellow',
             'url' => '/facturas',
         ],

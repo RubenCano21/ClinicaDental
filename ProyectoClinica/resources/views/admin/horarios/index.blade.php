@@ -7,9 +7,9 @@
 @stop
 
 @section('content')
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Horarios Registrados</h3>
                     <div class="card-tools">
@@ -54,6 +54,57 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Calendario de Atencion de Odontologos</h3>
+                </div>
+                <div class="card-body">
+                    <table style="font-size: 15px" class="table table-striped table-hover table-sm table-bordered">
+                        <thead>
+                        <tr style="text-align: center; background-color: #4f6883;" class="text-light">
+                            <th>Hora</th>
+                            <th>Lunes</th>
+                            <th>Martes</th>
+                            <th>Miércoles</th>
+                            <th>Jueves</th>
+                            <th>Viernes</th>
+                            <th>Sábado</th>
+                        </tr>
+                        </thead>
+                        @php
+                        $horas = ['08:00:00 - 09:00:00', '09:00:00 - 10:00:00', '10:00:00 - 11:00:00', '11:00:00 - 12:00:00', '12:00:00 - 13:00:00',
+                                  '13:00:00 - 14:00:00', '14:00:00 - 15:00:00', '15:00:00 - 16:00:00', '16:00:00 - 17:00:00', '17:00:00 - 18:00:00',
+                                  '18:00:00 - 19:00:00', '19:00:00 - 20:00:00',];
+                        $dias = ['LUNES','MARTES','MIERCOLES','JUEVES','VIERNES','SABADO'];
+                        @endphp
+                        @foreach($horas as $hora)
+                            @php
+                            list($horaInicio, $horaFin) = explode(' - ',$hora);
+                            @endphp
+                            <tr>
+                                <td>{{$hora}}</td>
+                                @foreach($dias as $dia)
+                                    @php
+                                    $nombreOdontologo = '';
+                                    foreach ($horarios as $horario){
+                                        if (strtoupper($horario->dia) == $dia && $horaInicio >= $horario->horaInicio
+                                            && $horaFin <= $horario->horaFin){
+                                            $nombreOdontologo = $horario->odontologo->nombre." ".$horario->odontologo->apellido;
+                                            break;
+                                        }
+                                    }
+                                    @endphp
+                                    <td>{{$nombreOdontologo}}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 
 
@@ -77,9 +128,9 @@
                 "pageLength": 10,
                 "language": {
                     "emptyTable": "No hay información",
-                    "info": "Mostrando START a END de TOTAL Pacientes",
-                    "infoEmpty": "Mostrando 0 a 0 de 0 Pacientes",
-                    "infoFiltered": "(Filtrado de MAX total Pacientes)",
+                    "info": "Mostrando INICIO a FIN de TOTAL Horarios",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 Horarios",
+                    "infoFiltered": "(Filtrado de MAX total Horarios)",
                     "infoPostFix": "",
                     "thousands": ",",
                     "loadingRecords": "Cargando...",

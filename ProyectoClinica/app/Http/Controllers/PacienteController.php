@@ -29,6 +29,29 @@ class PacienteController extends Controller
         return view("admin.pacientes.create");
     }
 
+
+    public function buscar(Request $request)
+    {
+        $search = $request->input('q');
+
+        // Busca pacientes cuyo nombre o apellido coincidan con el término de búsqueda
+        $pacientes = Paciente::where('nombre', 'LIKE', "%{$search}%")
+            ->orWhere('apellido', 'LIKE', "%{$search}%")
+            ->get();
+
+        // Formatea los resultados para Select2
+        $results = [];
+        foreach ($pacientes as $paciente) {
+            $results[] = [
+                'id' => $paciente->id,
+                'nombre' => $paciente->nombre,
+                'apellido' => $paciente->apellido
+            ];
+        }
+
+        return response()->json($results);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

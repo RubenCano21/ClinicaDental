@@ -18,4 +18,9 @@ class Factura extends Model
         'fecha'
         // otros campos relevantes
     ];
+
+    public function pacientes()
+    {
+        return $this->belongsToMany(Paciente::class);
+    }
 }

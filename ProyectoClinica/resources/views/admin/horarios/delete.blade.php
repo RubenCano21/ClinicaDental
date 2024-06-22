@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Clinica Dental')
+@section('title', 'Horarios')
 
 @section('content')
     <div class="row">
-        <h1>Eliminar Horario del: {{$horario->recepcionista->nombre}} {{$horario->recepcionista->apellido}}</h1>
+        <h1>Eliminar Horario del: {{$horario->odontologo->nombre}} {{$horario->odontologo->apellido}}</h1>
     </div>
     <hr>
     <div class="row">
@@ -21,7 +21,7 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Odontologo</label>
-                                    <input type="text" value="{{$horario->recepcionista->nombre." ".$horario->recepcionista->apellido}}" name="nombre" class="form-control" disabled>
+                                    <input type="text" value="{{$horario->odontologo->nombre." ".$horario->odontologo->apellido}}" name="nombre" class="form-control" disabled>
                                     @error('nombre')
                                     <small style="color: red">{{$message}}</small>
                                     @enderror

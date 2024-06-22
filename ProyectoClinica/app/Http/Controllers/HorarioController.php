@@ -36,6 +36,30 @@ class HorarioController extends Controller
             'horaInicio' => 'required',
             'horaFin' => 'required',
         ]);
+        //verificar si el horario ya existe para ese dia y rango de horas
+        $horaExistente = Horario::where('dia', $request->dia)
+            ->where(function ($query) use ($request) {
+                $query->where(function ($query) use ($request) {
+                    $query->where('horaInicio', '>=', $request->horaInicio)
+                        ->where('horaInicio', '<', $request->horaFin);
+                })
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('horaFin', '>', $request->horaInicio)
+                            ->where('horaFin', '<=', $request->horaFin);
+                    })
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('horaInicio', '<', $request->horaInicio)
+                            ->where('horaFin', '>', $request->horaFin);
+                    });
+            })
+            ->exists();
+
+        if ($horaExistente) {
+            return redirect()->back()
+                ->withInput()
+                ->with('mensaje', 'Ya existe un horario con este dia en el sistema')
+                ->with('icon', 'danger');
+        }
 
         Horario::create($request->all());
 

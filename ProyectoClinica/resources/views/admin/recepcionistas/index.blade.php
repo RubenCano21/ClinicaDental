@@ -31,22 +31,22 @@
                 </thead>
                 <Tbody>
                 <?php $contador = 1; ?>
-                @foreach ($recepcionistas as $recepcionista)
+                @foreach ($recepcionistas as $odontologo)
                     <tr>
                         <td style="text-align: center">{{$contador++}}</td>
-                        <td>{{$recepcionista->ci}}</td>
-                        <td>{{$recepcionista->nombre}}</td>
-                        <td>{{$recepcionista->apellido}}</td>
-                        <td>{{$recepcionista->user->email}}</td>
-                        <td>{{$recepcionista->sexo}}</td>
-                        <td>{{$recepcionista->telefono}}</td>
-                        <td>{{$recepcionista->turno}}</td>
-                        <td>{{$recepcionista->sueldo}}</td>
+                        <td>{{$odontologo->ci}}</td>
+                        <td>{{$odontologo->nombre}}</td>
+                        <td>{{$odontologo->apellido}}</td>
+                        <td>{{$odontologo->user->email}}</td>
+                        <td>{{$odontologo->sexo}}</td>
+                        <td>{{$odontologo->telefono}}</td>
+                        <td>{{$odontologo->turno}}</td>
+                        <td>{{$odontologo->sueldo}}</td>
                         <td>
-                            <a href="{{ route('admin.recepcionistas.show', $recepcionista) }}"
+                            <a href="{{ route('admin.recepcionistas.show', $odontologo) }}"
                                class="btn btn-info ">Ver</a>
-                            <a class="btn btn-primary " href="{{ route('admin.recepcionistas.edit', $recepcionista) }}">Editar</a>
-                            <a href="{{url('admin/recepcionistas/'.$recepcionista->id.'/confirm-delete')}}"
+                            <a class="btn btn-primary " href="{{ route('admin.recepcionistas.edit', $odontologo) }}">Editar</a>
+                            <a href="{{url('admin/recepcionistas/'.$odontologo->id.'/confirm-delete')}}"
                                type="button" class="btn btn-danger">Eliminar</a>
                         </td>
                     </tr>

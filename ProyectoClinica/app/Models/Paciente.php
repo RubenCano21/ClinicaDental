@@ -24,4 +24,12 @@ class Paciente extends Model
     public function user(){
         return $this->belongsTo(User::class, 'id_user');
     }
+
+    public function facturas(){
+        return $this->hasMany(Factura::class, 'id_paciente');
+    }
+
+    public function servicios(){
+        return $this->hasMany(Servicio::class, 'id_paciente');
+    }
 }

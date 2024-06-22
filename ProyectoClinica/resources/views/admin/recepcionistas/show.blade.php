@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row">
-        <h1>Recepcionista: {{$recepcionista->nombre}} {{$recepcionista->apellido}}</h1>
+        <h1>Recepcionista: {{$odontologo->nombre}} {{$odontologo->apellido}}</h1>
     </div>
     <hr>
     <div class="row">
@@ -19,25 +19,25 @@
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">CI</label>
-                                <p>{{$recepcionista->ci}}</p>
+                                <p>{{$odontologo->ci}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Nombres</label>
-                                <p>{{$recepcionista->nombre}}</p>
+                                <p>{{$odontologo->nombre}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Apellidos</label>
-                                <p>{{$recepcionista->apellido}}</p>
+                                <p>{{$odontologo->apellido}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Email</label>
-                                <p>{{$recepcionista->user->email}}</p>
+                                <p>{{$odontologo->user->email}}</p>
                             </div>
                         </div>
 
@@ -47,25 +47,25 @@
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Sexo</label>
-                                <p>{{$recepcionista->sexo}}</p>
+                                <p>{{$odontologo->sexo}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Telefono</label>
-                                <p>{{$recepcionista->telefono}}</p>
+                                <p>{{$odontologo->telefono}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Turno</label>
-                                <p>{{$recepcionista->turno}}</p>
+                                <p>{{$odontologo->turno}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Sueldo</label>
-                                <p>{{$recepcionista->sueldo}}</p>
+                                <p>{{$odontologo->sueldo}}</p>
                             </div>
                         </div>
                     </div>

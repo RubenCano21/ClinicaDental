@@ -30,7 +30,6 @@
                     <td>{{ $reserva->estado }}</td>
                     <td>{{ $reserva->servicio->nombre }}</td>
                     <td>
-                        
                         <a href="{{ route('admin.reservas.edit', $reserva) }}" class="btn btn-warning">Editar</a>
                         <form action="{{ route('admin.reservas.destroy', $reserva) }}" method="POST" style="display:inline;">
                             @csrf

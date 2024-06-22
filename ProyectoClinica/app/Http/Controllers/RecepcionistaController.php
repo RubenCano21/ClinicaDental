@@ -20,7 +20,7 @@ class RecepcionistaController extends Controller
      */
     public function index()
     {
-        $recepciontas = Recepcionista::with('user');
+        $recepciontas = Recepcionista::with('user')->get();
         return view('admin.recepcionistas.index')->with('recepcionistas',$recepciontas);
     }
 
@@ -29,8 +29,8 @@ class RecepcionistaController extends Controller
      */
     public function create()
     {
-        $recepcionista = Recepcionista::all();
-        return view("admin.recepcionistas.create",compact('recepcionista'));
+        $usuarios = User::all();
+        return view("admin.recepcionistas.create",compact('usuarios'));
     }
 
     /**
@@ -69,6 +69,8 @@ class RecepcionistaController extends Controller
 
         $recepcionista->save();
 
+       // Recepcionista::create(request()->all());
+
         return redirect()->route('admin.recepcionistas.index')->with('success', 'Recepcionista creado exitosamente');
 
     }
@@ -87,8 +89,8 @@ class RecepcionistaController extends Controller
      */
     public function edit($id)
     {
-        $recepcionistas = recepcionista::find($id);
-        return view('admin.recepcionistas.editar', compact("recepcionistas"));
+        $recepcionista = recepcionista::find($id);
+        return view('admin.recepcionistas.edit', compact("recepcionista"));
     }
 
     /**

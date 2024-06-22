@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\historial_clinico;
+use App\Models\Historial_clinico;
 use Illuminate\Http\Request;
 
 class HistorialClinicoController extends Controller
@@ -34,7 +34,7 @@ class HistorialClinicoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(historial_clinico $historial_clinico)
+    public function show(Historial_clinico $historial_clinico)
     {
         //
     }
@@ -42,7 +42,7 @@ class HistorialClinicoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(historial_clinico $historial_clinico)
+    public function edit(Historial_clinico $historial_clinico)
     {
         //
     }
@@ -50,7 +50,7 @@ class HistorialClinicoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, historial_clinico $historial_clinico)
+    public function update(Request $request, Historial_clinico $historial_clinico)
     {
         //
     }
@@ -58,7 +58,7 @@ class HistorialClinicoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(historial_clinico $historial_clinico)
+    public function destroy(Historial_clinico $historial_clinico)
     {
         //
     }

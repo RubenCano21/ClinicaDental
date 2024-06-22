@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class rol extends Model
+class Pieza_dental extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'nombre',
+        'tipodiente',
+        'id_odontograma',
+        'id_estadopieza',
+        'id_tipopieza'
     ];
 }

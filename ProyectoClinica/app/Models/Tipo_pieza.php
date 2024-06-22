@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class proveedor extends Model
+class Tipo_pieza extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'nombre',
-        'direccion'
+        'descripcion'
     ];
 }

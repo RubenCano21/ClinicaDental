@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class reserva extends Model
+class Reserva extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class reserva extends Model
         'hora',
         'estado',
         'id_user',
-        'id_servicio', 
+        'id_servicio',
     ];
     public function user()
     {

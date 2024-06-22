@@ -5,17 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class nota_compra extends Model
+class Historial_clinico extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'costo',
-        'cantidad',
-        'importe',
-        'fechaentrada',
-        'id_proveedor',
-        'id_producto',
-        'id_inventario'
+        'descripcion',
+        'ci_paciente'
     ];
 }

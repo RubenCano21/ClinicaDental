@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <h1>Modificar Odontologo: {{$odontologo->nombre}}</h1>
+        <h1>Modificar Odontologo: {{$recepcionista->nombre}}</h1>
     </div>
     <hr>
     <div class="row">
@@ -12,14 +12,14 @@
                     <h3 class="card-title">Llene los datos</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{url('/admin/odontologos', $odontologo->id)}}" method="POST">
+                    <form action="{{url('/admin/odontologos', $recepcionista->id)}}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">CI</label><b>*</b>
-                                    <input type="text" value="{{$odontologo->ci}}" name="ci"
+                                    <input type="text" value="{{$recepcionista->ci}}" name="ci"
                                            class="form-control" required>
                                     @error('ci')
                                     <small style="color: red">{{$message}}</small>
@@ -29,7 +29,7 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Nombres</label><b>*</b>
-                                    <input type="text" value="{{$odontologo->nombre}}" name="nombre"
+                                    <input type="text" value="{{$recepcionista->nombre}}" name="nombre"
                                            class="form-control" required>
                                     @error('nombre')
                                     <small style="color: red">{{$message}}</small>
@@ -39,7 +39,7 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Apellidos</label><b>*</b>
-                                    <input type="text" value="{{$odontologo->apellido}}" name="apellido"
+                                    <input type="text" value="{{$recepcionista->apellido}}" name="apellido"
                                            class="form-control" required>
                                     @error('apellido')
                                     <small style="color: red">{{$message}}</small>
@@ -65,7 +65,7 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Telefono</label><b>*</b>
-                                    <input type="number" value="{{$odontologo->telefono}}" name="telefono"
+                                    <input type="number" value="{{$recepcionista->telefono}}" name="telefono"
                                            class="form-control" required>
                                     @error('telefono')
                                     <small style="color: red">{{$message}}</small>
@@ -75,7 +75,7 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Matricula</label><b>*</b>
-                                    <input type="text" value="{{$odontologo->matricula}}" name="matricula"
+                                    <input type="text" value="{{$recepcionista->matricula}}" name="matricula"
                                            class="form-control" required>
                                     @error('matricula')
                                     <small style="color: red">{{$message}}</small>
@@ -85,7 +85,7 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Email</label><b>*</b>
-                                    <input type="email" value="{{$odontologo->user->email}}" name="email"
+                                    <input type="email" value="{{$recepcionista->user->email}}" name="email"
                                            class="form-control" required>
                                     @error('email')
                                     <small style="color: red">{{$message}}</small>

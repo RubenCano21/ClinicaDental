@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cita;
+use App\Models\Cita;
 use Illuminate\Http\Request;
 
 class CitaController extends Controller
@@ -12,7 +12,7 @@ class CitaController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.citas.index');
     }
 
     /**
@@ -34,7 +34,7 @@ class CitaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(cita $cita)
+    public function show(Cita $cita)
     {
         //
     }
@@ -42,7 +42,7 @@ class CitaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(cita $cita)
+    public function edit(Cita $cita)
     {
         //
     }
@@ -50,7 +50,7 @@ class CitaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, cita $cita)
+    public function update(Request $request, Cita $cita)
     {
         //
     }
@@ -58,7 +58,7 @@ class CitaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(cita $cita)
+    public function destroy(Cita $cita)
     {
         //
     }

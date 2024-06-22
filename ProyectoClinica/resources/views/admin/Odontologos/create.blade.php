@@ -131,7 +131,7 @@
                             <div class="col-md-12">
                                 <div class="form group">
                                     <a href="{{url('admin/odontologos')}}" class="btn btn-secondary">Cancelar</a>
-                                    <button type="submit" class="btn btn-primary">Registrar paciente</button>
+                                    <button type="submit" class="btn btn-primary">Registrar horario</button>
                                 </div>
                             </div>
                         </div>

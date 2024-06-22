@@ -91,12 +91,12 @@
             <p>
               <h3>Clinica Dental Rojas</h3>
               Clínica dental “Rojas” ubicada en la Av. Moscú 6to anillo, C/totai #55, B/30 de agosto. <br><br>
-              Viene operando desde hace 10 años aproximadamente, con la decisión del Dr. Carlos Rojas Gonzales 
+              Viene operando desde hace 10 años aproximadamente, con la decisión del Dr. Carlos Rojas Gonzales
               como propietario de la empresa, la cual está funcionando hasta la actualidad.
-              La historia de nuestra clínica está arraigada en el compromiso familiar. Comenzó como el sueño del 
-              Dr. Carlos Rojas, quien buscaba establecer su propio espacio de trabajo. Con el tiempo, 
+              La historia de nuestra clínica está arraigada en el compromiso familiar. Comenzó como el sueño del
+              Dr. Carlos Rojas, quien buscaba establecer su propio espacio de trabajo. Con el tiempo,
               este sueño tomó forma y creció, a medida que sus hijos se graduaban en sus respectivas profesiones y
-              se unían al equipo en sus áreas especializadas. Recientemente, hemos sumado a nuestro 
+              se unían al equipo en sus áreas especializadas. Recientemente, hemos sumado a nuestro
               equipo a una recepcionista, quien se ha integrado para ofrecer un servicio aún más completo.
 
             </p>

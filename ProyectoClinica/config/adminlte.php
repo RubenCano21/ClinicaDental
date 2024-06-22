@@ -380,13 +380,13 @@ return [
             'icon' => "fas fa-calendar-alt",
             'submenu' => [
                 [
-                    'text' => 'Mañana',
-                    'route' => 'admin.reservas.create',
-                    'icon' => "fas fa-calendar"
+                    'text' => 'Listado de horarios',
+                    'route' => 'admin.horarios.index',
+                    'icon' => "fas fa-write"
                 ],
                 [
-                    'text' => 'Tarde',
-                    'route' => 'admin.reservas.index',
+                    'text' => 'Registrar Nuevo Horario',
+                    'route' => 'admin.horarios.create',
                     'icon' => "fas fa-user-md",
 
                 ],
@@ -413,12 +413,13 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
-            'text' => 'Mas Opciones',
-            'icon' => 'fas fa-fw fa-share',
+            'text' => 'Historial Clinico',
+            'icon' => 'fas fa-fw fa-sign-out-alt',
+            'label_color' => 'info',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'Ver historial',
+                    'url' => '/dash',
                 ],
                 [
                     'text' => 'level_one',
@@ -459,7 +460,7 @@ return [
         [
             'text' => 'URGENTES',
             'icon_color' => 'yellow',
-            'url' => '#',
+            'url' => '/facturas',
         ],
         [
             'text' => 'ATENDIDAS',

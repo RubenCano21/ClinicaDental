@@ -9,7 +9,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-6">
+            <div class="col-9">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title"><b>Usuarios Registrados</b></h3>
@@ -62,6 +62,13 @@
 @stop
 
 @section('js')
+
+    <script
+        src="{{url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url('https://cdn.datatables.net/2.0.7/js/dataTables.js')}}"></script>
+    <script src="{{url('https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js')}}"></script>
+
+
     <script>
         $(function () {
             $("#example1").DataTable({

@@ -8,7 +8,7 @@
     </div>
     <hr>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-9">
             <div class="card card card-danger">
                 <div class="card-header">
                     <h3 class="card-title">¿Esta seguro de eliminar este registro?</h3>
@@ -45,6 +45,9 @@
                                     @enderror
                                 </div>
                             </div>
+                        </div>
+                        <br>
+                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Telefono</label>
@@ -54,10 +57,6 @@
                                     @enderror
                                 </div>
                             </div>
-
-                        </div>
-                        <br>
-                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Turno</label>
@@ -67,7 +66,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Sueldo</label>
                                     <input type="text" value="{{$recepcionista->sueldo}}" name="sueldo" class="form-control" disabled>

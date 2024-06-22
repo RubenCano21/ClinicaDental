@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\estado_pieza;
+use App\Models\Estado_pieza;
 use Illuminate\Http\Request;
 
 class EstadoPiezaController extends Controller
@@ -34,7 +34,7 @@ class EstadoPiezaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(estado_pieza $estado_pieza)
+    public function show(Estado_pieza $estado_pieza)
     {
         //
     }
@@ -42,7 +42,7 @@ class EstadoPiezaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(estado_pieza $estado_pieza)
+    public function edit(Estado_pieza $estado_pieza)
     {
         //
     }
@@ -50,7 +50,7 @@ class EstadoPiezaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, estado_pieza $estado_pieza)
+    public function update(Request $request, Estado_pieza $estado_pieza)
     {
         //
     }
@@ -58,7 +58,7 @@ class EstadoPiezaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(estado_pieza $estado_pieza)
+    public function destroy(Estado_pieza $estado_pieza)
     {
         //
     }

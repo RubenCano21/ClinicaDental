@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\DashboarController;
 use App\Http\Controllers\EspecialidadController;
+use App\Http\Controllers\FacturaController;
+use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\OdontologoController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\PagoController;
+use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\RecepcionistaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -45,15 +49,10 @@ Route::get('/acercaDe', function () {
  });
 
 Route::resource('home', 'App\Http\Controllers\HomeController');
-
 route::resource('usuarios',UserController::class,)->names('admin.usuarios');
-
 route::resource('reservas',ReservaController::class,)->names('admin.reservas');
-
 route::resource('citas',CitaController::class)->names('admin.citas');
-
 route::resource('servicios',ServicioController::class)->names('admin.servicios');
-
 Route::resource('users', 'App\Http\Controllers\UserController');
 
 Route::get('users/auth', function () {
@@ -89,7 +88,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('recepcionistas', [RecepcionistaController::class, 'index'])->name('admin.recepcionistas.index');
     Route::get('recepcionistas/create', [RecepcionistaController::class, 'create'])->name('admin.recepcionistas.create');
-    Route::post('recepcionistas', [RecepcionistaController::class, 'store'])->name('admin.recepcionistas.store');
+    Route::post('recepcionistas/create', [RecepcionistaController::class, 'store'])->name('admin.recepcionistas.store');
     Route::get('recepcionistas/{id}', [RecepcionistaController::class, 'show'])->name('admin.recepcionistas.show');
     Route::get('recepcionistas/{id}/edit', [RecepcionistaController::class, 'edit'])->name('admin.recepcionistas.edit');
     Route::put('recepcionistas/{id}', [RecepcionistaController::class, 'update'])->name('admin.recepcionistas.update');
@@ -109,8 +108,20 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('especialidades/{id}', [EspecialidadController::class, 'destroy'])->name('admin.especialidades.destroy');
 });
 
-Route::resource('pagos', PagoController::class)->middleware('auth');
+//admin- horarios
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('horarios', [HorarioController::class, 'index'])->name('admin.horarios.index');
+    Route::get('horarios/create', [HorarioController::class, 'create'])->name('admin.horarios.create');
+    Route::post('horarios/create', [HorarioController::class, 'store'])->name('admin.horarios.store');
+    Route::get('horarios/{id}', [HorarioController::class, 'show'])->name('admin.horarios.show');
+    Route::get('horarios/{id}/edit', [HorarioController::class, 'edit'])->name('admin.horarios.edit');
+    Route::put('horarios/{id}', [HorarioController::class, 'update'])->name('admin.horarios.update');
+    Route::get('horarios/{id}/confirm-delete', [HorarioController::class, 'confirmDelete'])->name('admin.horarios.confirmDelete');
+    Route::delete('horarios/{id}', [HorarioController::class, 'destroy'])->name('admin.horarios.destroy');
+});
 
+Route::resource('pagos', PagoController::class)->middleware('auth');
+Route::resource('dash',DashboarController::class)->middleware('auth');
 
 Route::controller(CursoController::class)->group(function(){
     Route::get('cursos', 'index');
@@ -118,6 +129,16 @@ Route::controller(CursoController::class)->group(function(){
     Route::get('cursos/{curso}/{categoria?}', 'show');
 });
 
+// Rutas para paypal
+Route::get('/paypal/checkout', [PayPalController::class, 'createTransaction'])->name('createTransaction');
+Route::get('/paypal/success', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+Route::get('/paypal/cancel', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
+Route::get('/paypal/index', [PayPalController::class, 'index'])->name('index');
+
+
+//Facturacion
+Route::get('/faturas', [FacturaController::class, 'index'])->name('facturas.show');
+Route::get('/faturas/{id}', [FacturaController::class, 'show'])->name('facturas.show');
 
 // Route::get('cursos/{variable}', function($variable) {
 //     return "Bienvenido al curso: $variable";
@@ -129,15 +150,17 @@ Route::get('/registro', [RegistroController::class,'index']);
 Route::post('/registro', [RegistroController::class,'store'])->name('registro.store');
 
 
- Route::middleware(['auth:sanctum','verified'])->get('/dash', function () {
+/* Route::middleware(['auth:sanctum','verified'])->get('/dash', function () {
         return view('dash.index');
     })->name('dash');
+*/
+//Route::get('/dash','App\Http\Controllers\DashboardController@index');
 
-Route::get('/dash','App\Http\Controllers\DashboardController@index');
 
-Route::get('/dash/crud', function () {
+
+/*Route::get('/dash', function () {
     return view('crud.index');
-});
+});*/
 
 Route::get('/dash/crud/create', function () {
     return view('crud.create');

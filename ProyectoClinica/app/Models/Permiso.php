@@ -5,14 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tratamiento extends Model
+class Permiso extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'ci_paciente',
-        'id_servicio',
-        'fechainicio',
-        'fechafin'
+        'nombre'
     ];
 }

@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-end">
-                <a class="btn btn-primary" href="{{route('admin.recepcionistas.create')}}">Registrar Recepcionista</a>
+                <a class="btn btn-primary" href="{{url('/admin/recepcionistas/create')}}">Registrar Recepcionista</a>
             </div>
         </div>
         <div class="card-body">
@@ -43,9 +43,11 @@
                         <td>{{$recepcionista->turno}}</td>
                         <td>{{$recepcionista->sueldo}}</td>
                         <td>
-                            <a href="{{ route('admin.recepcionistas.show', $recepcionista) }}"class="btn btn-info ">Ver</a>
+                            <a href="{{ route('admin.recepcionistas.show', $recepcionista) }}"
+                               class="btn btn-info ">Ver</a>
                             <a class="btn btn-primary " href="{{ route('admin.recepcionistas.edit', $recepcionista) }}">Editar</a>
-                            <a href="{{url('admin/recepcionistas/'.$recepcionista->id.'/confirm-delete')}}" type="button" class="btn btn-danger">Eliminar</a>
+                            <a href="{{url('admin/recepcionistas/'.$recepcionista->id.'/confirm-delete')}}"
+                               type="button" class="btn btn-danger">Eliminar</a>
                         </td>
                     </tr>
                 @endforeach
@@ -56,16 +58,57 @@
 @stop
 
 @section('js')
+
     <script
         src="{{url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{url('https://cdn.datatables.net/2.0.7/js/dataTables.js')}}"></script>
     <script src="{{url('https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js')}}"></script>
 
+
     <script>
-        $(document).ready(function () {
-            $('recepcionistas').DataTable({
-                "lengthMenu": [[1, 10, 50, -1], [5, 10, 50, "All"]]
-            });
+        $(function () {
+            $("#example1").DataTable({
+                "pageLength": 10,
+                "language": {
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 Usuarios",
+                    "infoFiltered": "(Filtrado de _MAX_ total Usuarios)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Usuarios",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "buttons": [
+                    {
+                        extend: 'collection',
+                        text: 'Reportes',
+                        orientation: 'landscape',
+                        buttons: [
+                            { extend: 'pdf' },
+                            { extend: 'excel' },
+                            { extend: 'print', text: 'Imprimir' }
+                        ]
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Visor de columnas',
+                        collectionLayout: 'fixed three-column'
+                    }
+                ],
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
 @stop

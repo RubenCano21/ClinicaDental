@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row">
-        <h1>Odontologo: {{$odontologo->nombre}} {{$odontologo->apellido}}</h1>
+        <h1>Odontologo: {{$recepcionista->nombre}} {{$recepcionista->apellido}}</h1>
     </div>
     <hr>
     <div class="row">
@@ -19,25 +19,25 @@
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">CI</label>
-                                <p>{{$odontologo->ci}}</p>
+                                <p>{{$recepcionista->ci}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Nombres</label>
-                                <p>{{$odontologo->nombre}}</p>
+                                <p>{{$recepcionista->nombre}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Apellidos</label>
-                                <p>{{$odontologo->apellido}}</p>
+                                <p>{{$recepcionista->apellido}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Sexo</label>
-                                <p>{{$odontologo->sexo}}</p>
+                                <p>{{$recepcionista->sexo}}</p>
                             </div>
                         </div>
                     </div>
@@ -46,20 +46,20 @@
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Telefono</label>
-                                <p>{{$odontologo->telefono}}</p>
+                                <p>{{$recepcionista->telefono}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Matricula</label>
-                                <p>{{$odontologo->matricula}}</p>
+                                <p>{{$recepcionista->matricula}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Especialidad</label>
-                                @if ($odontologo->especialidad)
-                                    <p>{{ $odontologo->especialidad->nombre }}</p>
+                                @if ($recepcionista->especialidad)
+                                    <p>{{ $recepcionista->especialidad->nombre }}</p>
                                 @else
                                     <p>No se ha especificado especialidad</p>
                                 @endif
@@ -72,7 +72,7 @@
                         <div class="col-md-4">
                             <div class="form group">
                                 <label for="">Email</label>
-                                <p>{{$odontologo->user->email}}</p>
+                                <p>{{$recepcionista->user->email}}</p>
                             </div>
                         </div>
                     </div>

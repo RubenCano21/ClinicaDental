@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row">
-        <h1>Paciente: {{$paciente->nombre}} {{$paciente->apellido}}</h1>
+        <h1>Paciente: {{$horario->nombre}} {{$horario->apellido}}</h1>
     </div>
     <hr>
     <div class="row">
@@ -19,25 +19,25 @@
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">CI</label>
-                                <p>{{$paciente->ci}}</p>
+                                <p>{{$horario->ci}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Nombres</label>
-                                <p>{{$paciente->nombre}}</p>
+                                <p>{{$horario->nombre}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Apellidos</label>
-                                <p>{{$paciente->apellido}}</p>
+                                <p>{{$horario->apellido}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Sexo</label>
-                                <p>{{$paciente->sexo}}</p>
+                                <p>{{$horario->sexo}}</p>
                             </div>
                         </div>
                     </div>
@@ -46,13 +46,13 @@
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Telefono</label>
-                                <p>{{$paciente->telefono}}</p>
+                                <p>{{$horario->telefono}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Direccion</label>
-                                <p>{{$paciente->direccion}}</p>
+                                <p>{{$horario->direccion}}</p>
                             </div>
                         </div>
 
@@ -62,7 +62,7 @@
                         <div class="col-md-4">
                             <div class="form group">
                                 <label for="">Email</label>
-                                <p>{{$paciente->user->email}}</p>
+                                <p>{{$horario->user->email}}</p>
                             </div>
                         </div>
                     </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tratamiento;
+use App\Models\Tratamiento;
 use Illuminate\Http\Request;
 
 class TratamientoController extends Controller
@@ -34,7 +34,7 @@ class TratamientoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(tratamiento $tratamiento)
+    public function show(Tratamiento $tratamiento)
     {
         //
     }
@@ -42,7 +42,7 @@ class TratamientoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(tratamiento $tratamiento)
+    public function edit(Tratamiento $tratamiento)
     {
         //
     }
@@ -50,7 +50,7 @@ class TratamientoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, tratamiento $tratamiento)
+    public function update(Request $request, Tratamiento $tratamiento)
     {
         //
     }
@@ -58,7 +58,7 @@ class TratamientoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(tratamiento $tratamiento)
+    public function destroy(Tratamiento $tratamiento)
     {
         //
     }

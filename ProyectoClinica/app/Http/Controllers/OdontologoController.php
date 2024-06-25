@@ -7,6 +7,7 @@ use App\Models\Especialidad;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\bitacora;
 
 class OdontologoController extends Controller
 {
@@ -70,6 +71,13 @@ class OdontologoController extends Controller
         // Asignar especialidades
         $odontologo->especialidades()->sync($request->especialidades);
 
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Creacion de odontologo';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id =auth()->id();
+        $bitacora->save();
+
         return redirect()->route('admin.odontologos.index')->with('success', 'Odontólogo creado exitosamente');
     }
 
@@ -127,6 +135,13 @@ class OdontologoController extends Controller
         // Actualizar especialidades
         $odontologo->especialidades()->sync($request->especialidades);
 
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Actualizacion de odontologo';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id =auth()->id();
+        $bitacora->save();
+
         return redirect()->route('admin.odontologos.index')->with('success', 'Odontólogo actualizado exitosamente');
     }
 
@@ -145,6 +160,13 @@ class OdontologoController extends Controller
         $user = $odontologo->user;
         $odontologo->delete();
         $user->delete();
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Eliminacion de odontologo';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id =auth()->id();
+        $bitacora->save();
 
         return redirect()->route('admin.odontologos.index')->with('success', 'Odontólogo eliminado exitosamente');
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\bitacora;
 
 class UserController extends Controller
 {
@@ -37,6 +38,13 @@ class UserController extends Controller
         $usuarios->email = $validatedData['email'];
         $usuarios->password = bcrypt($validatedData['password']);
         $usuarios->save();
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Creacion de usuario';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
 
         return redirect()->route('admin.usuarios.index',$usuarios)->with('success', 'Usuario creado exitosamente');
     }
@@ -76,6 +84,13 @@ class UserController extends Controller
         }
         $usuario->save();
 
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Actualizacion de usuario';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
+
         return redirect()->route('admin.usuarios.index')->with('success', 'Usuario actualizado exitosamente');
 
 
@@ -92,7 +107,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Eliminacion de usuario';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
+
         User::destroy($id);
+        
         return redirect()->route('admin.usuarios.index')->with('success', 'Usuario eliminado exitosamente');
     }
 }

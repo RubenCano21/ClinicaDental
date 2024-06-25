@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\odontograma;
+use App\Models\bitacora;
 use Illuminate\Http\Request;
 
-class OdontogramaController extends Controller
+class BitacoraController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:ver odontograma')->only('index');
+        $this->middleware('can:ver bitacora')->only('index');
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.odontograma.index');
+        $bitacoras = bitacora::with('user')->get();
+        return view('admin.bitacora.index', compact('bitacoras'));
     }
 
     /**
@@ -24,7 +25,7 @@ class OdontogramaController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -38,7 +39,7 @@ class OdontogramaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(odontograma $odontograma)
+    public function show(bitacora $bitacora)
     {
         //
     }
@@ -46,7 +47,7 @@ class OdontogramaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(odontograma $odontograma)
+    public function edit(bitacora $bitacora)
     {
         //
     }
@@ -54,7 +55,7 @@ class OdontogramaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, odontograma $odontograma)
+    public function update(Request $request, bitacora $bitacora)
     {
         //
     }
@@ -62,7 +63,7 @@ class OdontogramaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(odontograma $odontograma)
+    public function destroy(bitacora $bitacora)
     {
         //
     }

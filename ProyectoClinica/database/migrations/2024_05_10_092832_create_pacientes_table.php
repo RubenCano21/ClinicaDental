@@ -16,8 +16,9 @@ return new class extends Migration
             $table->integer('ci');
             $table->string('nombre',40);
             $table->string('apellido',40);
+            $table->string('email');
             $table->string('sexo',10);
-            $table->integer('telefono')->nullable();
+            $table->string('telefono')->nullable();
             $table->date('fechaNacimiento');
             $table->text('direccion');
 

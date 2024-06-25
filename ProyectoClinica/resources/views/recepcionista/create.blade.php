@@ -46,6 +46,18 @@
             <input type="text" class="form-control" id="direccion" name="direccion" placeholder="1234 Marical scz"
                 tabindex="8">
         </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Turno</label>
+            <select id="turno" name="turno" class="form-select" tabindex="5">
+                <option selected>Mañana</option>
+                <option>Tarde</option>
+                <option>Noche</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Sueldo</label>
+            <input type="number" class="form-control" id="sueldo" name="sueldo" tabindex="6">
+        </div>
         <a href="/recepcionistas" class="btn btn-secundary"> Cancelar</a>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>

@@ -6,6 +6,7 @@ use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
 use App\Models\Paciente;
+use App\Models\bitacora;
 
 class PacienteController extends Controller
 {
@@ -49,7 +50,7 @@ class PacienteController extends Controller
         $usuario = new User();
         $usuario->name = $request->nombre;
         $usuario->email = $request->email;
-        $usuario->password = Hash::make($request['password']);
+        $usuario->password = $request->ci;
         $usuario->save();
 
         $paciente = new Paciente();
@@ -63,6 +64,13 @@ class PacienteController extends Controller
         $paciente->direccion = $request->direccion;
         $paciente->id_user = $usuario->id; // Asignar el id del usuario al paciente
         $paciente->save();
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Creacion de paciente';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id =auth()->id();
+        $bitacora->save();
 
         return redirect()->route('admin.pacientes.index')
             ->with('mensaje', 'Se ha registrado un nuevo paciente.')
@@ -102,6 +110,13 @@ class PacienteController extends Controller
         $paciente->fechaNacimiento = $request->get('fechaNacimiento');
         $paciente->direccion = $request->get('direccion');
 
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Actualizacion de paciente';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id =auth()->id();
+        $bitacora->save();
+
         $paciente->save();
         return redirect()->route('admin.pacientes.index');
     }
@@ -116,6 +131,13 @@ class PacienteController extends Controller
 
         $user = $paciente->user;
         $user->delete();
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Eliminacion de paciente';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id =auth()->id();
+        $bitacora->save();
 
         return redirect()->route('admin.pacientes.index');
     }

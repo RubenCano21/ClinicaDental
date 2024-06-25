@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\OdontologoController;
 use App\Http\Controllers\PacienteController;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,7 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CitaController;
+use App\Http\Controllers\OdontogramaController;
 
 Route::get('/', function(){
     return view('index');
@@ -69,6 +71,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::put('pacientes/{id}', [PacienteController::class, 'update'])->name('admin.pacientes.update');
     Route::get('pacientes/{id}/confirm-delete', [PacienteController::class, 'confirmDelete'])->name('admin.pacientes.confirmDelete');
     Route::delete('pacientes/{id}', [PacienteController::class, 'destroy'])->name('admin.pacientes.destroy');
+    Route::get('bitacora', [BitacoraController::class, 'index'])->name('admin.bitacora.index');
+    Route::get('odontograma', [OdontogramaController::class, 'index'])->name('admin.odontograma.index');
 });
 
 Route::prefix('admin')->middleware('auth')->group(function () {

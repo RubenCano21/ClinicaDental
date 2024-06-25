@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Recepcionista;
 use Illuminate\Http\Request;
+use App\Models\bitacora;
+use App\Models\User;
 
 class RecepcionistaController extends Controller
 {
@@ -34,18 +36,31 @@ class RecepcionistaController extends Controller
      */
     public function store(Request $request)
     {
-        $recepcionistas = new recepcionista();
 
+        $usuarios = new User();
+        $usuarios->name = $request->get('nombre');
+        $usuarios->email = $request->get('email');
+        $usuarios->password = bcrypt($request->get('ci'));
+        $usuarios->save();
+
+        $recepcionistas = new recepcionista();
         $recepcionistas->ci = $request->get('ci');
         $recepcionistas->nombre = $request->get('nombre');
         $recepcionistas->apellido = $request->get('apellido');
-        $recepcionistas->correo = $request->get('email');
+        $recepcionistas->email = $request->get('email');
         $recepcionistas->sexo = $request->get('sexo');
         $recepcionistas->telefono = $request->get('telefono');
         $recepcionistas->turno = $request->get('turno');
         $recepcionistas->sueldo = $request->get('sueldo');
-
+        $recepcionistas->id_user = $usuarios->id;
         $recepcionistas->save();
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Creacion de recepcionista';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id =auth()->id();
+        $bitacora->save();
 
         return redirect('/recepcionistas');
     }
@@ -77,13 +92,21 @@ class RecepcionistaController extends Controller
         $recepcionista->ci = $request->get('ci');
         $recepcionista->nombre = $request->get('nombre');
         $recepcionista->apellido = $request->get('apellido');
-        $recepcionista->correo = $request->get('email');
+        $recepcionista->email = $request->get('email');
         $recepcionista->sexo = $request->get('sexo');
         $recepcionista->telefono = $request->get('telefono');
         $recepcionista->turno = $request->get('turno');
         $recepcionista->sueldo = $request->get('sueldo');
 
         $recepcionista->save();
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Actualizacion de recepcionista';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id =auth()->id();
+        $bitacora->save();
+
         return redirect('/recepcionistas');
     }
 
@@ -94,6 +117,13 @@ class RecepcionistaController extends Controller
     {
         $recepcionista = recepcionista::find($id);
         $recepcionista->delete();
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Eliminacion de recepcionista';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id =auth()->id();
+        $bitacora->save();
         
         return redirect('/recepcionistas');
     }

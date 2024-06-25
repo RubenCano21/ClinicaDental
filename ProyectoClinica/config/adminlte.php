@@ -317,7 +317,7 @@ return [
             'text' => 'Usuarios',
             'route' => 'admin.usuarios.index',
             'icon' => "fa fa-users",
-            'can' => 'admin.usuarios.index'
+            'can' => 'ver usuarios'
         ],
         [
             'text' => 'Pacientes',
@@ -325,7 +325,7 @@ return [
             'icon' => 'far fa-fw fa-user',
             'label' => 'CRUD',
             'label_color' => 'info',
-            'can' => 'admin.usuarios.index',
+            'can' => 'ver pacientes',
         ],
         [
             'text' => 'Odontologos',
@@ -333,7 +333,7 @@ return [
             'icon' => 'far fa-fw fa-user',
             'label' => 'CRUD',
             'label_color' => 'info',
-            'can' => 'admin.usuarios.index',
+            'can' => 'ver odontologos',
         ],
         [
             'text' => 'Recepcionista',
@@ -341,20 +341,20 @@ return [
             'icon' => 'far fa-fw fa-user',
             'label' => 'CRUD',
             'label_color' => 'info',
-            'can' => 'admin.usuarios.index',
+            'can' => 'ver recepcionistas',
         ],
         [
             'text' => 'Especialidades',
             'url' => 'admin/especialidades',
             'icon' => 'far fa-fw fa-user',
             'label_color' => 'info',
-            'can' => 'admin.usuarios.index',
+            'can' => 'ver especialidades',
         ],
         [
             'text' => 'Citas',
             'route' => 'admin.citas.index',
             'icon' => "fa fa-calendar",
-            'can' => 'admin.citas.index'
+            'can' => 'ver citas'
         ],
         [
             'text' => ' Reservas',
@@ -379,7 +379,21 @@ return [
             'text' => 'Servicios',
             'route' => 'admin.servicios.index',
             'icon' => "fas fa-tooth",
-            'can' => 'admin.servicios.index'
+            'can' => 'ver servicios'
+        ],
+
+        [
+            'text' => 'Bitacora',
+            'route' => 'admin.bitacora.index',
+            'icon' => "fas fa-book",
+            'can' => 'ver bitacora'
+        ],
+
+        [
+            'text' => 'Odontograma',
+            'route' => 'admin.odontograma.index',
+            'icon' => "fas fa-smile",
+            'can' => 'ver odontograma'
         ],
 
         ['header' => 'Configuracion de la Cuenta'],

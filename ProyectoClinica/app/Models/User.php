@@ -72,4 +72,16 @@ class User extends Authenticatable
     public function Odontologo(){
         return $this->hasOne(Odontologo::class);
     }
+
+    public function recepcionistas(){
+        return $this->hasMany(Recepcionista::class);
+    }
+
+    public function inventarios(){
+        return $this->hasMany(inventario::class);
+    }
+
+    public function bitacoras(){
+        return $this->hasMany(bitacora::class);
+    }
 }

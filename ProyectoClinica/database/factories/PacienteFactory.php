@@ -19,13 +19,14 @@ class PacienteFactory extends Factory
     {
         return [
             'ci'=> $this->faker->unique()->numerify('#######'),
-            'nombres'=> $this->faker->name(),
-            'apellidos'=> $this->faker->lastName(),
+            'nombre'=> $this->faker->name(),
+            'apellido'=> $this->faker->lastName(),
+            'email'=> $this->faker->email(),
             'sexo'=> $this->faker->randomElement(['M','F']),
-            'celular'=> $this->faker->phoneNumber(),
+            'telefono'=> $this->faker->phoneNumber(),
             'fechaNacimiento'=> $this->faker->date('Y-m-d','2023-01-01'),
             'direccion'=> $this->faker->address(),
-            'user_id' => User::factory()->create()->id,
+            'id_user' => User::factory()->create()->id
         ];
     }
 }

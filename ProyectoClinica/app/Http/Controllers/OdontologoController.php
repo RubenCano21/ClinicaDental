@@ -62,6 +62,7 @@ class OdontologoController extends Controller
         $odontologo->ci = $request->ci;
         $odontologo->nombre = $request->nombre;
         $odontologo->apellido = $request->apellido;
+        $odontologo->email = $request->email;
         $odontologo->sexo = $request->sexo;
         $odontologo->telefono = $request->telefono;
         $odontologo->matricula = $request->matricula;
@@ -117,7 +118,7 @@ class OdontologoController extends Controller
             'email' => 'required|unique:users,email,' . $odontologo->id_user,
             'password' => 'nullable|confirmed',
             'especialidades' => 'required|array',
-            'especialidades.*' => 'exists:especialidades,id'
+            'especialidades.*' => 'exists:Especialidades,id'
         ]);
 
         // Actualizar datos del usuario
@@ -130,7 +131,7 @@ class OdontologoController extends Controller
         $usuario->save();
 
         // Actualizar datos del odontólogo
-        $odontologo->update($request->only('ci', 'nombre', 'apellido', 'sexo', 'telefono', 'matricula'));
+        $odontologo->update($request->only('ci', 'nombre', 'apellido','email', 'sexo', 'telefono', 'matricula'));
 
         // Actualizar especialidades
         $odontologo->especialidades()->sync($request->especialidades);

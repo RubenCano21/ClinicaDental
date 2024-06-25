@@ -222,7 +222,7 @@ return [
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
     'sidebar_nav_accordion' => true,
-    'sidebar_nav_animation_speed' => 300,
+    'sidebar_nav_animation_speed' => 200,
 
     /*
     |--------------------------------------------------------------------------
@@ -337,7 +337,7 @@ return [
         ],
         [
             'text' => 'Recepcionista',
-            'url' => 'recepcionistas',
+            'url' => 'admin/recepcionistas',
             'icon' => 'far fa-fw fa-user',
             'label' => 'CRUD',
             'label_color' => 'info',
@@ -368,6 +368,25 @@ return [
                 [
                     'text' => 'Lista de Reservas',
                     'route' => 'admin.reservas.index',
+                    'icon' => "fas fa-user-md",
+
+                ],
+            ],
+
+        ],
+        [
+            'text' => ' Horarios',
+            'label_color' =>'primary',
+            'icon' => "fas fa-calendar-alt",
+            'submenu' => [
+                [
+                    'text' => 'Listado de horarios',
+                    'route' => 'admin.horarios.index',
+                    'icon' => "fas fa-write"
+                ],
+                [
+                    'text' => 'Registrar Nuevo Horario',
+                    'route' => 'admin.horarios.create',
                     'icon' => "fas fa-user-md",
 
                 ],
@@ -408,12 +427,13 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
-            'text' => 'Mas Opciones',
-            'icon' => 'fas fa-fw fa-share',
+            'text' => 'Historial Clinico',
+            'icon' => 'fas fa-fw fa-sign-out-alt',
+            'label_color' => 'info',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'Ver historial',
+                    'url' => '/dash',
                 ],
                 [
                     'text' => 'level_one',
@@ -445,16 +465,16 @@ return [
                 ],
             ],
         ],
-        ['header' => 'CITAS'],
+        ['header' => 'Facturacion'],
         [
-            'text' => 'IMPORTANTES',
+            'text' => 'Pagos',
             'icon_color' => 'red',
-            'url' => '#',
+            'url' => '/pagos',
         ],
         [
             'text' => 'URGENTES',
             'icon_color' => 'yellow',
-            'url' => '#',
+            'url' => '/facturas',
         ],
         [
             'text' => 'ATENDIDAS',

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pieza_dental;
+use App\Models\Pieza_dental;
 use Illuminate\Http\Request;
 
 class PiezaDentalController extends Controller
@@ -34,7 +34,7 @@ class PiezaDentalController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(pieza_dental $pieza_dental)
+    public function show(Pieza_dental $pieza_dental)
     {
         //
     }
@@ -42,7 +42,7 @@ class PiezaDentalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(pieza_dental $pieza_dental)
+    public function edit(Pieza_dental $pieza_dental)
     {
         //
     }
@@ -50,7 +50,7 @@ class PiezaDentalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, pieza_dental $pieza_dental)
+    public function update(Request $request, Pieza_dental $pieza_dental)
     {
         //
     }
@@ -58,7 +58,7 @@ class PiezaDentalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(pieza_dental $pieza_dental)
+    public function destroy(Pieza_dental $pieza_dental)
     {
         //
     }

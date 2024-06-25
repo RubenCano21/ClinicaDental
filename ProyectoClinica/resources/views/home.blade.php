@@ -28,7 +28,7 @@
                         <p>Usuarios</p>
                     </div>
                     <div class="icon">
-                        <i class="bi bi-file-person"></i>
+                        <i class="fa fa-user-circle"></i>
                     </div>
                     <a href="{{asset('/usuarios')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -42,7 +42,7 @@
                         <p>Odontologos</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
+                        <i class="fa fa-user-nurse"></i>
                     </div>
                     <a href="{{url('/admin/odontologos')}}" class="small-box-footer">Mas Informacion <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -52,13 +52,13 @@
 
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>44</h3>
-                        <p>User Registrations</p>
+                        <h3>{{$totalPacientes}}</h3>
+                        <p>Pacientes</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-person-add"></i>
+                        <i class="fa fa-user-friends"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{url('/admin/pacientes')}}" class="small-box-footer">Mas informacion<i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
 
@@ -66,13 +66,13 @@
 
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
-                        <p>Unique Visitors</p>
+                        <h3>{{$totalRecepcionistas}}</h3>
+                        <p>Recepcionistas</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
+                        <i class="fa fa-user-check"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{url('/admin/recepcionistas')}}" class="small-box-footer">Mas informacion<i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
 

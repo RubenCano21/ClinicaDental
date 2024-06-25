@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\inventario;
+use App\Models\Inventario;
 use Illuminate\Http\Request;
 
 class InventarioController extends Controller
@@ -34,7 +34,7 @@ class InventarioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(inventario $inventario)
+    public function show(Inventario $inventario)
     {
         //
     }
@@ -42,7 +42,7 @@ class InventarioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(inventario $inventario)
+    public function edit(Inventario $inventario)
     {
         //
     }
@@ -50,7 +50,7 @@ class InventarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, inventario $inventario)
+    public function update(Request $request, Inventario $inventario)
     {
         //
     }
@@ -58,7 +58,7 @@ class InventarioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(inventario $inventario)
+    public function destroy(Inventario $inventario)
     {
         //
     }

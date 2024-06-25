@@ -36,97 +36,87 @@
                     </thead>
                     <tbody>
                     <?php $contador = 1; ?>
-                    @foreach($pacientes as $paciente)
+                    @foreach($pacientes as $horario)
                         <tr>
                             <td style="text-align: center">{{$contador++}}</td>
-                            <td>{{$paciente->ci}}</td>
-                            <td>{{$paciente->nombres}}</td>
-                            <td>{{$paciente->apellidos}}</td>
-                            <td>{{$paciente->sexo}}</td>
-                            <td>{{$paciente->celular}}</td>
-                            <td>{{$paciente->fechaNacimiento}}</td>
-                            <td>{{$paciente->direccion}}</td>
-                            <td>{{$paciente->user->email}}</td>
+                            <td>{{$horario->ci}}</td>
+                            <td>{{$horario->nombre}}</td>
+                            <td>{{$horario->apellido}}</td>
+                            <td>{{$horario->sexo}}</td>
+                            <td>{{$horario->celular}}</td>
+                            <td>{{$horario->fechaNacimiento}}</td>
+                            <td>{{$horario->direccion}}</td>
+                            <td>{{$horario->user->email}}</td>
                             <td style="text-align: center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="{{url('admin/pacientes/'.$paciente->id)}}" type="button" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
-                                    <a href="{{url('admin/pacientes/'.$paciente->id.'/edit')}}" type="button" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a>
-                                    <a href="{{url('admin/pacientes/'.$paciente->id.'/confirm-delete')}}"
-                                       type="button" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                                    <a href="{{url('admin/pacientes/'.$horario->id)}}" type="button" class="btn btn-info btn-sm">Ver</a>
+                                    <a href="{{url('admin/pacientes/'.$horario->id.'/edit')}}" type="button" class="btn btn-success btn-sm">Editar</a>
+                                    <a href="{{url('admin/pacientes/'.$horario->id.'/confirm-delete')}}"
+                                       type="button" class="btn btn-danger btn-sm">Eliminar</a>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
-                <script>
-                    $(function () {
-                        $("#example1").DataTable({
-                            "pageLength": 10,
-                            "language": {
-                                "emptyTable": "No hay información",
-                                "info": "Mostrando START a END de TOTAL Pacientes",
-                                "infoEmpty": "Mostrando 0 a 0 de 0 Pacientes",
-                                "infoFiltered": "(Filtrado de MAX total Pacientes)",
-                                "infoPostFix": "",
-                                "thousands": ",",
-                                "loadingRecords": "Cargando...",
-                                "processing": "Procesando...",
-                                "search": "Buscar:",
-                                "zeroRecords": "Sin resultados encontrados",
-                                "paginate": {
-                                    "first": "Primero",
-                                    "last": "Ultimo",
-                                    "next": "Siguiente",
-                                    "previous": "Anterior"
-                                }
-                            },
-                            "responsive": true, "lengthChange": true, "autoWidth": false,
-                            buttons: [{
-                                extend: 'collection',
-                                text: 'Reportes',
-                                orientation: 'landscape',
-                                buttons: [{
-                                    extend: 'pdf'
-                                }, {
-                                    extend: 'excel'
-                                }, {
-                                    text: 'Imprimir',
-                                    extend: 'print'
-                                }
-                                ]
-                            },
-                                {
-                                    extend: 'colvis',
-                                    text: 'Visor de columnas',
-                                    collectionLayout: 'fixed three-column'
-                                }
-                            ],
-                        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-                    });
-                </script>
             </div>
         </div>
     </div>
 </div>
 @stop
 
-@section('css')
-    {{-- Add here extra stylesheets --}}
-    <link rel="stylesheet" href="/css/admin_custom.css">
-    <link rel="stylesheet" href="{{url('https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css')}}">
-@stop
-
 @section('js')
-<script src="{{url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{url('https://cdn.datatables.net/2.0.7/js/dataTables.js')}}"></script>
-<script src="{{url('https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js')}}"></script>
 
-<script>
-    $(document).ready(function(){
-        $('pacientes').DataTable({
-            "lengthMenu":[[1, 10, 50, -1], [5, 10, 50, "All"]]
+    <script
+        src="{{url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url('https://cdn.datatables.net/2.0.7/js/dataTables.js')}}"></script>
+    <script src="{{url('https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js')}}"></script>
+
+
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "pageLength": 10,
+                "language": {
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 Usuarios",
+                    "infoFiltered": "(Filtrado de _MAX_ total Usuarios)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Usuarios",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "buttons": [
+                    {
+                        extend: 'collection',
+                        text: 'Reportes',
+                        orientation: 'landscape',
+                        buttons: [
+                            { extend: 'pdf' },
+                            { extend: 'excel' },
+                            { extend: 'print', text: 'Imprimir' }
+                        ]
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Visor de columnas',
+                        collectionLayout: 'fixed three-column'
+                    }
+                ],
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
-    });
-</script>
+    </script>
 @stop

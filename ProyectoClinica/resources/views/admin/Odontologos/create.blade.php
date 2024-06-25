@@ -84,7 +84,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Email</label><b>*</b>
                                     <input type="email" value="{{old('email')}}" name="email" class="form-control" required>
@@ -93,10 +93,20 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="especialidad">Especialidad</label>
+                                    <select class="form-control" id="especialidad" name="especialidades[]" multiple>
+                                        @foreach ($especialidades as $especialidad)
+                                            <option value="{{ $especialidad->id }}">{{ $especialidad->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                         <br>
                         <div class="row">
-
                             <div class="col-md-4">
                                 <div class="form group">
                                     <label for="">Contraseña</label><b>*</b>
@@ -121,7 +131,7 @@
                             <div class="col-md-12">
                                 <div class="form group">
                                     <a href="{{url('admin/odontologos')}}" class="btn btn-secondary">Cancelar</a>
-                                    <button type="submit" class="btn btn-primary">Registrar paciente</button>
+                                    <button type="submit" class="btn btn-primary">Registrar horario</button>
                                 </div>
                             </div>
                         </div>

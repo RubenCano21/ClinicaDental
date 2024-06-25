@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Odontologo;
+use App\Models\Paciente;
+use App\Models\Recepcionista;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -27,7 +29,9 @@ class HomeController extends Controller
     {
         $totalUsuarios = User::count();
         $totalOdontologos = Odontologo::count();
-        return view('home', compact('totalUsuarios', 'totalOdontologos'));
+        $totalPacientes = Paciente::count();
+        $totalRecepcionistas = Recepcionista::count();
+        return view('home', compact('totalUsuarios', 'totalOdontologos', 'totalPacientes', 'totalRecepcionistas'));
     }
 
    /* public function servicio(){

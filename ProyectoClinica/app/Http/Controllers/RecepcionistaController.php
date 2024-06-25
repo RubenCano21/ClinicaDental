@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Especialidad;
 use App\Models\Recepcionista;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\bitacora;
-use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class RecepcionistaController extends Controller
 {
@@ -19,8 +21,8 @@ class RecepcionistaController extends Controller
      */
     public function index()
     {
-        $recepciontas = Recepcionista::all();
-        return view('recepcionista.index')->with('recepcionistas',$recepciontas);
+        $recepciontas = Recepcionista::with('user')->get();
+        return view('admin.recepcionistas.index')->with('recepcionistas',$recepciontas);
     }
 
     /**
@@ -28,7 +30,8 @@ class RecepcionistaController extends Controller
      */
     public function create()
     {
-        return view("recepcionista.create");
+        $usuarios = User::all();
+        return view("admin.recepcionistas.create",compact('usuarios'));
     }
 
     /**
@@ -36,50 +39,67 @@ class RecepcionistaController extends Controller
      */
     public function store(Request $request)
     {
-
-        $usuarios = new User();
-        $usuarios->name = $request->get('nombre');
-        $usuarios->email = $request->get('email');
-        $usuarios->password = bcrypt($request->get('ci'));
-        $usuarios->save();
-
-        $recepcionistas = new recepcionista();
-        $recepcionistas->ci = $request->get('ci');
-        $recepcionistas->nombre = $request->get('nombre');
-        $recepcionistas->apellido = $request->get('apellido');
-        $recepcionistas->email = $request->get('email');
-        $recepcionistas->sexo = $request->get('sexo');
-        $recepcionistas->telefono = $request->get('telefono');
-        $recepcionistas->turno = $request->get('turno');
-        $recepcionistas->sueldo = $request->get('sueldo');
-        $recepcionistas->id_user = $usuarios->id;
-        $recepcionistas->save();
-
-        $bitacora = new Bitacora();
-        $bitacora->accion = 'Creacion de recepcionista';
-        $bitacora->fecha_hora = now();
-        $bitacora->fecha = now()->format('Y-m-d');
-        $bitacora->user_id =auth()->id();
-        $bitacora->save();
-
         return redirect('/recepcionistas');
+        $request->validate([
+            'ci'=>'required',
+            'nombre'=>'required',
+            'apellido'=>'required',
+            'email' => 'required|unique:users,email',
+            'sexo'=>'required',
+            'telefono'=>'required',
+            'turno'=>'required',
+        ]);
+
+        // Crear un nuevo usuario
+        $usuario = new User();
+        $usuario->name = $request->nombre;
+        $usuario->email = $request->email;
+        $usuario->password = Hash::make($request->password);
+        $usuario->save();
+
+        $recepcionista = new Recepcionista();
+
+        $recepcionista->ci = $request->ci;
+        $recepcionista->nombre = $request->nombre;
+        $recepcionista->apellido = $request->apellido;
+        $recepcionista->email = $request->email;
+        $recepcionista->sexo = $request->sexo;
+        $recepcionista->telefono = $request->telefono;
+        $recepcionista->turno = $request->turno;
+        $recepcionista->sueldo = $request->sueldo;
+        $recepcionista->id_user = $usuario->id;
+
+        $recepcionista->save();
+
+       // Recepcionista::create(request()->all());
+
+       $bitacora = new Bitacora();
+       $bitacora->accion = 'Creacion de recepcionista';
+       $bitacora->fecha_hora = now();
+       $bitacora->fecha = now()->format('Y-m-d');
+       $bitacora->user_id =auth()->id();
+       $bitacora->save();
+
+        return redirect()->route('admin.recepcionistas.index')->with('success', 'Recepcionista creado exitosamente');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $recepcionista = Recepcionista::with('user')->findOrFail($id);
+        return view('admin.recepcionistas.show', compact('recepcionista'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        $recepcionistas = recepcionista::find($id);
-        return view('recepcionista.editar')->with('recepcionistas', $recepcionistas);
+        $recepcionista = recepcionista::find($id);
+        return view('admin.recepcionistas.edit', compact("recepcionista"));
     }
 
     /**
@@ -87,18 +107,26 @@ class RecepcionistaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $recepcionista = recepcionista::find($id);
+        $recepcionista = Recepcionista::find($id);
 
-        $recepcionista->ci = $request->get('ci');
-        $recepcionista->nombre = $request->get('nombre');
-        $recepcionista->apellido = $request->get('apellido');
-        $recepcionista->email = $request->get('email');
-        $recepcionista->sexo = $request->get('sexo');
-        $recepcionista->telefono = $request->get('telefono');
-        $recepcionista->turno = $request->get('turno');
-        $recepcionista->sueldo = $request->get('sueldo');
+        $request->validate([
+            'ci'=>'required',
+            'nombre'=>'required',
+            'apellido'=>'required',
+            'email' => 'required|email|unique:users,email',
+            'sexo'=>'required',
+            'telefono'=>'required',
+            'turno'=>'required',
+        ]);
 
-        $recepcionista->save();
+        // Actualizar datos del usuario
+        $usuario = $recepcionista->user;
+        $usuario->name = $request->nombre;
+        $usuario->email = $request->email;
+        if ($request->filled('password')) {
+            $usuario->password = Hash::make($request->password);
+        }
+        $usuario->save();
 
         $bitacora = new Bitacora();
         $bitacora->accion = 'Actualizacion de recepcionista';
@@ -107,7 +135,16 @@ class RecepcionistaController extends Controller
         $bitacora->user_id =auth()->id();
         $bitacora->save();
 
-        return redirect('/recepcionistas');
+        //actualizar datos del usuario
+        $recepcionista->update($request->only('ci','nombre','apellido','email','sexo','telefono','turno'));
+
+        return redirect()->route('admin.recepcionistas.index')->with('success', 'Recepcionista actualizado exitosamente');
+    }
+
+    public function confirmDelete($id)
+    {
+        $recepcionista = Recepcionista::with('user')->findOrFail($id);
+        return view('admin.recepcionistas.delete', compact('recepcionista'));
     }
 
     /**
@@ -115,7 +152,8 @@ class RecepcionistaController extends Controller
      */
     public function destroy( $id)
     {
-        $recepcionista = recepcionista::find($id);
+        $recepcionista = Recepcionista::findOrFail($id);
+        $user = $recepcionista->user;
         $recepcionista->delete();
 
         $bitacora = new Bitacora();
@@ -125,6 +163,9 @@ class RecepcionistaController extends Controller
         $bitacora->user_id =auth()->id();
         $bitacora->save();
         
-        return redirect('/recepcionistas');
+        $user->delete();
+
+        return redirect()->route('admin.recepcionistas.index')->with('success', 'Recepcionista eliminado exitosamente');
+
     }
 }

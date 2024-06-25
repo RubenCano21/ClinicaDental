@@ -99,9 +99,9 @@
                   ODONTOPEDIATRIA
                 </h4>
                 <p>
-                  Nuestro consultorio está diseñado para ser acogedor y agradable para los niños. 
-                  Contamos con una sala de espera equipada con juguetes y libros para mantener a los pequeños 
-                  entretenidos y relajados antes de su cita. Además, nuestro personal está entrenado para manejar 
+                  Nuestro consultorio está diseñado para ser acogedor y agradable para los niños.
+                  Contamos con una sala de espera equipada con juguetes y libros para mantener a los pequeños
+                  entretenidos y relajados antes de su cita. Además, nuestro personal está entrenado para manejar
                   a los niños con paciencia y cariño, asegurando que cada visita sea una experiencia positiva.
                 </p>
                 <!--a href=""> Read More </a -->
@@ -116,9 +116,9 @@
                   ESTETICA
                 </h4>
                 <p>
-                  Cada paciente es único, por lo que en nuestra clínica adoptamos un enfoque personalizado para la estética dental.
-                  Evaluamos cuidadosamente las necesidades individuales y diseñamos un plan de tratamiento que se ajuste a las 
-                  expectativas y objetivos de cada paciente. Nuestro equipo de dentistas estéticos tiene una gran experiencia y 
+                  Cada horario es único, por lo que en nuestra clínica adoptamos un enfoque personalizado para la estética dental.
+                  Evaluamos cuidadosamente las necesidades individuales y diseñamos un plan de tratamiento que se ajuste a las
+                  expectativas y objetivos de cada horario. Nuestro equipo de dentistas estéticos tiene una gran experiencia y
                   habilidad para lograr resultados que realcen tu belleza natural.
                 </p>
                 <!--a href=""> Read More </a -->
@@ -135,7 +135,7 @@
                   ORTODONCIA
                 </h4>
                 <p>
-                  Utilizamos tecnología de vanguardia en todos nuestros tratamientos de ortodoncia, 
+                  Utilizamos tecnología de vanguardia en todos nuestros tratamientos de ortodoncia,
                   incluyendo escáneres digitales para crear modelos precisos de tus dientes y software
                    avanzado para planificar y monitorizar el progreso de tu tratamiento. Esto nos permite
                     ofrecer tratamientos más cómodos, eficaces y personalizados.
@@ -153,7 +153,7 @@
                 </h4>
                 <p>
                   Sabemos que los tratamientos endodónticos pueden generar ansiedad, por eso hemos creado un ambiente
-                  relajante en nuestra clínica. Nuestro personal está entrenado para manejar tus preocupaciones y 
+                  relajante en nuestra clínica. Nuestro personal está entrenado para manejar tus preocupaciones y
                   asegurar que tu experiencia sea lo más cómoda y libre de estrés posible.
                 </p>
                 <!--a href="">Read More</a -->

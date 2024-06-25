@@ -3,6 +3,16 @@
   * Copyright 2011-2019 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
+
+// Importar jQuery y asignarlo a las variables globales $ y jQuery
+window.$ = window.jQuery = require('jquery');
+
+// Importar OverlayScrollbars, Bootstrap y AdminLTE
+require('overlayscrollbars');
+require('bootstrap');
+require('../../vendor/almasaeed2010/adminlte/dist/js/adminlte');
+
+
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery'), require('popper.js')) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :

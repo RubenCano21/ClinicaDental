@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\odontograma;
+use App\Models\Odontograma;
 use Illuminate\Http\Request;
 
 class OdontogramaController extends Controller
@@ -38,7 +38,7 @@ class OdontogramaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(odontograma $odontograma)
+    public function show(Odontograma $odontograma)
     {
         //
     }
@@ -46,7 +46,7 @@ class OdontogramaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(odontograma $odontograma)
+    public function edit(Odontograma $odontograma)
     {
         //
     }
@@ -54,7 +54,7 @@ class OdontogramaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, odontograma $odontograma)
+    public function update(Request $request, Odontograma $odontograma)
     {
         //
     }
@@ -62,7 +62,7 @@ class OdontogramaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(odontograma $odontograma)
+    public function destroy(Odontograma $odontograma)
     {
         //
     }

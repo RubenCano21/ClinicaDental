@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Hash;
 use Illuminate\Http\Request;
 use App\Models\Paciente;
 use App\Models\bitacora;
+use Illuminate\Support\Facades\Hash;
 
 class PacienteController extends Controller
 {
@@ -50,7 +50,7 @@ class PacienteController extends Controller
         $usuario = new User();
         $usuario->name = $request->nombre;
         $usuario->email = $request->email;
-        $usuario->password = $request->ci;
+        $usuario->password = Hash::make($request->password);
         $usuario->save();
 
         $paciente = new Paciente();
@@ -80,7 +80,7 @@ class PacienteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         $paciente = Paciente::with('user')->findOrFail($id);
         return view("admin.pacientes.show", compact('paciente'));
@@ -100,15 +100,36 @@ class PacienteController extends Controller
     public function update(Request $request, $id)
     {
         $paciente = Paciente::find($id);
+        $request->validate([
+            'ci'=>'required|unique:pacientes',
+            'nombre'=>'required|max:250',
+            'apellido'=>'required|max:250',
+            'email' => 'required|unique:users,email,'.$paciente->id_user,
+            'sexo'=>'required|max:20',
+            'telefono'=>'required',
+            'fechaNacimiento'=>'required',
+            'direccion'=>'required',
+            'password'=>'required|confirmed'
+        ]);
 
-        $paciente->ci = $request->get('ci');
-        $paciente->nombre = $request->get('nombre');
-        $paciente->apellido = $request->get('apellido');
-        $paciente->email = $request->get('email');
-        $paciente->sexo = $request->get('sexo');
-        $paciente->telefono = $request->get('telefono');
-        $paciente->fechaNacimiento = $request->get('fechaNacimiento');
-        $paciente->direccion = $request->get('direccion');
+        // Actualizar datos del usuario
+        $usuario = $paciente->user;
+        $usuario->name = $request->nombre;
+        $usuario->email = $request->email;
+        if ($request->filled('password')) {
+            $usuario->password = Hash::make($request->password);
+        }
+        $usuario->save();
+
+
+        $paciente->ci = $request->ci;
+        $paciente->nombre = $request->nombre;
+        $paciente->apellido = $request->apellido;
+        $paciente->email = $request->email;
+        $paciente->sexo = $request->sexo;
+        $paciente->telefono = $request->telefono;
+        $paciente->fechaNacimiento = $request->fechaNacimiento;
+        $paciente->direccion = $request->direccion;
 
         $bitacora = new Bitacora();
         $bitacora->accion = 'Actualizacion de paciente';
@@ -121,24 +142,23 @@ class PacienteController extends Controller
         return redirect()->route('admin.pacientes.index');
     }
 
+    public function confirmDelete($id)
+    {
+        $paciente = Paciente::with('user')->findOrFail($id);
+        return view('admin.pacientes.delete', compact('paciente'));
+    }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy( $id)
     {
-        $paciente = Paciente::find($id);
+        $paciente = Paciente::findOrFail($id);
         $paciente->delete();
 
         $user = $paciente->user;
         $user->delete();
 
-        $bitacora = new Bitacora();
-        $bitacora->accion = 'Eliminacion de paciente';
-        $bitacora->fecha_hora = now();
-        $bitacora->fecha = now()->format('Y-m-d');
-        $bitacora->user_id =auth()->id();
-        $bitacora->save();
-
-        return redirect()->route('admin.pacientes.index');
+        return redirect()->route('admin.pacientes.index')->with('success', 'Paciente eliminado exitosamente');
     }
 }

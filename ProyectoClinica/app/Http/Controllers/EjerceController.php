@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ejerce;
+use App\Models\Ejerce;
 use Illuminate\Http\Request;
 
 class EjerceController extends Controller
@@ -34,7 +34,7 @@ class EjerceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ejerce $ejerce)
+    public function show(Ejerce $ejerce)
     {
         //
     }
@@ -42,7 +42,7 @@ class EjerceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ejerce $ejerce)
+    public function edit(Ejerce $ejerce)
     {
         //
     }
@@ -50,7 +50,7 @@ class EjerceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ejerce $ejerce)
+    public function update(Request $request, Ejerce $ejerce)
     {
         //
     }
@@ -58,7 +58,7 @@ class EjerceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ejerce $ejerce)
+    public function destroy(Ejerce $ejerce)
     {
         //
     }

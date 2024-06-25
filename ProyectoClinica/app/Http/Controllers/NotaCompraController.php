@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\nota_compra;
+use App\Models\Nota_compra;
 use Illuminate\Http\Request;
 
 class NotaCompraController extends Controller
@@ -34,7 +34,7 @@ class NotaCompraController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(nota_compra $nota_compra)
+    public function show(Nota_compra $nota_compra)
     {
         //
     }
@@ -42,7 +42,7 @@ class NotaCompraController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(nota_compra $nota_compra)
+    public function edit(Nota_compra $nota_compra)
     {
         //
     }
@@ -50,7 +50,7 @@ class NotaCompraController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, nota_compra $nota_compra)
+    public function update(Request $request, Nota_compra $nota_compra)
     {
         //
     }
@@ -58,7 +58,7 @@ class NotaCompraController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(nota_compra $nota_compra)
+    public function destroy(Nota_compra $nota_compra)
     {
         //
     }

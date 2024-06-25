@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tipo_pieza;
+use App\Models\Tipo_pieza;
 use Illuminate\Http\Request;
 
 class TipoPiezaController extends Controller
@@ -34,7 +34,7 @@ class TipoPiezaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(tipo_pieza $tipo_pieza)
+    public function show(Tipo_pieza $tipo_pieza)
     {
         //
     }
@@ -42,7 +42,7 @@ class TipoPiezaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(tipo_pieza $tipo_pieza)
+    public function edit(Tipo_pieza $tipo_pieza)
     {
         //
     }
@@ -50,7 +50,7 @@ class TipoPiezaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, tipo_pieza $tipo_pieza)
+    public function update(Request $request, Tipo_pieza $tipo_pieza)
     {
         //
     }
@@ -58,7 +58,7 @@ class TipoPiezaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(tipo_pieza $tipo_pieza)
+    public function destroy(Tipo_pieza $tipo_pieza)
     {
         //
     }

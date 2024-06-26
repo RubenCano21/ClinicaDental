@@ -477,9 +477,9 @@ return [
             'url' => '/facturas',
         ],
         [
-            'text' => 'ATENDIDAS',
+            'text' => 'PayPal',
             'icon_color' => 'cyan',
-            'url' => '#',
+            'route' => 'paypal.payment',
         ],
     ],
 

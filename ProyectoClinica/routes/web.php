@@ -150,16 +150,26 @@ Route::controller(CursoController::class)->group(function(){
 });
 
 // Rutas para paypal
-Route::get('/paypal/checkout', [PayPalController::class, 'createTransaction'])->name('createTransaction');
-Route::get('/paypal/success', [PayPalController::class, 'successTransaction'])->name('successTransaction');
-Route::get('/paypal/cancel', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
-Route::get('/paypal/index', [PayPalController::class, 'index'])->name('index');
-
+Route::get('paypal/payment', [PayPalController::class, 'showPaymentForm'])->name('paypal.payment');
+Route::post('/paypal/create-payment', [PayPalController::class, 'createPayment'])->name('paypal.create');
+Route::get('/paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+Route::get('/paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
+Route::get('/paypal/create-transaction', [PayPalController::class, 'createTransaction'])->name('paypal.createTransaction');
+Route::get('/paypal/success-transaction', [PayPalController::class, 'successTransaction'])->name('paypal.successTransaction');
+Route::get('/paypal/cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('paypal.cancelTransaction');
 
 //Facturacion
 
-Route::get('/facturas', [FacturaController::class, 'index'])->name('facturas.index');
+Route::get('facturas', [FacturaController::class, 'index'])->name('facturas.index');
 Route::get('/facturas/{id}', [FacturaController::class, 'show'])->name('facturas.show');
+Route::get('/facturas', [FacturaController::class, 'showInvoice'])->name('facturas.show');
+Route::get('/facturas/download', [FacturaController::class, 'downloadInvoice'])->name('facturas.download');
+Route::view('download', 'facturas.download')->name('download');
+
+//ruta para imprimir
+//Route::get('invoice', [InvoiceController::class, 'showInvoice'])->name('invoice.show');
+//Route::get('invoice/download', [InvoiceController::class, 'downloadInvoice'])->name('invoice.download');
+
 
 // Route::get('cursos/{variable}', function($variable) {
 //     return "Bienvenido al curso: $variable";

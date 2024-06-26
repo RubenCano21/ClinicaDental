@@ -25,7 +25,7 @@
                             <th>Nro</th>
                             <th>Nombre</th>
                             <th>Precio</th>
-                            <th>Duración</th>
+                            <th>Sesiones</th>
                             <th >Acciones</th>
                         </tr>
                         </thead>
@@ -38,7 +38,6 @@
                                 <td style="text-align: center">{{$servicio->precio}} Bs.</td>
                                 <td style="text-align: center;">{{$servicio->duracion}}</td>
                                 <td style="text-align: center">
-                                    <a href="{{ route('admin.servicios.show', $servicio) }}" class="btn btn-info">Ver</a>
                                     <a href="{{ route('admin.servicios.edit', $servicio) }}" class="btn btn-primary">Editar</a>
                                     <form action="{{ route('admin.servicios.destroy', $servicio) }}" method="POST" style="display: inline;">
                                         @csrf
@@ -50,7 +49,10 @@
                         @endforeach
                         </Tbody>
                     </table>
+                    <hr>
+                    <p><b>Nota: </b> Una sesion tiene una duracion de una hora aproximadamente</p>
                 </div>
+
             </div>
         </div>
     </div>

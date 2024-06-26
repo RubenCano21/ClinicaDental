@@ -16,7 +16,7 @@ class BitacoraController extends Controller
      */
     public function index()
     {
-        $bitacoras = bitacora::with('user')->get();
+        $bitacoras = Bitacora::with('user')->get();
         return view('admin.bitacora.index', compact('bitacoras'));
     }
 
@@ -25,7 +25,7 @@ class BitacoraController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**

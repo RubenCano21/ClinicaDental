@@ -13,49 +13,56 @@ class ServicioSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('servicios')->insert([
+        /*DB::table('servicios')->insert([
             [
                 'nombre' => 'Consulta ',
                 'precio' => 15.00,
+                'duracion' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'nombre' => 'Limpieza Dental',
                 'precio' => 50.00,
+                'duracion' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'nombre' => 'Extracción Dental',
                 'precio' => 100.00,
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'nombre' => 'Ortodoncia',
                 'precio' => 150.00,
+                'duracion' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'nombre' => 'Endodoncia',
                 'precio' => 150.00,
+                'duracion' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'nombre' => 'Cirugia',
                 'precio' => 150.00,
+                'duracion' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'nombre' => 'Estetica Dental',
                 'precio' => 150.00,
+                'duracion' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ]);
+        ]);*/
     }
 }

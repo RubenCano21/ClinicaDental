@@ -34,21 +34,18 @@
 
                         <div class="col-sm-4 invoice-col">
                             <address>
-                                @foreach($facturas as $factura)
-                                    <strong>Cliente: {{$factura->paciente->nombre}}</strong><br>
-                                    795 Folsom Ave, Suite 600<br>
-                                    San Francisco, CA 94107<br>
-                                    Teléfono: (555) 539-1037<br>
-                                    Correo electrónico: john.doe@example.com<br><br>
-                                @endforeach
+                                <strong>Cliente: John Doe</strong><br>
+                                795 Folsom Ave, Suite 600<br>
+                                San Francisco, CA 94107<br>
+                                Teléfono: (555) 539-1037<br>
+                                Correo electrónico: john.doe@example.com
                             </address>
                         </div>
 
-
                         <div class="col-sm-4 invoice-col">
-                            @foreach($facturas as $factura)
-                                <b>Factura #{{$facturas->numero}}</b><br>
-                            @endforeach
+
+                                <b>Factura #546345</b><br>
+
                             <br>
                             <b>ID de pedido:</b> 4F3S8J<br>
                             <b>Vencimiento del pago:</b> 22/02/2014<br>
@@ -111,11 +108,12 @@
                             <a href="#" type="button">
                                 <img src="{{ asset('img/credit/mastercard.png') }}" alt="Tarjeta MasterCard">
                             </a>
-                            <a href="{{ url('/paypal/index') }}" type="button">
+                            <a href="{{ route('paypal.create') }}" type="button">
                                 <img src="{{ asset('img/credit/paypal2.png') }}" alt="PayPal">
                             </a>
                             <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                               Nota
+                                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr
+                                jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
                             </p>
                         </div>
 
@@ -148,9 +146,9 @@
 
                     <div class="row no-print">
                         <div class="col-12">
-                            <a href="{{ url('invoice-print.html') }}" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Imprimir</a>
+                            <a href="#" onclick="window.print()" class="btn btn-default"><i class="fas fa-print"></i> Imprimir</a>
+                            <a href="{{ route('facturas.download') }}" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="fas fa-download"></i> Generar PDF</a>
                             <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Enviar pago</button>
-                            <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="fas fa-download"></i> Generar PDF</button>
                         </div>
                     </div>
                 </div>

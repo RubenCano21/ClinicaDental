@@ -15,12 +15,13 @@ class Factura extends Model
         'nit',
         'detalle',
         'monto',
-        'fecha'
+        'fecha',
+        'paciente_id'
         // otros campos relevantes
     ];
 
-    public function pacientes()
+    public function paciente()
     {
-        return $this->belongsToMany(Paciente::class);
+        return $this->belongsTo(Paciente::class,'paciente_id');
     }
 }

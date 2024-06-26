@@ -1,56 +1,87 @@
 @extends('adminlte::page')
 
+@section('title', 'Registrar-Pagos')
+
 @section('content')
     <div class="container">
         <h1>{{ isset($pago) ? 'Editar Pago' : 'Registrar Pago' }}</h1>
-        <form action="{{ isset($pago) ? route('pagos.update', $pago->id) : route('pagos.store') }}" method="POST">
-            @csrf
-            @if(isset($pago))
-                @method('PUT')
-            @endif
-            <div class="form-group">
-                <label for="amount">Monto</label>
-                <input type="number" name="amount" class="form-control" value="{{ old('amount', $pago->amount ?? '') }}" required>
-            </div>
-            <div class="form-group">
-                <label for="payment_methods">Métodos de Pago</label>
-                <div id="payment_methods_container">
-                    @if(old('payment_methods') || isset($pago))
-                        @foreach(old('payment_methods', $pago->payment_methods ?? []) as $index => $method)
-                            <div class="payment_method">
-                                <select name="payment_methods[{{ $index }}][method]" class="form-control">
-                                    <option value="efectivo" {{ $method['method'] == 'efectivo' ? 'selected' : '' }}>Efectivo</option>
-                                    <option value="tarjeta" {{ $method['method'] == 'tarjeta' ? 'selected' : '' }}>Tarjeta</option>
-                                </select>
-                                <input type="text" name="payment_methods[{{ $index }}][details][number]" class="form-control" placeholder="Número de Tarjeta" value="{{ $method['details']['number'] ?? '' }}">
-                                <input type="text" name="payment_methods[{{ $index }}][details][name]" class="form-control" placeholder="Nombre en Tarjeta" value="{{ $method['details']['name'] ?? '' }}">
-                                <button type="button" class="btn btn-danger remove_payment_method">Eliminar</button>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title"> Llene los datos</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ isset($pago) ? route('pagos.update', $pago->id) : route('pagos.store') }}" method="POST">
+                            @csrf
+                            @if(isset($pago))
+                                @method('PUT')
+                            @endif
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label for="amount">Monto</label>
+                                        <input type="number" name="amount" class="form-control" value="{{ old('amount', $pago->amount ?? '') }}" required>
+                                    </div>
+                                </div>
                             </div>
-                        @endforeach
-                    @else
-                        <div class="payment_method">
-                            <select name="payment_methods[0][method]" class="form-control">
-                                <option value="efectivo">Efectivo</option>
-                                <option value="tarjeta">Tarjeta</option>
-                            </select>
-                            <input type="text" name="payment_methods[0][details][number]" class="form-control" placeholder="Número de Tarjeta">
-                            <input type="text" name="payment_methods[0][details][name]" class="form-control" placeholder="Nombre en Tarjeta">
-                            <button type="button" class="btn btn-danger remove_payment_method">Eliminar</button>
-                        </div>
-                    @endif
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label for="payment_methods">Métodos de Pago</label>
+                                        <div id="payment_methods_container">
+                                            @if(old('payment_methods') || isset($pago))
+                                                @foreach(old('payment_methods', $pago->payment_methods ?? []) as $index => $method)
+                                                    <div class="payment_method">
+                                                        <select name="payment_methods[{{ $index }}][method]" class="form-control">
+                                                            <option value="efectivo" {{ $method['method'] == 'efectivo' ? 'selected' : '' }}>Efectivo</option>
+                                                            <option value="paypal" {{ $method['method'] == 'paypal' ? 'selected' : '' }}>Paypal</option>
+                                                        </select>
+                                                    </div>
+                                                    <br>
+                                                    <div class="payment_method">
+                                                        <input type="text" name="payment_methods[{{ $index }}][details][number]" class="form-control" placeholder="Número de Tarjeta" value="{{ $method['details']['number'] ?? '' }}">
+                                                        <input type="text" name="payment_methods[{{ $index }}][details][name]" class="form-control" placeholder="Nombre en Tarjeta" value="{{ $method['details']['name'] ?? '' }}">
+                                                        <button type="button" class="btn btn-danger remove_payment_method">Eliminar</button>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                <div class="payment_method">
+                                                    <select name="payment_methods[0][method]" class="form-control">
+                                                        <option value="efectivo">Efectivo</option>
+                                                        <option value="paypal">Paypal</option>
+                                                    </select>
+                                                </div>
+                                            <br>
+                                                <div class="payment_method">
+                                                    <input type="text" name="payment_methods[0][details][number]" class="form-control" placeholder="Número de Tarjeta"><br>
+                                                    <input type="text" name="payment_methods[0][details][name]" class="form-control" placeholder="Nombre en Tarjeta"><br>
+                                                    <button type="button" class="btn btn-danger remove_payment_method">Eliminar</button>
+                                                </div>
+                                                <br>
+                                            @endif
+                                        </div>
+                                        <button type="button" class="btn btn-primary" id="add_payment_method">Agregar Método de Pago</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="payment_date">Fecha de Pago</label>
+                                <input type="date" name="payment_date" class="form-control" value="{{ old('payment_date', $pago->payment_date ?? '') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Estado</label>
+                                <input type="text" name="status" class="form-control" value="{{ old('status', $pago->status ?? '') }}" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">{{ isset($pago) ? 'Actualizar' : 'Guardar' }}</button>
+                        </form>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-primary" id="add_payment_method">Agregar Método de Pago</button>
             </div>
-            <div class="form-group">
-                <label for="payment_date">Fecha de Pago</label>
-                <input type="date" name="payment_date" class="form-control" value="{{ old('payment_date', $pago->payment_date ?? '') }}" required>
-            </div>
-            <div class="form-group">
-                <label for="status">Estado</label>
-                <input type="text" name="status" class="form-control" value="{{ old('status', $pago->status ?? '') }}" required>
-            </div>
-            <button type="submit" class="btn btn-primary">{{ isset($pago) ? 'Actualizar' : 'Guardar' }}</button>
-        </form>
+        </div>
+
     </div>
 @endsection
 

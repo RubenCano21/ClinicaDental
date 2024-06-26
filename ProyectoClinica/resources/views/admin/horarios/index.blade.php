@@ -13,7 +13,8 @@
                 <div class="card-header">
                     <h3 class="card-title">Horarios Registrados</h3>
                     <div class="card-tools">
-                        <a href="{{url('admin/horarios/create')}}" class="btn btn-primary rounded-pill">
+                        <a href="{{url('admin/horarios/create')}}"
+                           class="btn btn-primary rounded-pill">
                             Registrar Horario
                         </a>
                     </div>

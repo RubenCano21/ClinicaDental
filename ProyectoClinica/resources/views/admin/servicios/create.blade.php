@@ -31,8 +31,8 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="duracion">Duracion</label>
-                                    <input type="time" name="duracion" class="form-control rounded-pill">
+                                    <label for="duracion">Sesiones</label>
+                                    <input type="number" name="duracion" class="form-control rounded-pill">
                                 </div>
                             </div>
                         </div>

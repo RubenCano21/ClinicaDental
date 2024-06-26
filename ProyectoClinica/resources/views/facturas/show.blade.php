@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Fatura')
 
 @section('content_header')
     <title>Factura - {{ $invoice->id }}</title>

@@ -97,7 +97,7 @@
               Dr. Carlos Rojas, quien buscaba establecer su propio espacio de trabajo. Con el tiempo,
               este sueño tomó forma y creció, a medida que sus hijos se graduaban en sus respectivas profesiones y
               se unían al equipo en sus áreas especializadas. Recientemente, hemos sumado a nuestro
-              equipo a una recepcionista, quien se ha integrado para ofrecer un servicio aún más completo.
+              equipo a una odontologo, quien se ha integrado para ofrecer un servicio aún más completo.
 
             </p>
             <a href="">

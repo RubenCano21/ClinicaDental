@@ -55,6 +55,7 @@ class OdontologoController extends Controller
         $usuario->name = $request->nombre;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request->password);
+        $usuario->assignRole("Odontologo");
         $usuario->save();
 
         // Crear un nuevo odontólogo

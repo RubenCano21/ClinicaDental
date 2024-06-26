@@ -32,28 +32,28 @@
                 </thead>
                 <Tbody>
                 <?php $contador = 1; ?>
-                @foreach ($odontologos as $recepcionista)
+                @foreach ($odontologos as $odontologo)
                     <tr>
                         <td style="text-align: center">{{$contador++}}</td>
-                        <td>{{$recepcionista->ci}}</td>
-                        <td>{{$recepcionista->nombre}}</td>
-                        <td>{{$recepcionista->apellido}}</td>
-                        <td>{{$recepcionista->sexo}}</td>
-                        <td>{{$recepcionista->telefono}}</td>
-                        <td>{{$recepcionista->matricula}}</td>
-                        <td>{{$recepcionista->user->email}}</td>
+                        <td>{{$odontologo->ci}}</td>
+                        <td>{{$odontologo->nombre}}</td>
+                        <td>{{$odontologo->apellido}}</td>
+                        <td>{{$odontologo->sexo}}</td>
+                        <td>{{$odontologo->telefono}}</td>
+                        <td>{{$odontologo->matricula}}</td>
+                        <td>{{$odontologo->user->email}}</td>
                         <td>
-                            @foreach ($recepcionista->especialidades as $especialidad)
+                            @foreach ($odontologo->especialidades as $especialidad)
                                 {{ $especialidad->nombre }}@if (!$loop->last)
                                     ,
                                 @endif
                             @endforeach
                         </td>
                         <td>
-                            <a href="{{ route('admin.odontologos.show', $recepcionista) }}" class="btn btn-info ">Ver</a>
+                            <a href="{{ route('admin.odontologos.show', $odontologo) }}" class="btn btn-info ">Ver</a>
                             <a class="btn btn-primary "
-                               href="{{ route('admin.odontologos.edit', $recepcionista) }}">Editar</a>
-                            <a href="{{url('admin/odontologos/'.$recepcionista->id.'/confirm-delete')}}" type="button"
+                               href="{{ route('admin.odontologos.edit', $odontologo) }}">Editar</a>
+                            <a href="{{url('admin/odontologos/'.$odontologo->id.'/confirm-delete')}}" type="button"
                                class="btn btn-danger">Eliminar</a>
                         </td>
                     </tr>

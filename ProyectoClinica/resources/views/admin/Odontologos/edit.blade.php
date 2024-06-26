@@ -97,7 +97,7 @@
                                     <label for="especialidad">Especialidad</label>
                                     <select class="form-control" id="especialidad" name="especialidades[]" multiple>
                                         @foreach ($especialidades as $especialidad)
-                                            <option value="{{ $especialidad->id }}" {{ $recepcionista->especialidades->contains($especialidad->id) ? 'selected' : '' }}>{{ $especialidad->nombre }}</option>
+                                            <option value="{{ $especialidad->id }}" {{ $odontologo->especialidades->contains($especialidad->id) ? 'selected' : '' }}>{{ $especialidad->nombre }}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -55,6 +55,7 @@ class RecepcionistaController extends Controller
         $usuario->name = $request->nombre;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request->password);
+        $usuario->assignRole("Recepcionista");
         $usuario->save();
 
         $recepcionista = new Recepcionista();

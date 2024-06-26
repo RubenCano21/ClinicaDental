@@ -14,4 +14,16 @@ class Servicio extends Model
         'precio',
         'duracion'
     ];
+
+    public function citas(){
+        return $this->hasMany(Cita::class);
+    }
+
+    public function pacientes(){
+        return $this->belongsToMany(Paciente::class);
+    }
+
+    public function reservas(){
+        return $this->hasMany(Reserva::class);
+    }
 }

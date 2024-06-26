@@ -27,7 +27,7 @@
                         <th scope="col" style="text-align: center">Nombres</th>
                         <th scope="col" style="text-align: center">Apellidos</th>
                         <th scope="col" style="text-align: center">Sexo</th>
-                        <th scope="col" style="text-align: center">Celular</th>
+                        <th scope="col" style="text-align: center">Telefono</th>
                         <th scope="col" style="text-align: center">Fecha de Nacimiento</th>
                         <th scope="col" style="text-align: center">Direccion</th>
                         <th scope="col" style="text-align: center">Email</th>
@@ -36,22 +36,22 @@
                     </thead>
                     <tbody>
                     <?php $contador = 1; ?>
-                    @foreach($pacientes as $horario)
+                    @foreach($pacientes as $paciente)
                         <tr>
                             <td style="text-align: center">{{$contador++}}</td>
-                            <td>{{$horario->ci}}</td>
-                            <td>{{$horario->nombre}}</td>
-                            <td>{{$horario->apellido}}</td>
-                            <td>{{$horario->sexo}}</td>
-                            <td>{{$horario->celular}}</td>
-                            <td>{{$horario->fechaNacimiento}}</td>
-                            <td>{{$horario->direccion}}</td>
-                            <td>{{$horario->user->email}}</td>
+                            <td>{{$paciente->ci}}</td>
+                            <td>{{$paciente->nombre}}</td>
+                            <td>{{$paciente->apellido}}</td>
+                            <td>{{$paciente->sexo}}</td>
+                            <td>{{$paciente->telefono}}</td>
+                            <td>{{$paciente->fechaNacimiento}}</td>
+                            <td>{{$paciente->direccion}}</td>
+                            <td>{{$paciente->user->email}}</td>
                             <td style="text-align: center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="{{url('admin/pacientes/'.$horario->id)}}" type="button" class="btn btn-info btn-sm">Ver</a>
-                                    <a href="{{url('admin/pacientes/'.$horario->id.'/edit')}}" type="button" class="btn btn-success btn-sm">Editar</a>
-                                    <a href="{{url('admin/pacientes/'.$horario->id.'/confirm-delete')}}"
+                                    <a href="{{url('admin/pacientes/'.$paciente->id)}}" type="button" class="btn btn-info btn-sm">Ver</a>
+                                    <a href="{{url('admin/pacientes/'.$paciente->id.'/edit')}}" type="button" class="btn btn-success btn-sm">Editar</a>
+                                    <a href="{{url('admin/pacientes/'.$paciente->id.'/confirm-delete')}}"
                                        type="button" class="btn btn-danger btn-sm">Eliminar</a>
                                 </div>
                             </td>

@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row">
-        <h1>Modificar Recepcionista: {{$recepcionista->nombre}}</h1>
+        <h1>Modificar Recepcionista: {{$odontologo->nombre}}</h1>
     </div>
     <hr>
     <div class="row">
@@ -14,14 +14,14 @@
                     <h3 class="card-title">Llene los datos</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{url('/admin/recepcionistas', $recepcionista->id)}}" method="POST">
+                    <form action="{{url('/admin/recepcionistas', $odontologo->id)}}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">CI</label><b>*</b>
-                                    <input type="text" value="{{$recepcionista->ci}}" name="ci" class="form-control rounded-pill" required>
+                                    <input type="text" value="{{$odontologo->ci}}" name="ci" class="form-control rounded-pill" required>
                                     @error('ci')
                                     <small style="color: red">{{$message}}</small>
                                     @enderror
@@ -30,7 +30,7 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Nombres</label><b>*</b>
-                                    <input type="text" value="{{$recepcionista->nombre}}" name="nombre"
+                                    <input type="text" value="{{$odontologo->nombre}}" name="nombre"
                                            class="form-control rounded-pill" required>
                                     @error('nombre')
                                     <small style="color: red">{{$message}}</small>
@@ -40,7 +40,7 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Apellidos</label><b>*</b>
-                                    <input type="text" value="{{$recepcionista->apellido}}" name="apellido"
+                                    <input type="text" value="{{$odontologo->apellido}}" name="apellido"
                                            class="form-control rounded-pill" required>
                                     @error('apellido')
                                     <small style="color: red">{{$message}}</small>
@@ -50,7 +50,7 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Email</label><b>*</b>
-                                    <input type="email" value="{{$recepcionista->user->email}}" name="email"
+                                    <input type="email" value="{{$odontologo->user->email}}" name="email"
                                            class="form-control rounded-pill" required>
                                     @error('email')
                                     <small style="color: red">{{$message}}</small>
@@ -75,7 +75,7 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Telefono</label><b>*</b>
-                                    <input type="number" value="{{$recepcionista->telefono}}" name="telefono"
+                                    <input type="number" value="{{$odontologo->telefono}}" name="telefono"
                                            class="form-control rounded-pill" required>
                                     @error('telefono')
                                     <small style="color: red">{{$message}}</small>
@@ -85,7 +85,7 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Turno</label><b>*</b>
-                                    <input type="text" value="{{$recepcionista->turno}}" name="turno"
+                                    <input type="text" value="{{$odontologo->turno}}" name="turno"
                                            class="form-control rounded-pill" required>
                                     @error('turno')
                                     <small style="color: red">{{$message}}</small>
@@ -95,7 +95,7 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="">Sueldo</label><b>*</b>
-                                    <input type="text" value="{{$recepcionista->sueldo}}" name="sueldo"
+                                    <input type="text" value="{{$odontologo->sueldo}}" name="sueldo"
                                            class="form-control rounded-pill" required>
                                     @error('sueldo')
                                     <small style="color: red">{{$message}}</small>

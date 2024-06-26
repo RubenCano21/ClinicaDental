@@ -27,8 +27,8 @@
                                     <div class="form group">
                                         <label for="">Odontologo</label><b>*</b>
                                         <select name="odontologo_id" id="" class="form-control rounded-pill">
-                                            @foreach($odontologos as $recepcionista)
-                                                <option value="{{$recepcionista->id}}">{{$recepcionista->nombre." ".$recepcionista->apellido}}</option>
+                                            @foreach($odontologos as $odontologo)
+                                                <option value="{{$odontologo->id}}">{{$odontologo->nombre." ".$odontologo->apellido}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -43,7 +43,6 @@
                                             <option value="JUEVES">JUEVES</option>
                                             <option value="VIERNES">VIERNES</option>
                                             <option value="SABADO">SABADO</option>
-                                            <option value="DOMINGO">DOMINGO</option>
                                         </select>
                                     </div>
                                 </div>
@@ -59,7 +58,7 @@
                                 <div class="col-md-3">
                                     <div class="form group">
                                         <label for="">Hora Final</label><b>*</b>
-                                        <input type="time" value="{{old('horaFin')}}" name="horaFin" class="form-control rounded-pill" required>
+                                        <input type="time" min="08:00" max="18:00" value="{{old('horaFin')}}" name="horaFin" class="form-control rounded-pill" required>
                                         @error('horaFin')
                                         <small style="color: red">{{$message}}</small>
                                         @enderror

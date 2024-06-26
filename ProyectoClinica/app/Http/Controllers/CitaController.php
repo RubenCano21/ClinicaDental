@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cita;
+use App\Models\Odontologo;
+use App\Models\Paciente;
+use App\Models\Reserva;
+use App\Models\Servicio;
 use Illuminate\Http\Request;
 
 class CitaController extends Controller
@@ -12,7 +16,8 @@ class CitaController extends Controller
      */
     public function index()
     {
-        return view('admin.citas.index');
+        $citas = Cita::with('odontologo', 'servicio','reserva')->get();
+        return view('admin.citas.index', compact('citas'));
     }
 
     /**
@@ -20,7 +25,11 @@ class CitaController extends Controller
      */
     public function create()
     {
-        //
+        //$pacientes = Paciente::all();
+        $odontologos = Odontologo::all();
+        $servicios = Servicio::all();
+        $reservas = Reserva::all();
+        return view('admin.citas.create', compact( 'odontologos', 'servicios','reservas'));
     }
 
     /**
@@ -28,7 +37,17 @@ class CitaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'odontologo_id' => 'required|exists:odontologos,id',
+            'servicio_id' => 'required|exists:servicios,id',
+            'reserva_id' => 'required|exists:reservas,id',
+            'fecha' => 'required|date',
+            'hora' => 'required',
+        ]);
+
+        Cita::create(request()->all());
+        
+        return redirect()->route('admin.citas.index')->with('success', 'Cita creada correctamente');
     }
 
     /**

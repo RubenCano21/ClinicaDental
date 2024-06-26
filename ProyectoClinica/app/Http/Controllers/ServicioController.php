@@ -28,9 +28,11 @@ class ServicioController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   $servicio = new Servicio();
+    {
+        $servicio = new Servicio();
         $servicio->nombre = $request->nombre;
         $servicio->precio = $request->precio;
+        $servicio->duracion = $request->duracion;
 
         $servicio->save();
 
@@ -57,7 +59,7 @@ class ServicioController extends Controller
      */
     public function edit(Servicio $servicio)
     {
-       
+
         return view('admin.servicios.edit', compact('servicio'));
     }
 

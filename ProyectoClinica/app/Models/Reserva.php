@@ -18,11 +18,15 @@ class Reserva extends Model
     ];
     public function user()
     {
-        return $this->belongsTo(Odontologo::class, 'id_user', 'id');
+        return $this->belongsTo(User::class, foreignKey: 'id_user');
     }
-    public function servicio()
+    public function servicios()
     {
         return $this->belongsTo(Servicio::class, 'id_servicio');
+    }
+
+    public function citas(){
+        return $this->belongsTo(Cita::class, 'id_cita');
     }
 }
 

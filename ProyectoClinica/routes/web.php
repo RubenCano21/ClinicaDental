@@ -22,6 +22,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\OdontogramaController;
+use App\Http\Controllers\pruebacontroller;
+
+Route::get('/prueba', [pruebaController::class, 'index']);
 
 Route::get('/', function(){
     return view('index');
@@ -67,6 +70,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('pacientes', [PacienteController::class, 'index'])->name('admin.pacientes.index');
     Route::get('pacientes/create', [PacienteController::class, 'create'])->name('admin.pacientes.create');
     Route::post('pacientes/create', [PacienteController::class, 'store'])->name('admin.pacientes.store');
+    Route::get('pacientes/buscar_paciente', [PacienteController::class, 'buscar'])->name('admin.pacientes.buscar_paciente');
     Route::get('pacientes/{id}', [PacienteController::class, 'show'])->name('admin.pacientes.show');
     Route::get('pacientes/{id}/edit', [PacienteController::class, 'edit'])->name('admin.pacientes.edit');
     Route::put('pacientes/{id}', [PacienteController::class, 'update'])->name('admin.pacientes.update');
@@ -124,6 +128,18 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('horarios/{id}', [HorarioController::class, 'destroy'])->name('admin.horarios.destroy');
 });
 
+//admin- citas
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('citas', [CitaController::class, 'index'])->name('admin.citas.index');
+    Route::get('citas/create', [CitaController::class, 'create'])->name('admin.citas.create');
+    Route::post('citas/create', [CitaController::class, 'store'])->name('admin.citas.store');
+    Route::get('citas/{id}', [CitaController::class, 'show'])->name('admin.citas.show');
+    Route::get('citas/{id}/edit', [CitaController::class, 'edit'])->name('admin.citas.edit');
+    Route::put('citas/{id}', [CitaController::class, 'update'])->name('admin.citas.update');
+    Route::get('citas/{id}/confirm-delete', [CitaController::class, 'confirmDelete'])->name('admin.citas.confirmDelete');
+    Route::delete('citas/{id}', [CitaController::class, 'destroy'])->name('admin.citas.destroy');
+});
+
 Route::resource('pagos', PagoController::class)->middleware('auth');
 Route::resource('dash',DashboarController::class)->middleware('auth');
 
@@ -141,8 +157,9 @@ Route::get('/paypal/index', [PayPalController::class, 'index'])->name('index');
 
 
 //Facturacion
-Route::get('/faturas', [FacturaController::class, 'index'])->name('facturas.show');
-Route::get('/faturas/{id}', [FacturaController::class, 'show'])->name('facturas.show');
+
+Route::get('/facturas', [FacturaController::class, 'index'])->name('facturas.index');
+Route::get('/facturas/{id}', [FacturaController::class, 'show'])->name('facturas.show');
 
 // Route::get('cursos/{variable}', function($variable) {
 //     return "Bienvenido al curso: $variable";

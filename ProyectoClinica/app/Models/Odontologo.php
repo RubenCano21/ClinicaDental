@@ -27,4 +27,8 @@ class Odontologo extends Model
     public function especialidades(){
         return $this->belongsToMany(Especialidad::class, 'ejerces');
     }
+
+    public function cita(){
+        return $this->hasMany(Cita::class, 'id_odontologo');
+    }
 }

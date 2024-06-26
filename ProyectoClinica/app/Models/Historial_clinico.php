@@ -13,4 +13,8 @@ class Historial_clinico extends Model
         'descripcion',
         'ci_paciente'
     ];
+
+    public function paciente(){
+        return $this->hasOne(Paciente::class);
+    }
 }

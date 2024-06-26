@@ -36,7 +36,7 @@
                         @foreach($citas as $cita)
                             <tr>
                                 <td style="text-align: center">{{$contador++}}</td>
-                                <td>{{$cita->recerva->user->paciente->nombre}}</td>
+                                <td>{{$cita->reserva->paciente->nombre}}</td>
                                 <td>{{$cita->fecha}}</td>
                                 <td>{{$cita->hora}}</td>
                                 <td>{{$cita->servicio->nombre}}</td>

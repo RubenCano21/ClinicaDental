@@ -26,9 +26,9 @@
                                 <div class="col-md-3">
                                     <div class="form group">
                                         <label for="">Paciente</label><b>*</b>
-                                        <select name="paciente_id" id="paciente_id" class="form-control rounded-pill search-path">
+                                        <select name="reserva_id" id="reserva_id" class="form-control rounded-pill search-path">
                                             @foreach($reservas as $reserva)
-                                                <option value="{{$reserva->id}}">{{$reserva->user->paciente->nombre}}</option>
+                                                <option value="{{$reserva->id}}">{{$reserva->paciente->nombre}}</option>
                                             @endforeach
                                         </select>
                                     </div>

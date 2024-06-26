@@ -32,4 +32,12 @@ class Paciente extends Model
     public function servicios(){
         return $this->hasMany(Servicio::class, 'id_paciente');
     }
+
+    public function historial_clinico(){
+        return $this->belongsTo(Historial_clinico::class);
+    }
+
+    public function reservas(){
+        return $this->hasMany(Reserva::class);
+    }
 }

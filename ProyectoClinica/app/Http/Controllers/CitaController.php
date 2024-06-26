@@ -7,6 +7,7 @@ use App\Models\Odontologo;
 use App\Models\Paciente;
 use App\Models\Reserva;
 use App\Models\Servicio;
+use App\Models\bitacora;
 use Illuminate\Http\Request;
 
 class CitaController extends Controller
@@ -45,8 +46,23 @@ class CitaController extends Controller
             'hora' => 'required',
         ]);
 
-        Cita::create(request()->all());
-        
+        $cita = new Cita();
+        $cita->fecha = $request->fecha;
+        $cita->hora = $request->hora;
+        $cita->ci_odontologo = $request->odontologo_id;
+        $cita->id_reserva = $request->reserva_id;
+        $cita->id_servicio = $request->servicio_id;
+        $cita->id_historialclinico = 1;
+        $cita->save();
+
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Creacion de cita';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
+
         return redirect()->route('admin.citas.index')->with('success', 'Cita creada correctamente');
     }
 

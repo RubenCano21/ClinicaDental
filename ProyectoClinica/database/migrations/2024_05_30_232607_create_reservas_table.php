@@ -16,11 +16,12 @@ return new class extends Migration
             $table->date('fecha');
             $table->time('hora');
             $table->string('estado',50)->nullable();
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_paciente');
+            
             // $table->unsignedBigInteger('id_recepcionista');
             // $table->unsignedBigInteger('id_paciente');
              $table->unsignedBigInteger('id_servicio');
-             $table->foreign('id_user')->references('id')->on('users');
+             $table->foreign('id_paciente')->references('id')->on('pacientes');
             // $table->foreign('id_recepcionista')->references('id')->on('recepcionistas');
             // $table->foreign('id_paciente')->references('id')->on('pacientes');
              $table->foreign('id_servicio')->references('id')->on('servicios');

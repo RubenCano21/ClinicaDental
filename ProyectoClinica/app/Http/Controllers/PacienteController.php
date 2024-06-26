@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Paciente;
 use App\Models\bitacora;
+use App\Models\Historial_clinico;
 use Illuminate\Support\Facades\Hash;
 
 class PacienteController extends Controller
@@ -88,6 +89,11 @@ class PacienteController extends Controller
         $paciente->direccion = $request->direccion;
         $paciente->id_user = $usuario->id; // Asignar el id del usuario al paciente
         $paciente->save();
+
+        $historial = new Historial_clinico();
+        $historial->descripcion = "";
+        $historial->ci_paciente = $paciente->id;
+        $historial->save();
 
         $bitacora = new Bitacora();
         $bitacora->accion = 'Creacion de paciente';

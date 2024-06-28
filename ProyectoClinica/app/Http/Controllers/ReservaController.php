@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Odontologo;
 use App\Models\Paciente;
 use App\Models\Reserva;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use App\Models\Servicio;
 use illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
 
 class ReservaController extends Controller
 {
@@ -31,10 +33,12 @@ class ReservaController extends Controller
 
      public function create()
     {   
+        $odontologo = Odontologo::all();
         $servicios = Servicio::all();
         return view('admin.reservas.create', [
             'servicios' => $servicios,
             'horasDeTrabajo' => $this->horasDeTrabajo,
+            'odontologos' => $odontologo,
         ]);
     }
 
@@ -43,14 +47,24 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
+        $fecha = now()->addDay()->format('Y-m-d');
         // Valida los datos del formulario
         $request->validate([
             'fecha' => 'required|date',
             'hora' => 'required|in:' . implode(',', $this->horasDeTrabajo),
             'id_servicio' => 'required|exists:servicios,id',
+            'id_odontologo' => 'required|exists:odontologos,id',
         ]);
 
-            $paciente = Paciente::where('id_user', auth()->id())->first();
+        $validarFecha = Validator::make($request->all(),[
+            'fecha' => ['required','date', 'after:' . $fecha]
+        ]);
+
+        if ($validarFecha->fails()){
+            return redirect()->back()->withErrors($validarFecha)->withInput();
+        }
+
+        $paciente = Paciente::where('id_user', auth()->id())->first();
 
         // Crea una nueva instancia de reserva
         Reserva::create([
@@ -59,6 +73,7 @@ class ReservaController extends Controller
             'estado' => 'pendiente', // Estado inicial de la reserva
             'id_paciente' => $paciente->id,
             'id_servicio' => $request->input('id_servicio'),
+            'id_odontologo' => $request->input('id_odontologo'),
         ]);
 
         // Redirecciona con un mensaje de éxito

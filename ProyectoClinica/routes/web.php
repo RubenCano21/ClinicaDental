@@ -84,7 +84,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('odontologos', [OdontologoController::class, 'index'])->name('admin.odontologos.index');
     Route::get('odontologos/create', [OdontologoController::class, 'create'])->name('admin.odontologos.create');
-    Route::post('odontologos', [OdontologoController::class, 'store'])->name('admin.odontologos.store');
+    Route::post('odontologos/create', [OdontologoController::class, 'store'])->name('admin.odontologos.store');
     Route::get('odontologos/{id}', [OdontologoController::class, 'show'])->name('admin.odontologos.show');
     Route::get('odontologos/{id}/edit', [OdontologoController::class, 'edit'])->name('admin.odontologos.edit');
     Route::put('odontologos/{id}', [OdontologoController::class, 'update'])->name('admin.odontologos.update');
@@ -174,8 +174,6 @@ Route::view('download', 'facturas.download')->name('download');
 // Route::get('cursos/{variable}', function($variable) {
 //     return "Bienvenido al curso: $variable";
 // });
-Route::get('/myspace', [myspaceController::class,'home']);
-Route::post('/myspace', [myspacecontroller::class,'store'])->name('myspace.store');
 
 Route::get('/registro', [RegistroController::class,'index']);
 Route::post('/registro', [RegistroController::class,'store'])->name('registro.store');

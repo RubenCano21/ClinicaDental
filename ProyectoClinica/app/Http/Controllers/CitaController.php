@@ -8,7 +8,9 @@ use App\Models\Paciente;
 use App\Models\Reserva;
 use App\Models\Servicio;
 use App\Models\bitacora;
+use App\Models\Horario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class CitaController extends Controller
 {
@@ -29,7 +31,7 @@ class CitaController extends Controller
         //$pacientes = Paciente::all();
         $odontologos = Odontologo::all();
         $servicios = Servicio::all();
-        $reservas = Reserva::all();
+        $reservas = Reserva::where('estado', 'pendiente')->get();
         return view('admin.citas.create', compact( 'odontologos', 'servicios','reservas'));
     }
 
@@ -39,20 +41,27 @@ class CitaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'odontologo_id' => 'required|exists:odontologos,id',
-            'servicio_id' => 'required|exists:servicios,id',
-            'reserva_id' => 'required|exists:reservas,id',
-            'fecha' => 'required|date',
-            'hora' => 'required',
+            'reserva_id' => 'required|exists:reservas,id'
         ]);
+        
+        $reserva = Reserva::find($request->input('reserva_id'));
+        // $fecha = $reserva->fecha;
+        // $fechaEs = Carbon::parse($fecha);
+        // $nombreDia = $fechaEs->locale('es')->dayName;
+        // $horario = Horario::where('odontologo_id', $reserva->id_odontologo);
+        // $dia = Horario::where('dia', $nombreDia)
+        // ->where('id', $horario);
+        
+        $reserva->estado = $request->estado;
+        $reserva->save();
 
         $cita = new Cita();
-        $cita->fecha = $request->fecha;
-        $cita->hora = $request->hora;
-        $cita->ci_odontologo = $request->odontologo_id;
-        $cita->id_reserva = $request->reserva_id;
-        $cita->id_servicio = $request->servicio_id;
-        $cita->id_historialclinico = 1;
+        $cita->fecha = $reserva->fecha;
+        $cita->hora = $reserva->hora;
+        $cita->ci_odontologo = $reserva->id_odontologo;
+        $cita->id_reserva = $reserva->id;
+        $cita->id_servicio = $reserva->servicio->id;
+        $cita->id_historialclinico = 1;//$request->reserva->paciente->historial_clinico->id;
         $cita->save();
 
 

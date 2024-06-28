@@ -21,8 +21,8 @@ class RecepcionistaController extends Controller
      */
     public function index()
     {
-        $recepciontas = Recepcionista::with('user')->get();
-        return view('admin.recepcionistas.index')->with('recepcionistas',$recepciontas);
+        $recepcionistas = Recepcionista::with('user')->get();
+        return view('admin.recepcionistas.index')->with('recepcionistas',$recepcionistas);
     }
 
     /**

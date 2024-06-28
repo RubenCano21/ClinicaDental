@@ -23,47 +23,28 @@
                         <form action="{{ url('/admin/citas/create') }}" method="POST">
                             @csrf
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form group">
                                         <label for="">Paciente</label><b>*</b>
                                         <select name="reserva_id" id="reserva_id" class="form-control rounded-pill search-path">
                                             @foreach($reservas as $reserva)
-                                                <option value="{{$reserva->id}}">{{$reserva->paciente->nombre}}</option>
+                                                <option value="{{$reserva->id}}">{{$reserva->paciente->nombre." ".$reserva->paciente->apellido."/".$reserva->servicio->nombre."/".$reserva->hora."/".$reserva->fecha}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form group">
-                                        <label for="">Fecha</label><b>*</b>
-                                        <input type="date" value="{{old('fecha')}}" name="fecha" class="form-control rounded-pill" required>
-                                        @error('fecha')
-                                        <small style="color: red">{{$message}}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form group">
-                                        <label for="">Hora</label><b>*</b>
-                                        <input type="time" min="08:00" max="18:00" value="{{old('hora')}}" name="hora" class="form-control rounded-pill" required>
-                                        @error('hora')
-                                        <small style="color: red">{{$message}}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form group">
-                                        <label for="">Servicios</label><b>*</b>
-                                        <select name="servicio_id" id="" class="form-control rounded-pill">
-                                            @foreach($servicios as $servicio)
-                                                <option value="{{$servicio->id}}">{{$servicio->nombre}}</option>
-                                            @endforeach
+                                        <label for="">Estado de la reserva</label><b>*</b>
+                                        <select name="estado" id="" class="form-control rounded-pill">
+                                            <option value="aceptada">aceptar</option>
+                                            <option value="rechazada">rechazar</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <hr>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-3">
                                     <div class="form group">
                                         <label for="">Odontologo</label><b>*</b>
@@ -74,7 +55,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">

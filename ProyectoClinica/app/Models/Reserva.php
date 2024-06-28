@@ -15,6 +15,7 @@ class Reserva extends Model
         'estado',
         'id_paciente',
         'id_servicio',
+        'id_odontologo'
     ];
     // public function user()
     // {
@@ -26,11 +27,15 @@ class Reserva extends Model
     }
 
     public function cita(){
-        return $this->belongsTo(Cita::class, 'id_cita');
+        return $this->hasMany(Cita::class, 'id_reserva');
     }
 
     public function paciente(){
         return $this->belongsTo(Paciente::class, 'id_paciente');
+    }
+
+    public function odontologo(){
+        return $this->belongsTo(Odontologo::class, 'id_odontologo');
     }
 }
 

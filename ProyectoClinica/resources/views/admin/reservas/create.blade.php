@@ -36,6 +36,15 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="id_odontologo">Odontologo</label>
+            <select name="id_odontologo" id="id_odontologo" class="form-control" required>
+                @foreach($odontologos as $odontologo)
+                    <option value="{{ $odontologo->id }}">{{ $odontologo->nombre }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Reservar</button>
     </form>
 </div>

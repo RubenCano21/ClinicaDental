@@ -17,7 +17,8 @@ return new class extends Migration
             $table->time('hora');
             $table->string('estado',50)->nullable();
             $table->unsignedBigInteger('id_paciente');
-            
+            $table->unsignedBigInteger('id_odontologo');
+            $table->foreign('id_odontologo')->references('id')->on('odontologos');
             // $table->unsignedBigInteger('id_recepcionista');
             // $table->unsignedBigInteger('id_paciente');
              $table->unsignedBigInteger('id_servicio');

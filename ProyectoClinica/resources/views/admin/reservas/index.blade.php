@@ -19,6 +19,7 @@
                 <th>Hora</th>
                 <th>Estado</th>
                 <th>Servicio</th>
+                <th>Odontologo</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -29,6 +30,7 @@
                     <td>{{ $reserva->hora }}</td>
                     <td>{{ $reserva->estado }}</td>
                     <td>{{ $reserva->servicio->nombre }}</td>
+                    <td>{{ $reserva->odontologo->nombre." ".$reserva->odontologo->apellido }}</td>
                     <td>
                         <a href="{{ route('admin.reservas.edit', $reserva) }}" class="btn btn-warning">Editar</a>
                         <form action="{{ route('admin.reservas.destroy', $reserva) }}" method="POST" style="display:inline;">

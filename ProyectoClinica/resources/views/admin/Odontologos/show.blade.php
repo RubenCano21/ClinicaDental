@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row">
-        <h1>Odontologo: {{$recepcionista->nombre}} {{$recepcionista->apellido}}</h1>
+        <h1>Odontologo: {{$odontologo->nombre}} {{$odontologo->apellido}}</h1>
     </div>
     <hr>
     <div class="row">
@@ -19,13 +19,13 @@
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">CI</label>
-                                <p>{{$recepcionista->ci}}</p>
+                                <p>{{$odontologo->ci}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Nombres</label>
-                                <p>{{$recepcionista->nombre}}</p>
+                                <p>{{$odontologo->nombre}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">

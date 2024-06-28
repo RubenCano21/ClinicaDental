@@ -19,14 +19,14 @@ class Cita extends Model
     ];
 
     public function odontologo(){
-        return $this->belongsTo(Odontologo::class);
+        return $this->belongsTo(Odontologo::class, 'ci_odontologo');
     }
 
     public function reserva(){
-        return $this->belongsTo(Reserva::class);
+        return $this->belongsTo(Reserva::class, 'id_reserva');
     }
 
     public function servicio(){
-        return $this->belongsTo(Servicio::class);
+        return $this->belongsTo(Servicio::class, 'id_servicio');
     }
 }

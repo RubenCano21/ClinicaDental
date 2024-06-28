@@ -21,7 +21,7 @@
                         <h3 class="card-title">Llene los datos</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.recepcionistas.store') }}" method="POST">
+                        <form action="{{ route('admin.recepcionistas.create') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-md-3">

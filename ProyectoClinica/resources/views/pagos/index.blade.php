@@ -18,25 +18,32 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-sm table-striped table-bordered">
+                    <table id="example1" class="table table-sm table-striped table-bordered">
                         <thead style="text-align: center; background-color: #4f6883" class="text-light">
                         <tr>
-                            <th>ID</th>
-                            <th>Monto</th>
-                            <th>Método de Pago</th>
-                            <th>Fecha de Pago</th>
+                            <th>#</th>
+                            <th>Nro Cita</th>
+                            <th>Nombre del Paciente</th>
+                            <th>Tipo de Pago</th>
+                            <th>Plan de Pago</th>
+                            <th>Fecha</th>
                             <th>Estado</th>
+                            <th>Monto</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <?php $contador = 1; ?>
                         @foreach($pagos as $pago)
                             <tr>
-                                <td>{{ $pago->id }}</td>
-                                <td>{{ $pago->amount}}</td>
-                                <td>{{ $pago->payment_method }}</td>
-                                <td>{{ $pago->payment_date }}</td>
-                                <td>{{ $pago->status }}</td>
+                                <td>{{ $contador++}}</td>
+                                <td>{{ $pago->cita->id}}</td>
+                                <td>{{ $pago->user->name}}</td>
+                                <td>{{ $pago->tipoPagos->nombre}}</td>
+                                <td>{{ $pago->planPagos->nombre}}</td>
+                                <td>{{ $pago->fecha }}</td>
+                                <td>{{ $pago->estado }}</td>
+                                <td>{{ $pago->cita->servicio->precio ?? 'N/A'}}</td>
                                 <td>
                                     <a href="{{ route('pagos.show', $pago->id) }}" class="btn btn-info">Ver</a>
                                     <a href="{{ route('pagos.edit', $pago->id) }}" class="btn btn-primary">Editar</a>

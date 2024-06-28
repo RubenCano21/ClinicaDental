@@ -108,7 +108,7 @@
                             <a href="#" type="button">
                                 <img src="{{ asset('img/credit/mastercard.png') }}" alt="Tarjeta MasterCard">
                             </a>
-                            <a href="{{ route('paypal.create') }}" type="button">
+                            <a href="{{ url('paypal/payment') }}" type="button">
                                 <img src="{{ asset('img/credit/paypal2.png') }}" alt="PayPal">
                             </a>
                             <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
@@ -147,7 +147,7 @@
                     <div class="row no-print">
                         <div class="col-12">
                             <a href="#" onclick="window.print()" class="btn btn-default"><i class="fas fa-print"></i> Imprimir</a>
-                            <a href="{{ route('facturas.download') }}" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="fas fa-download"></i> Generar PDF</a>
+                            <a href="#" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="fas fa-download"></i> Generar PDF</a>
                             <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Enviar pago</button>
                         </div>
                     </div>

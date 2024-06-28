@@ -470,11 +470,40 @@ return [
             'text' => 'Pagos',
             'icon_color' => 'red',
             'url' => '/pagos',
+            'submenu' => [
+                [
+                    'text' => 'Ver Pagos',
+                    'icon' => 'fas fa-fw fa-sign-out-alt',
+                    'url' => 'pagos',
+                ],
+                [
+                    'text' => 'Plan de Pagos',
+                    'icon' => 'fas fa-fw fa-sign-out-alt',
+                    'route' => 'planPagos.index',
+                ],
+                [
+                    'text' => 'Tipo de Pago',
+                    'icon' => 'fas fa-fw fa-sign-out-alt',
+                    'route' => 'tipoPagos.index',
+                ],
+            ],
         ],
         [
             'text' => 'Facturas',
             'icon_color' => 'yellow',
-            'url' => '/facturas',
+            'route' => 'facturas.index',
+            'submenu' => [
+                [
+                    'text' => 'Ver Facturas',
+                    'icon' => 'fas fa-fw fa-sign-out-alt',
+                    'url' => 'facturas',
+                ],
+                [
+                    'text' => 'Registrar Factura',
+                    'icon' => 'fas fa-fw fa-sign-out-alt',
+                    'route' => 'facturas.create',
+                ],
+            ],
         ],
         [
             'text' => 'PayPal',

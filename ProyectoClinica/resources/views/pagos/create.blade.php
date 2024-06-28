@@ -4,84 +4,105 @@
 
 @section('content')
     <div class="container">
-        <h1>{{ isset($pago) ? 'Editar Pago' : 'Registrar Pago' }}</h1>
+        <h1>Crear Pago</h1>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-10">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title"> Llene los datos</h3>
+                        <h3 class="card-title">Llene los datos</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ isset($pago) ? route('pagos.update', $pago->id) : route('pagos.store') }}" method="POST">
+                        <form action="{{ route('pagos.store') }}" method="POST">
                             @csrf
-                            @if(isset($pago))
-                                @method('PUT')
-                            @endif
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="amount">Monto</label>
-                                        <input type="number" name="amount" class="form-control" value="{{ old('amount', $pago->amount ?? '') }}" required>
+                                        <label for="user_id">Usuario</label>
+                                        <select name="user_id" id="user_id" class="form-control rounded-pill">
+                                            @foreach($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="tipo_pago_id">Tipo de Pago</label>
+                                        <select name="tipo_pago_id" id="tipo_pago_id" class="form-control rounded-pill">
+                                            @foreach($tipoPagos as $tipoPago)
+                                                <option value="{{ $tipoPago->id }}">{{ $tipoPago->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="plan_pago_id">Plan de Pago</label>
+                                        <select name="plan_pago_id" id="plan_pago_id" class="form-control rounded-pill">
+                                            @foreach($planPagos as $planPago)
+                                                <option value="{{ $planPago->id }}">{{ $planPago->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="cita_id">Cita</label>
+                                        <select name="cita_id" id="cita_id" class="form-control rounded-pill">
+                                            @foreach($citas as $cita)
+                                                <option value="{{ $cita->id }}">Cita #{{ $cita->nro }} - {{ $cita->fecha }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="payment_methods">Métodos de Pago</label>
-                                        <div id="payment_methods_container">
-                                            @if(old('payment_methods') || isset($pago))
-                                                @foreach(old('payment_methods', $pago->payment_methods ?? []) as $index => $method)
-                                                    <div class="payment_method">
-                                                        <select name="payment_methods[{{ $index }}][method]" class="form-control">
-                                                            <option value="efectivo" {{ $method['method'] == 'efectivo' ? 'selected' : '' }}>Efectivo</option>
-                                                            <option value="paypal" {{ $method['method'] == 'paypal' ? 'selected' : '' }}>Paypal</option>
-                                                        </select>
-                                                    </div>
-                                                    <br>
-                                                    <div class="payment_method">
-                                                        <input type="text" name="payment_methods[{{ $index }}][details][number]" class="form-control" placeholder="Número de Tarjeta" value="{{ $method['details']['number'] ?? '' }}">
-                                                        <input type="text" name="payment_methods[{{ $index }}][details][name]" class="form-control" placeholder="Nombre en Tarjeta" value="{{ $method['details']['name'] ?? '' }}">
-                                                        <button type="button" class="btn btn-danger remove_payment_method">Eliminar</button>
-                                                    </div>
-                                                @endforeach
-                                            @else
-                                                <div class="payment_method">
-                                                    <select name="payment_methods[0][method]" class="form-control">
-                                                        <option value="efectivo">Efectivo</option>
-                                                        <option value="paypal">Paypal</option>
-                                                    </select>
-                                                </div>
-                                            <br>
-                                                <div class="payment_method">
-                                                    <input type="text" name="payment_methods[0][details][number]" class="form-control" placeholder="Número de Tarjeta"><br>
-                                                    <input type="text" name="payment_methods[0][details][name]" class="form-control" placeholder="Nombre en Tarjeta"><br>
-                                                    <button type="button" class="btn btn-danger remove_payment_method">Eliminar</button>
-                                                </div>
-                                                <br>
-                                            @endif
-                                        </div>
-                                        <button type="button" class="btn btn-primary" id="add_payment_method">Agregar Método de Pago</button>
+                                        <label for="fecha">Fecha</label>
+                                        <input type="date" name="fecha" id="fecha" class="form-control rounded-pill">
                                     </div>
                                 </div>
-                            </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="monto">Monto</label>
+                                        <input type="text" name="monto" id="monto" class="form-control rounded-pill">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="estado">Estado</label>
+                                        <select name="estado" id="estado" class="form-control rounded-pill">
+                                            <option value="pendiente">PENDIENTE</option>
+                                            <option value="cancelado">CANCELADO</option>
+                                            <option value="mora">MORA</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-
-                            <div class="form-group">
-                                <label for="payment_date">Fecha de Pago</label>
-                                <input type="date" name="payment_date" class="form-control" value="{{ old('payment_date', $pago->payment_date ?? '') }}" required>
                             </div>
-                            <div class="form-group">
-                                <label for="status">Estado</label>
-                                <input type="text" name="status" class="form-control" value="{{ old('status', $pago->status ?? '') }}" required>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a href="{{url('/pagos')}}" class="btn btn-secondary rounded-pill">Cancelar</a>
+                                    <button type="submit" class="btn btn-primary rounded-pill">Guardar</button>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">{{ isset($pago) ? 'Actualizar' : 'Guardar' }}</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
 

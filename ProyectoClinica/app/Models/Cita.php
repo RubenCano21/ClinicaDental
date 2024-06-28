@@ -29,4 +29,8 @@ class Cita extends Model
     public function servicio(){
         return $this->belongsTo(Servicio::class, 'id_servicio');
     }
+
+    public function pagos(){
+        return $this->hasMany(Pago::class);
+    }
 }

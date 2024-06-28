@@ -8,85 +8,116 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FacturaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+   /* public function index()
     {
-        $facturas = Factura::with('paciente')->get();
+        $userId = Auth::id();
+
+        $facturas = Factura::whereHas('paciente', function ($query) use ($userId){
+            $query->where('id_user', $userId);
+        })->with('paciente', 'pagos')->get();
         return view('facturas.index', compact('facturas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        $pacientes = Paciente::all();
-        return view('facturas.index', compact('pacientes'));
+        $factura = Factura::with('paciente', 'pagos')->findOrFail($id);
+        return view('facturas.show', compact('factura'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function download($id)
+    {
+        $factura = Factura::with('paciente', 'pagos')->findOrFail($id);
+        $pdf = PDF::loadView('facturas.pdf', compact('factura'));
+        return $pdf->download('factura_'.$factura->id.'.pdf');
+    }*/
+
+    public function index()
+    {
+        $pacientes = Paciente::all();
+        $facturas = Factura::with(['paciente', 'pagos'])->get();
+        return view('facturas.index', compact('facturas', 'pacientes'));
+    }
+
+    public function create()
+    {
+        $facturas = Factura::all();
+        $pacientes = Paciente::all();
+        return view('facturas.create', compact('pacientes', 'facturas'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
-            'nit' => 'required',
-            'detalle' => 'required',
+            'nit' => 'required|string|max:255',
+            'detalle' => 'required|string',
             'monto' => 'required|numeric',
             'fecha' => 'required|date',
-            'paciente_id' => 'required'
+            'paciente_id' => 'required|exists:pacientes,id',
         ]);
 
-        // Generar número de factura autoincrementable
-        $ultimoNumero = Factura::max('numero'); // Obtener el último número de factura
-        $nuevoNumero = str_pad((int) $ultimoNumero + 1, 6, '0', STR_PAD_LEFT); // Generar el nuevo número
+        $ultimoNumero = Factura::max('numero');
+        $nuevoNumero = str_pad((int) $ultimoNumero + 1, 6, '0', STR_PAD_LEFT);
 
-        $paciente = new Paciente();
-        $paciente->nombre = $request->nombre;
-        // Guardar la factura en la base de datos
         $factura = new Factura();
         $factura->numero = $nuevoNumero;
         $factura->nit = $request->nit;
         $factura->detalle = $request->detalle;
         $factura->monto = $request->monto;
         $factura->fecha = $request->fecha;
-        $factura->paciente->id = $request->paciente->id;
+        $factura->paciente_id = $request->paciente_id;
         $factura->save();
+
+        //generar archivo de la factura
+        $this->generateFacturaFile($factura);
 
         return redirect()->route('facturas.index')->with('success', 'Factura creada exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    private function generateFacturaFile($factura)
+    {
+        $filePath = storage_path('app/public/factura/' . $factura->id . '.png');
+
+        // Aquí puedes generar la imagen o PDF de la factura.
+        // Como ejemplo, vamos a crear una imagen PNG en blanco.
+        $img = imagecreate(200, 100);
+        $bgColor = imagecolorallocate($img, 255, 255, 255);
+        $textColor = imagecolorallocate($img, 0, 0, 0);
+        imagestring($img, 5, 10, 10, "Factura #{$factura->numero}", $textColor);
+        imagestring($img, 5, 10, 30, "Monto: {$factura->monto}", $textColor);
+        imagepng($img, $filePath);
+        imagedestroy($img);
+    }
+
     public function show($id)
     {
-        $factura = Factura::findOrFail($id);
+        $factura = Factura::with(['paciente', 'pagos'])->findOrFail($id);
 
-        //generar la url de descarga de la factura
-        $descargarURL = route('factura.download',['id'=> $id]);
+        $descargarURL = route('facturas.download', ['id' => $id]);
 
-        //crear codigo QR
         $qrCode = new QrCode($descargarURL);
         $qrCode->setSize(150);
 
-        //confirmar opciones adicionales
         $writer = new PngWriter();
-        $qrCodeDataUri = $writer->writeDatauri($qrCode);
+        $qrCodeDataUri = $writer->writeDataUri($qrCode);
 
-        return view('factura.show', ['factura' => $factura, 'qrCodeDataUri' => $qrCodeDataUri]);
-
+        return view('facturas.show', ['factura' => $factura, 'qrCodeDataUri' => $qrCodeDataUri]);
     }
 
-    public function download($id){
-
+    public function download($id)
+    {
         $factura = Factura::findOrFail($id);
-        $filePath = storage_path('app/public/factura/'.$factura->id.'.png');
+        $filePath = storage_path('app/public/factura/' . $factura->id . '.png');
+
+        if (!file_exists($filePath)) {
+            return redirect()->route('facturas.index')->with('error', 'El archivo de la factura no existe.');
+        }
 
         return response()->download($filePath);
     }
@@ -141,5 +172,6 @@ class FacturaController extends Controller
 
         $pdf = Pdf::loadView('facturas.invoice', compact('items', 'total'));
         return $pdf->download('factura.pdf');
+
     }
 }

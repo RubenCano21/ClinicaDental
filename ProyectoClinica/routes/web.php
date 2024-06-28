@@ -23,8 +23,9 @@ use App\Http\Controllers\CitaController;
 use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\OdontogramaController;
 use App\Http\Controllers\pruebacontroller;
+use App\Http\Controllers\TipoPagoController;
+use App\Http\Controllers\PlanPagoController;
 
-Route::get('/prueba', [pruebaController::class, 'index']);
 
 Route::get('/', function(){
     return view('index');
@@ -56,7 +57,7 @@ Route::get('/acercaDe', function () {
 Route::resource('home', 'App\Http\Controllers\HomeController');
 route::resource('usuarios',UserController::class,)->names('admin.usuarios');
 route::resource('reservas',ReservaController::class,)->names('admin.reservas');
-route::resource('citas',CitaController::class)->names('admin.citas');
+//route::resource('citas',CitaController::class)->names('admin.citas');
 route::resource('servicios',ServicioController::class)->names('admin.servicios');
 Route::resource('users', 'App\Http\Controllers\UserController');
 
@@ -141,13 +142,36 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 });
 
 Route::resource('pagos', PagoController::class)->middleware('auth');
+
+   Route::prefix('planPagos')->middleware('auth')->group(function () {
+       Route::get('/', [PlanPagoController::class, 'index'])->name('planPagos.index');
+       Route::get('/create', [PlanPagoController::class, 'create'])->name('planPagos.create');
+       Route::post('/create', [PlanPagoController::class, 'store'])->name('planPagos.store');
+       Route::get('/{id}', [PlanPagoController::class, 'show'])->name('planPagos.show');
+       Route::get('/{id}/edit', [PlanPagoController::class, 'edit'])->name('planPagos.edit');
+       Route::put('/{id}', [PlanPagoController::class, 'update'])->name('planPagos.update');
+       Route::get('/{id}/confirm-delete', [PlanPagoController::class, 'confirmDelete'])->name('planPagos.confirmDelete');
+       Route::delete('/{id}', [PlanPagoController::class, 'destroy'])->name('planPagos.destroy');
+   });
+   Route::prefix('tipoPagos')->middleware('auth')->group(function () {
+       Route::get('/', [TipoPagoController::class, 'index'])->name('tipoPagos.index');
+       Route::get('/create', [TipoPagoController::class, 'create'])->name('tipoPagos.create');
+       Route::post('/create', [TipoPagoController::class, 'store'])->name('tipoPagos.store');
+       Route::get('/{id}', [TipoPagoController::class, 'show'])->name('tipoPagos.show');
+       Route::get('/{id}/edit', [TipoPagoController::class, 'edit'])->name('tipoPagos.edit');
+       Route::put('/{id}', [TipoPagoController::class, 'update'])->name('tipoPagos.update');
+       Route::get('/{id}/confirm-delete', [TipoPagoController::class, 'confirmDelete'])->name('tipoPagos.confirmDelete');
+       Route::delete('/{id}', [TipoPagoController::class, 'destroy'])->name('tipoPagos.destroy');
+   });
+
+
 Route::resource('dash',DashboarController::class)->middleware('auth');
 
-Route::controller(CursoController::class)->group(function(){
-    Route::get('cursos', 'index');
-    Route::get('cursos/create', 'create');
-    Route::get('cursos/{curso}/{categoria?}', 'show');
-});
+//Route::controller(CursoController::class)->group(function(){
+//    Route::get('cursos', 'index');
+//    Route::get('cursos/create', 'create');
+//    Route::get('cursos/{curso}/{categoria?}', 'show');
+//});
 
 // Rutas para paypal
 Route::get('paypal/payment', [PayPalController::class, 'showPaymentForm'])->name('paypal.payment');
@@ -160,11 +184,18 @@ Route::get('/paypal/cancel-transaction', [PayPalController::class, 'cancelTransa
 
 //Facturacion
 
-Route::get('facturas', [FacturaController::class, 'index'])->name('facturas.index');
-Route::get('/facturas/{id}', [FacturaController::class, 'show'])->name('facturas.show');
-Route::get('/facturas', [FacturaController::class, 'showInvoice'])->name('facturas.show');
-Route::get('/facturas/download', [FacturaController::class, 'downloadInvoice'])->name('facturas.download');
-Route::view('download', 'facturas.download')->name('download');
+Route::prefix('facturas')->middleware('auth')->group(function () {
+    Route::get('/', [FacturaController::class, 'index'])->name('facturas.index');
+    Route::get('/create', [FacturaController::class, 'create'])->name('facturas.create');
+    Route::post('/', [FacturaController::class, 'store'])->name('facturas.store'); // Cambiado a POST
+    Route::get('/invoice', [FacturaController::class, 'showInvoice'])->name('facturas.invoice');
+    Route::get('/{id}', [FacturaController::class, 'show'])->name('facturas.show');
+    Route::get('/download', [FacturaController::class, 'download'])->name('facturas.download');
+    Route::get('/download/{id}', [FacturaController::class, 'download'])->name('facturas.download'); // Agregado parámetro {id}
+});
+
+
+
 
 //ruta para imprimir
 //Route::get('invoice', [InvoiceController::class, 'showInvoice'])->name('invoice.show');

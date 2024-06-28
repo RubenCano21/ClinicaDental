@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cita;
 use App\Models\Pago;
+use App\Models\PlanPago;
+use App\Models\Servicio;
+use App\Models\TipoPago;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PagoController extends Controller
@@ -14,35 +19,45 @@ class PagoController extends Controller
 
     public function index()
     {
-        $pagos = Pago::with('user')->get();
+        $pagos = Pago::with(['user','tipoPagos','planPagos', 'cita.servicio'])->get();
         return view('pagos.index', compact('pagos'));
     }
 
     public function create()
     {
-        return view('pagos.create');
+        $users = User::all();
+        $servicios = Servicio::all();
+        $tipoPagos = TipoPago::all();
+        $planPagos = PlanPago::all();
+        $citas = Cita::all();
+        return view('pagos.create', compact('users','servicios','tipoPagos','planPagos','citas'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'amount' => 'required|numeric',
-            'payment_methods' => 'required|array',
-            'payment_methods.*.method' => 'required|string',
-            'payment_methods.*.details' => 'nullable|array',
-            'payment_date' => 'required|date',
-            'status' => 'required|string',
+        // Validar la solicitud
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'tipo_pago_id' => 'required|exists:tipo_pagos,id',
+            'plan_pago_id' => 'required|exists:plan_pagos,id',
+            'cita_id' => 'required|exists:citas,id',
+            'fecha' => 'required|date',
+            'monto' => 'required|numeric',
+            'estado' => 'required|string'
         ]);
 
-        Pago::create([
-            'user_id' => auth()->id(),
-            'amount' => $request->amount,
-            'payment_methods' => $request->payment_methods,
-            'payment_date' => $request->payment_date,
-            'status' => $request->status,
-        ]);
+        // Crear el pago
+        $pago = new Pago();
+        $pago->user_id = $validated['user_id'];
+        $pago->tipo_pago_id = $validated['tipo_pago_id'];
+        $pago->plan_pago_id = $validated['plan_pago_id'];
+        $pago->cita_id = $validated['cita_id'];
+        $pago->fecha = $validated['fecha'];
+        $pago->monto = $validated['monto'];
+        $pago->estado = $validated['estado'];
+        $pago->save();
 
-        return redirect()->route('pagos.index')->with('success', 'Pago registrado exitosamente');
+        return redirect()->route('pagos.index')->with('success', 'Pago creado correctamente');
     }
 
     public function show($id)
@@ -60,12 +75,13 @@ class PagoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'amount' => 'required|numeric',
-            'payment_methods' => 'required|array',
-            'payment_methods.*.method' => 'required|string',
-            'payment_methods.*.details' => 'nullable|array',
-            'payment_date' => 'required|date',
-            'status' => 'required|string',
+            'user_id' => 'required|exists:users,id',
+            'tipo_pago_id' => 'required|exists:tipo_pagos,id',
+            'plan_pago_id' => 'required|exists:plan_pagos,id',
+            'cita_id' => 'required|exists:citas,id',
+            'fecha' => 'required|date',
+            'monto' => 'required|numeric',
+            'estado' => 'required|string'
         ]);
 
         $pago = Pago::findOrFail($id);

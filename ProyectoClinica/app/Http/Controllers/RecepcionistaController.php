@@ -39,7 +39,6 @@ class RecepcionistaController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect('/recepcionistas');
         $request->validate([
             'ci'=>'required',
             'nombre'=>'required',
@@ -163,7 +162,7 @@ class RecepcionistaController extends Controller
         $bitacora->fecha = now()->format('Y-m-d');
         $bitacora->user_id =auth()->id();
         $bitacora->save();
-        
+
         $user->delete();
 
         return redirect()->route('admin.recepcionistas.index')->with('success', 'Recepcionista eliminado exitosamente');

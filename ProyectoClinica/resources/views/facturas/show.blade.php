@@ -1,39 +1,21 @@
 @extends('adminlte::page')
 
-@section('title', 'Fatura')
-
-@section('content_header')
-    <title>Factura - {{ $invoice->id }}</title>
-    <style>
-        .logo-img {
-            height: 50px;
-            margin-right: 10px;
-            border-radius: 50%;
-        }
-        .qr-code {
-            margin-top: 20px;
-        }
-    </style>
-@endsection
+@section('title', 'Detalles de la Factura')
 
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <h4>
-                <img src="/public/img/logo11" alt="ClinicaDeltal" class="logo-img">
-                ClinicaDeltal <b>Rojas</b>
-                <small class="float-right"><b>Fecha:</b> {{ $invoice->created_at->format('d/m/Y') }}</small>
-            </h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <h5>Factura #{{ $invoice->id }}</h5>
-            <p>Cliente: {{ $invoice->client_name }}</p>
-            <p>Monto: ${{ number_format($invoice->amount, 2) }}</p>
-            <!-- Mostrar el código QR -->
-            <div class="qr-code">
-                <img src="{{ $qrCodeDataUri }}" alt="QR Code to download invoice">
+    <div class="container">
+        <h1>Factura #{{ $factura->numero }}</h1>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <strong>NIT:</strong> {{ $factura->nit }}<br>
+                <strong>Detalle:</strong> {{ $factura->detalle }}<br>
+                <strong>Monto:</strong> {{ $factura->monto }}<br>
+                <strong>Fecha:</strong> {{ $factura->fecha }}<br>
+                <strong>Paciente:</strong> {{ $factura->paciente->nombre }}<br>
+            </div>
+            <div class="col-sm-4">
+                <img src="{{ $qrCodeDataUri }}" alt="Código QR">
             </div>
         </div>
     </div>

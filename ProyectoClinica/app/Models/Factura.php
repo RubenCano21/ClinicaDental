@@ -24,4 +24,8 @@ class Factura extends Model
     {
         return $this->belongsTo(Paciente::class,'paciente_id');
     }
+
+    public function pagos(){
+        return $this->hasMany(Pago::class,'factura_id');
+    }
 }

@@ -18,7 +18,7 @@ class ReservaController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   $reservas = Reserva::all();
+    {
         $paciente = Paciente::where('id_user', auth()->id())->first();
         $reservas = Reserva::where('id_paciente', $paciente->id)->get();
         return view('admin.reservas.index', compact('reservas'));
@@ -32,7 +32,7 @@ class ReservaController extends Controller
     ];
 
      public function create()
-    {   
+    {
         $odontologo = Odontologo::all();
         $servicios = Servicio::all();
         return view('admin.reservas.create', [
@@ -79,7 +79,7 @@ class ReservaController extends Controller
         // Redirecciona con un mensaje de éxito
         return redirect()->route('admin.reservas.create')->with('success', '¡Reserva realizada con éxito!');
     }
-    
+
 
     /**
      * Display the specified resource.

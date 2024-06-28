@@ -12,9 +12,9 @@ return [
         'app_id'            => 'APP-80W284485P519543T',
     ],
     'live' => [
-        'client_id'         => env('AbHvxypSoRXWldcauKSgVvZYHy7_VRO5Ew9c7Gk6ZZaXx1n1uhbSFIOgPZgeA54E306Xc2-kwewHRFKD', ''),
-        'client_secret'     => env('ENVETtrvBP0KoFfOWsmOq0aulFYOKiozkU8Tkhq1EsoSQzaUpcRPiDx8RtOAvNyWlfm-BPw8ya8IG1U_', ''),
-        'app_id'            => env('PAYPAL_LIVE_APP_ID', ''),
+        'client_id'         => env('PAYPAL_CLIENT_ID',''),
+        'client_secret'     => env('PAYPAL_CLIENT_SECRET',''),
+        'app_id'            => 'APP-80W284485P519543T',
     ],
 
     'payment_action' => env('PAYPAL_PAYMENT_ACTION', 'Sale'), // Can only be 'Sale', 'Authorization' or 'Order'

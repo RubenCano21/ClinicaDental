@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Horario;
 use App\Models\Odontologo;
 use Illuminate\Http\Request;
+use App\Models\Bitacora;
 
 class HorarioController extends Controller
 {
@@ -55,11 +56,25 @@ class HorarioController extends Controller
             ->exists();
 
         if ($horaExistente) {
+            $bitacora = new Bitacora();
+            $bitacora->accion = 'Error de horario';
+            $bitacora->fecha_hora = now();
+            $bitacora->fecha = now()->format('Y-m-d');
+            $bitacora->user_id = auth()->id();
+            $bitacora->save();
+
             return redirect()->back()
                 ->withInput()
                 ->with('mensaje', 'Ya existe un horario con este dia en el sistema')
                 ->with('icon', 'danger');
         }
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Creacion de horarios';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
 
         Horario::create($request->all());
 
@@ -98,6 +113,13 @@ class HorarioController extends Controller
             'horaFin' => 'required',
         ]);
 
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Actualizacion de horario';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
+
         $horario->update($request->only('odontologo_id', 'dia', 'horaInicio', 'horaFin'));
         $horario->odontologo()->associate($horario->odontologo_id);
         return redirect()->route('admin.horarios.index')->with('success', 'Horario actualizado satisfactoriamente');
@@ -114,6 +136,14 @@ class HorarioController extends Controller
     public function destroy($id)
     {
         Horario::destroy($id);
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Elminacion de horario';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
+
         return redirect()->route('admin.horarios.index')->with('success', 'Horario eliminado satisfactoriamente');
     }
 }

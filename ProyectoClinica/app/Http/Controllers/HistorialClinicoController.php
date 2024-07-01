@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cita;
 use App\Models\Historial_clinico;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,9 @@ class HistorialClinicoController extends Controller
      */
     public function index()
     {
-        //
+        $citas = Cita::all();
+        $historiales = Historial_clinico::all();
+        return view('historial.index');
     }
 
     /**

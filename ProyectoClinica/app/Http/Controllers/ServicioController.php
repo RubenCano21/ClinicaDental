@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Servicio;
 use Illuminate\Http\Request;
-use App\Models\bitacora;
+use App\Models\Bitacora;
 
 class ServicioController extends Controller
 {

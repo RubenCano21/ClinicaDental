@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Paciente;
-use App\Models\bitacora;
+use App\Models\Bitacora;
 use App\Models\Historial_clinico;
 use Illuminate\Support\Facades\Hash;
 

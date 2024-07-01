@@ -7,7 +7,7 @@ use App\Models\Especialidad;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\bitacora;
+use App\Models\Bitacora;
 
 class OdontologoController extends Controller
 {

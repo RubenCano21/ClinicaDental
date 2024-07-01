@@ -21,8 +21,8 @@ use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\BitacoraController;
+use App\Http\Controllers\HistorialClinicoController;
 use App\Http\Controllers\OdontogramaController;
-use App\Http\Controllers\pruebacontroller;
 use App\Http\Controllers\TipoPagoController;
 use App\Http\Controllers\PlanPagoController;
 
@@ -167,12 +167,6 @@ Route::resource('pagos', PagoController::class)->middleware('auth');
 
 Route::resource('dash',DashboarController::class)->middleware('auth');
 
-//Route::controller(CursoController::class)->group(function(){
-//    Route::get('cursos', 'index');
-//    Route::get('cursos/create', 'create');
-//    Route::get('cursos/{curso}/{categoria?}', 'show');
-//});
-
 // Rutas para paypal
 Route::get('paypal/payment', [PayPalController::class, 'showPaymentForm'])->name('paypal.payment');
 Route::post('/paypal/create-payment', [PayPalController::class, 'createPayment'])->name('paypal.create');
@@ -183,7 +177,6 @@ Route::get('/paypal/success-transaction', [PayPalController::class, 'successTran
 Route::get('/paypal/cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('paypal.cancelTransaction');
 
 //Facturacion
-
 Route::prefix('facturas')->middleware('auth')->group(function () {
     Route::get('/', [FacturaController::class, 'index'])->name('facturas.index');
     Route::get('/create', [FacturaController::class, 'create'])->name('facturas.create');
@@ -194,8 +187,11 @@ Route::prefix('facturas')->middleware('auth')->group(function () {
     Route::get('/download/{id}', [FacturaController::class, 'download'])->name('facturas.download'); // Agregado parámetro {id}
 });
 
-
-
+Route::prefix('historial')->middleware('auth')->group(function () {
+    Route::get('/', [HistorialClinicoController::class, 'index'])->name('historial.index');
+    Route::get('/create', [HistorialClinicoController::class, 'create'])->name('historial.create');
+    Route::get('/{id}',[HistorialClinicoController::class, 'show'])->name('historial.show');
+});
 
 //ruta para imprimir
 //Route::get('invoice', [InvoiceController::class, 'showInvoice'])->name('invoice.show');
@@ -208,19 +204,6 @@ Route::prefix('facturas')->middleware('auth')->group(function () {
 
 Route::get('/registro', [RegistroController::class,'index']);
 Route::post('/registro', [RegistroController::class,'store'])->name('registro.store');
-
-
-/* Route::middleware(['auth:sanctum','verified'])->get('/dash', function () {
-        return view('dash.index');
-    })->name('dash');
-*/
-//Route::get('/dash','App\Http\Controllers\DashboardController@index');
-
-
-
-/*Route::get('/dash', function () {
-    return view('crud.index');
-});*/
 
 Route::get('/dash/crud/create', function () {
     return view('crud.create');

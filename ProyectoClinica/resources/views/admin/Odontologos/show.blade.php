@@ -31,13 +31,13 @@
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Apellidos</label>
-                                <p>{{$recepcionista->apellido}}</p>
+                                <p>{{$odontologo->apellido}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Sexo</label>
-                                <p>{{$recepcionista->sexo}}</p>
+                                <p>{{$odontologo->sexo}}</p>
                             </div>
                         </div>
                     </div>
@@ -46,20 +46,20 @@
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Telefono</label>
-                                <p>{{$recepcionista->telefono}}</p>
+                                <p>{{$odontologo->telefono}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form group">
                                 <label for="">Matricula</label>
-                                <p>{{$recepcionista->matricula}}</p>
+                                <p>{{$odontologo->matricula}}</p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Especialidad</label>
-                                @if ($recepcionista->especialidad)
-                                    <p>{{ $recepcionista->especialidad->nombre }}</p>
+                                @if ($odontologo->especialidad)
+                                    <p>{{ $odontologo->especialidad->nombre }}</p>
                                 @else
                                     <p>No se ha especificado especialidad</p>
                                 @endif
@@ -72,7 +72,7 @@
                         <div class="col-md-4">
                             <div class="form group">
                                 <label for="">Email</label>
-                                <p>{{$recepcionista->user->email}}</p>
+                                <p>{{$odontologo->user->email}}</p>
                             </div>
                         </div>
                     </div>

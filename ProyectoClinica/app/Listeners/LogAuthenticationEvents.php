@@ -7,7 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\DB;
-use App\Models\bitacora;
+use App\Models\Bitacora;
 
 class LogAuthenticationEvents
 {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\especialidad;
 use Illuminate\Http\Request;
+use App\Models\Bitacora;
 
 class EspecialidadController extends Controller
 {
@@ -21,6 +22,7 @@ class EspecialidadController extends Controller
      */
     public function create()
     {
+            
         return view('admin.especialidades.create');
     }
 
@@ -34,6 +36,13 @@ class EspecialidadController extends Controller
         ]);
 
         Especialidad::create($validatedData);
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Crear de especialidad';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
 
         return redirect()->route('admin.especialidades.index')->with('success', 'Especialidad creada exitosamente');
     }
@@ -74,6 +83,13 @@ class EspecialidadController extends Controller
         $especialidad->nombre = $request->input('nombre');
         $especialidad->save();
 
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Actualizar especialidad';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
+
         // Redirigir con un mensaje de éxito
         return redirect()->route('admin.especialidades.index')->with('success', 'Especialidad actualizada exitosamente.');
     }
@@ -90,6 +106,13 @@ class EspecialidadController extends Controller
     {
         $especialidad = especialidad::find($id);
         $especialidad->delete();
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Eliminar especialidad';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
 
         return redirect()->route('admin.especialidades.index')
             ->with('mensaje', 'Consultorio Eliminado.')

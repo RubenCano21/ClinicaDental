@@ -6,7 +6,7 @@ use App\Models\Especialidad;
 use App\Models\Recepcionista;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\bitacora;
+use App\Models\Bitacora;
 use Illuminate\Support\Facades\Hash;
 
 class RecepcionistaController extends Controller

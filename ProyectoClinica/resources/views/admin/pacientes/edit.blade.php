@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row">
-        <h1>EDITAR REGISTROS DEL PACIENTE: {{$horario->nombre}} {{$horario->apellido}}</h1>
+        <h1>EDITAR REGISTROS DEL PACIENTE: {{$paciente->nombre}} {{$paciente->apellido}}</h1>
     </div>
     <hr>
     <div class="row">
@@ -14,7 +14,7 @@
                     <h3 class="card-title"> LLene los datos</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{url('/admin/pacientes',$horario->id)}}" method="POST">
+                    <form action="{{url('/admin/pacientes',$paciente->id)}}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -22,28 +22,28 @@
                                 <div class="form group">
                                     <label for="" class="form-label">CI</label>
                                     <input id="ci" name="ci" type="number" class="form-control" placeholder="C.I.5465456"
-                                           value="{{ $horario->ci }}">
+                                           value="{{ $paciente->ci }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="" class="form-label">Nombre</label>
                                     <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Juan"
-                                           value="{{ $horario->nombre }}">
+                                           value="{{ $paciente->nombre }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="" class="form-label">Apellido</label>
                                     <input id="apellido" name="apellido" type="text" class="form-control" placeholder="Zamora"
-                                           value="{{ $horario->apellido }}">
+                                           value="{{ $paciente->apellido }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="" class="form-label">Email</label>
                                     <input id="email" name="email" type="email" class="form-control" placeholder="ejemplo@gmail.com"
-                                           value="{{ $horario->email }}">
+                                           value="{{ $paciente->email }}">
                                 </div>
                             </div>
                         </div>
@@ -64,21 +64,21 @@
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="" class="form-label">Telefono</label>
-                                    <input type="tel" class="form-control" id="telefono" name="telefono" value="{{ $horario->telefono }}">
+                                    <input type="tel" class="form-control" id="telefono" name="telefono" value="{{ $paciente->telefono }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento"
-                                           value="{{ $horario->fechanacimiento }}">
+                                           value="{{ $paciente->fechanacimiento }}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form group">
                                     <label for="" class="form-label">Direccion</label>
                                     <input type="text" class="form-control" id="direccion" name="direccion" placeholder="1234 Marical scz"
-                                           value="{{ $horario->direccion }}">
+                                           value="{{ $paciente->direccion }}">
                                 </div>
                             </div>
                         </div>

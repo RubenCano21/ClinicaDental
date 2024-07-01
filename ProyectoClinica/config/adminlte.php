@@ -433,7 +433,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Ver historial',
-                    'url' => '/dash',
+                    'url' => '/',
                 ],
                 [
                     'text' => 'level_one',

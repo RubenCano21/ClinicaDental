@@ -9,6 +9,7 @@ use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Bitacora;
 
 class FacturaController extends Controller
 {
@@ -74,6 +75,13 @@ class FacturaController extends Controller
         $factura->paciente_id = $request->paciente_id;
         $factura->save();
 
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Creacion de factura';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
+
         //generar archivo de la factura
         $this->generateFacturaFile($factura);
 
@@ -118,6 +126,13 @@ class FacturaController extends Controller
         if (!file_exists($filePath)) {
             return redirect()->route('facturas.index')->with('error', 'El archivo de la factura no existe.');
         }
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Descarga de factura';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
 
         return response()->download($filePath);
     }

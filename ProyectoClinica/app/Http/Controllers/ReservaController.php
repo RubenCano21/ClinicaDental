@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Servicio;
 use illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Bitacora;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 
@@ -76,6 +77,13 @@ class ReservaController extends Controller
             'id_odontologo' => $request->input('id_odontologo'),
         ]);
 
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Error de reserva';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
+
         // Redirecciona con un mensaje de éxito
         return redirect()->route('admin.reservas.create')->with('success', '¡Reserva realizada con éxito!');
     }
@@ -111,6 +119,14 @@ class ReservaController extends Controller
     public function destroy(Reserva $reserva)
     {
         $reserva->delete();
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Eliminacion de reserva';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
+
         return redirect()->route('admin.reservas.index')->with('success', '¡Reserva eliminada con éxito!');
     }
 }

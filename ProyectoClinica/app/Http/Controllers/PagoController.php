@@ -8,6 +8,7 @@ use App\Models\PlanPago;
 use App\Models\Servicio;
 use App\Models\TipoPago;
 use App\Models\User;
+use App\Models\Bitacora;
 use Illuminate\Http\Request;
 
 class PagoController extends Controller
@@ -57,6 +58,13 @@ class PagoController extends Controller
         $pago->estado = $validated['estado'];
         $pago->save();
 
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Creacion de pago';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
+
         return redirect()->route('pagos.index')->with('success', 'Pago creado correctamente');
     }
 
@@ -87,6 +95,13 @@ class PagoController extends Controller
         $pago = Pago::findOrFail($id);
         $pago->update($request->all());
 
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Actualizacion de pago';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
+
         return redirect()->route('pagos.index')->with('success', 'Pago actualizado exitosamente');
     }
 
@@ -94,6 +109,13 @@ class PagoController extends Controller
     {
         $pago = Pago::findOrFail($id);
         $pago->delete();
+
+        $bitacora = new Bitacora();
+        $bitacora->accion = 'Eliminacion de pago';
+        $bitacora->fecha_hora = now();
+        $bitacora->fecha = now()->format('Y-m-d');
+        $bitacora->user_id = auth()->id();
+        $bitacora->save();
 
         return redirect()->route('pagos.index')->with('success', 'Pago eliminado exitosamente');
     }

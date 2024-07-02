@@ -34,7 +34,7 @@ class Paciente extends Model
     }
 
     public function historial_clinico(){
-        return $this->belongsTo(Historial_clinico::class);
+        return $this->hasOne(Historial_clinico::class);
     }
 
     public function reservas(){

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\bitacora;
+use App\Models\Odontologo;
+use App\Models\Paciente;
+use App\Models\Recepcionista;
 use Illuminate\Http\Request;
 
 class BitacoraController extends Controller
@@ -17,7 +20,10 @@ class BitacoraController extends Controller
     public function index()
     {
         $bitacoras = Bitacora::with('user')->get();
-        return view('admin.bitacora.index', compact('bitacoras'));
+        $pacientes = Paciente::all();
+        $odontologos = Odontologo::all();
+        $recepcionistas = Recepcionista::all();
+        return view('admin.bitacora.index', compact('bitacoras', 'pacientes', 'odontologos', 'recepcionistas'));
     }
 
     /**

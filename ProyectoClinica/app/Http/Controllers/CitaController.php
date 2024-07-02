@@ -61,9 +61,8 @@ class CitaController extends Controller
                 $cita->ci_odontologo = $reserva->id_odontologo;
                 $cita->id_reserva = $reserva->id;
                 $cita->id_servicio = $reserva->servicio->id;
-                $cita->id_historialclinico = 1;//$request->reserva->paciente->historial_clinico->id;
+                $cita->id_historialclinico = $request->reserva->paciente->historial_clinico->id;
                 $cita->save();
-        
         
                 $bitacora = new Bitacora();
                 $bitacora->accion = 'Creacion de cita';

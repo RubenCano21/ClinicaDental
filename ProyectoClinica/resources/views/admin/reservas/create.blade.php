@@ -19,6 +19,20 @@
                     <form action="{{ route('admin.reservas.store') }}" method="POST">
                         @csrf
                         <div class="row">
+                            @if ($bandera)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="id_paciente">Paciente</label>
+                                        <select name="id_paciente" id="id_paciente" class="form-control" required>
+                                            @foreach($pacientes as $paciente)
+                                                <option value="{{ $paciente->id }}">{{ $paciente->nombre." ".$paciente->apellido }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            @else
+                                <input type="hidden" name="id_paciente" id="id_paciente" value="null">
+                            @endif
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="fecha">Fecha</label>

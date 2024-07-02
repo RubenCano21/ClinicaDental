@@ -7,9 +7,9 @@ use App\Models\Paciente;
 use App\Models\Reserva;
 use Illuminate\Http\Request;
 use App\Models\Servicio;
-use illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Bitacora;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,8 +20,9 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        $paciente = Paciente::where('id_user', auth()->id())->first();
-        $reservas = Reserva::where('id_paciente', $paciente->id)->get();
+        // $paciente = Paciente::where('id_user', auth()->id())->first();
+        // $reservas = Reserva::where('id_paciente', $paciente->id)->get();
+        $reservas = Reserva::all();
         return view('admin.reservas.index', compact('reservas'));
     }
 
@@ -36,10 +37,21 @@ class ReservaController extends Controller
     {
         $odontologo = Odontologo::all();
         $servicios = Servicio::all();
+        $pacientes = Paciente::all();
+
+        $user = Auth::user();
+        if ($user->hasRole('Recepcionista') || $user->hasRole('Administrador') || $user->hasRole('Odontologo')){
+            $bandera = true;
+        }else{
+            $bandera = false;
+        }
+
         return view('admin.reservas.create', [
             'servicios' => $servicios,
             'horasDeTrabajo' => $this->horasDeTrabajo,
             'odontologos' => $odontologo,
+            'bandera' => $bandera,
+            'pacientes' => $pacientes,
         ]);
     }
 
@@ -65,8 +77,12 @@ class ReservaController extends Controller
             return redirect()->back()->withErrors($validarFecha)->withInput();
         }
 
-        $paciente = Paciente::where('id_user', auth()->id())->first();
-
+        if ($request->id_paciente == "null"){
+            $paciente = Paciente::where('id_user', auth()->id())->first();
+        }else{
+            $paciente = Paciente::find($request->id_paciente);
+        }
+        
         // Crea una nueva instancia de reserva
         Reserva::create([
             'fecha' => $request->input('fecha'),
@@ -77,8 +93,9 @@ class ReservaController extends Controller
             'id_odontologo' => $request->input('id_odontologo'),
         ]);
 
+        
         $bitacora = new Bitacora();
-        $bitacora->accion = 'Error de reserva';
+        $bitacora->accion = 'Creacion de reserva';
         $bitacora->fecha_hora = now();
         $bitacora->fecha = now()->format('Y-m-d');
         $bitacora->user_id = auth()->id();

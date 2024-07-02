@@ -21,6 +21,7 @@
                         <th scope="col" style="text-align: center">Accion</th>
                         <th scope="col" style="text-align: center">Fecha y hora</th>
                         <th scope="col" style="text-align: center">Usuario</th>
+                        <th scope="col" style="text-align: center">Rol</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,7 +31,13 @@
                             <td style="text-align: center">{{$contador++}}</td>
                             <td>{{$bitacora->accion}}</td>
                             <td>{{$bitacora->fecha_hora}}</td>
-                            <td>{{$bitacora->user_id}}</td>
+                            <td>
+                                {{ $bitacora->paciente->nombre ?? 
+                                    $bitacora->odontologo->nombre ?? 
+                                    $bitacora->recepcionista->nombre ?? 
+                                    $bitacora->user_id }}
+                            </td>
+                            <td>{{$bitacora->user->getRoleNames()}}</td>
                         </tr>
                     @endforeach
                     </tbody>

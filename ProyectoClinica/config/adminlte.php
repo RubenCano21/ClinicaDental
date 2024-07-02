@@ -433,7 +433,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Ver historial',
-                    'url' => '/',
+                    'url' => 'historial',
                 ],
                 [
                     'text' => 'level_one',

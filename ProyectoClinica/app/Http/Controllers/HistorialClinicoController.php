@@ -13,9 +13,9 @@ class HistorialClinicoController extends Controller
      */
     public function index()
     {
-        $citas = Cita::all();
         $historiales = Historial_clinico::all();
-        return view('historial.index');
+        $citas = Cita::all();
+        return view('historiales.index', compact('historiales', 'citas'));
     }
 
     /**
@@ -37,9 +37,11 @@ class HistorialClinicoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Historial_clinico $historial_clinico)
+    public function show($id)
     {
-        //
+        $historial = Historial_clinico::find($id);
+        $citas = Cita::where('id_historialclinico', $id)->get();
+        return view('historiales.show', compact('historial','citas'));
     }
 
     /**

@@ -82,6 +82,6 @@ class User extends Authenticatable
     }
 
     public function bitacoras(){
-        return $this->hasMany(bitacora::class);
+        return $this->hasMany(bitacora::class, 'user_id');
     }
 }

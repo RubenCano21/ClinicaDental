@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\bitacora;
+use App\Models\Bitacora;
 use App\Models\Historial_clinico;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Contracts\MustVerifyRole;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 class UserController extends Controller
 {
+    use HasRoles;
     /**
      * Display a listing of the resource.
      */

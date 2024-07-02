@@ -33,4 +33,8 @@ class Cita extends Model
     public function pagos(){
         return $this->hasMany(Pago::class);
     }
+
+    public function historial_clinico(){
+        return $this->belongsTo(Historial_clinico::class, 'id_historialclinico');
+    }
 }

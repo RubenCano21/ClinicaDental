@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Reservas</h1>
+    <h1>Todas las reservas</h1>
 
     @if (session('success'))
         <div class="alert alert-success">
@@ -15,6 +15,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Paciente</th>
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Estado</th>
@@ -26,6 +27,7 @@
         <tbody>
             @foreach($reservas as $reserva)
                 <tr>
+                    <td>{{ $reserva->paciente->nombre." ".$reserva->paciente->apellido}}</td>
                     <td>{{ $reserva->fecha }}</td>
                     <td>{{ $reserva->hora }}</td>
                     <td>{{ $reserva->estado }}</td>

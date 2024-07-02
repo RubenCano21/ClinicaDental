@@ -13,7 +13,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Citas Registradas</h3>
                     <div class="card-tools">
-                        <a href="{{url('admin/citas/create')}}" class="btn btn-primary rounded-pill">
+                        <a href="{{url('reservas/create')}}" class="btn btn-primary rounded-pill">
                             Nueva Cita
                         </a>
                     </div>

@@ -7,6 +7,21 @@
 @stop
 
 @section('content')
+<style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+  
+    .grid-item {
+      padding: 20px;
+      background-color: #f0f0f0;
+      text-align: center;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+  </style>
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">
@@ -15,21 +30,64 @@
             </div>
                 
             <h1>Dental Map</h1>
-            <img src="{{asset('img/odontograma.jpg')}}" usemap="#dentalmap" alt="Dental Map" width="500" height="500">
-        
-            <map name="Mapa dental">
-                <!-- Upper teeth -->
-                <area shape="circle" coords="75,30,15" href="page1.html" alt="Upper Tooth 1">
-                <area shape="circle" coords="105,30,15" href="page2.html" alt="Upper Tooth 2">
-                <area shape="circle" coords="135,30,15" href="page3.html" alt="Upper Tooth 3">
-                <!-- Add more areas for each tooth -->
-        
-                <!-- Lower teeth -->
-                <area shape="circle" coords="75,130,15" href="page11.html" alt="Lower Tooth 1">
-                <area shape="circle" coords="105,130,15" href="page12.html" alt="Lower Tooth 2">
-                <area shape="circle" coords="135,130,15" href="page13.html" alt="Lower Tooth 3">
-                <!-- Add more areas for each tooth -->
-            </map>
+            <div class="grid-container">
+                <!-- Fila 1 -->
+                <div class="grid-item" onclick="location.href='pagina1.html';">
+                  <p>Celda 1</p>
+                </div>
+                <div class="grid-item" onclick="location.href='pagina2.html';">
+                  <p>Celda 2</p>
+                </div>
+                <!-- Fila 2 -->
+                <div class="grid-item" onclick="location.href='pagina3.html';">
+                  <p>Celda 3</p>
+                </div>
+                <div class="grid-item" onclick="location.href='pagina4.html';">
+                  <p>Celda 4</p>
+                </div>
+                <!-- Fila 3 -->
+                <div class="grid-item" onclick="location.href='pagina5.html';">
+                  <p>Celda 5</p>
+                </div>
+                <div class="grid-item" onclick="location.href='pagina6.html';">
+                  <p>Celda 6</p>
+                </div>
+                <!-- Fila 4 -->
+                <div class="grid-item" onclick="location.href='pagina7.html';">
+                  <p>Celda 7</p>
+                </div>
+                <div class="grid-item" onclick="location.href='pagina8.html';">
+                  <p>Celda 8</p>
+                </div>
+                <!-- Fila 5 -->
+                <div class="grid-item" onclick="location.href='pagina9.html';">
+                  <p>Celda 9</p>
+                </div>
+                <div class="grid-item" onclick="location.href='pagina10.html';">
+                  <p>Celda 10</p>
+                </div>
+                <!-- Fila 6 -->
+                <div class="grid-item" onclick="location.href='pagina11.html';">
+                  <p>Celda 11</p>
+                </div>
+                <div class="grid-item" onclick="location.href='pagina12.html';">
+                  <p>Celda 12</p>
+                </div>
+                <!-- Fila 7 -->
+                <div class="grid-item" onclick="location.href='pagina13.html';">
+                  <p>Celda 13</p>
+                </div>
+                <div class="grid-item" onclick="location.href='pagina14.html';">
+                  <p>Celda 14</p>
+                </div>
+                <!-- Fila 8 -->
+                <div class="grid-item" onclick="location.href='pagina15.html';">
+                  <p>Celda 15</p>
+                </div>
+                <div class="grid-item" onclick="location.href='pagina16.html';">
+                  <p>Celda 16</p>
+                </div>
+              </div>
 
                 <script>
                     $(function () {

@@ -56,7 +56,6 @@ Route::get('/acercaDe', function () {
 
 Route::resource('home', 'App\Http\Controllers\HomeController');
 route::resource('usuarios',UserController::class,)->names('admin.usuarios');
-route::resource('reservas',ReservaController::class,)->names('admin.reservas');
 //route::resource('citas',CitaController::class)->names('admin.citas');
 route::resource('servicios',ServicioController::class)->names('admin.servicios');
 Route::resource('users', 'App\Http\Controllers\UserController');
@@ -188,9 +187,25 @@ Route::prefix('facturas')->middleware('auth')->group(function () {
 });
 
 Route::prefix('historial')->middleware('auth')->group(function () {
-    Route::get('/', [HistorialClinicoController::class, 'index'])->name('historial.index');
-    Route::get('/create', [HistorialClinicoController::class, 'create'])->name('historial.create');
-    Route::get('/{id}',[HistorialClinicoController::class, 'show'])->name('historial.show');
+    Route::get('', [HistorialClinicoController::class, 'index'])->name('historiales.index');
+    Route::get('/create', [HistorialClinicoController::class, 'create'])->name('historiales.create');
+    Route::post('/create', [HistorialClinicoController::class, 'store'])->name('historiales.store');
+    Route::get('/{id}', [HistorialClinicoController::class, 'show'])->name('historiales.show');
+    Route::get('/{id}/edit', [HistorialClinicoController::class, 'edit'])->name('historiales.edit');
+    Route::put('/{id}', [HistorialClinicoController::class, 'update'])->name('historiales.update');
+    Route::get('/{id}/confirm-delete', [HistorialClinicoController::class, 'confirmDelete'])->name('historiales.confirmDelete');
+    Route::delete('/{id}', [HistorialClinicoController::class, 'destroy'])->name('historiales.destroy');
+});
+
+Route::prefix('reservas')->middleware('auth')->group(function (){
+    Route::get('', [ReservaController::class, 'index'])->name('admin.reservas.index');
+    Route::get('/create', [ReservaController::class, 'create'])->name('admin.reservas.create');
+    Route::post('/create', [ReservaController::class, 'store'])->name('admin.reservas.store');
+    Route::get('/{id}', [ReservaController::class, 'show'])->name('admin.reservas.show');
+    Route::get('/{id}/edit', [ReservaController::class, 'edit'])->name('admin.reservas.edit');
+    Route::put('/{id}', [ReservaController::class, 'update'])->name('admin.reservas.update');
+    Route::get('/{id}/confirm-delete', [ReservaController::class, 'confirmDelete'])->name('admin.reservas.confirmDelete');
+    Route::delete('/{id}', [ReservaController::class, 'destroy'])->name('admin.reservas.destroy');
 });
 
 //ruta para imprimir

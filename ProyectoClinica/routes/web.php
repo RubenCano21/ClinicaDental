@@ -185,7 +185,8 @@ Route::prefix('facturas')->middleware('auth')->group(function () {
     Route::get('/invoice', [FacturaController::class, 'showInvoice'])->name('facturas.invoice');
     Route::get('/{id}', [FacturaController::class, 'show'])->name('facturas.show');
     Route::get('/download', [FacturaController::class, 'download'])->name('facturas.download');
-    Route::get('/download/{id}', [FacturaController::class, 'download'])->name('facturas.download'); // Agregado parámetro {id}
+    Route::post('/reporte', [FacturaController::class, 'generarReporte'])->name('facturas.reporte');
+    Route::get('/{id}/pdf', [FacturaController::class, 'generarPDF'])->name('facturas.pdf'); // Agregado parámetro {id}
 });
 
 Route::prefix('historial')->middleware('auth')->group(function () {

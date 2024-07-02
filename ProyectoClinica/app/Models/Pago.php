@@ -22,18 +22,18 @@ class Pago extends Model
     }
 
 
-    public function planPagos()  // Un Pago pertenece a un PlanPago
+    public function planPago()  // Un Pago pertenece a un PlanPago
     {
         return $this->belongsTo(PlanPago::class);
     }
 
 
-    public function tipoPagos() // Un Pago pertenece a un TipoPago
+    public function tipoPago() // Un Pago pertenece a un TipoPago
     {
         return $this->belongsTo(TipoPago::class);
     }
 
-    public function cita(){
+    public function citas(){
         return $this->belongsTo(Cita::class);
     }
 

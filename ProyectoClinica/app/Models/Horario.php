@@ -17,6 +17,6 @@ class Horario extends Model
     ];
 
     public function odontologo(){
-        return $this->belongsTo(Odontologo::class);
+        return $this->belongsTo(Odontologo::class, 'odontologo_id');
     }
 }

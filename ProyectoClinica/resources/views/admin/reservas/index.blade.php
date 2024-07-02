@@ -34,11 +34,11 @@
                     <td>{{ $reserva->servicio->nombre }}</td>
                     <td>{{ $reserva->odontologo->nombre." ".$reserva->odontologo->apellido }}</td>
                     <td>
-                        <a href="{{ route('admin.reservas.edit', $reserva) }}" class="btn btn-warning">Editar</a>
+                        {{-- <a href="{{ route('admin.reservas.edit', $reserva) }}" class="btn btn-warning">Editar</a> --}}
                         <form action="{{ route('admin.reservas.destroy', $reserva) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                            <button type="submit" class="btn btn-danger">Cancelar reserva</button>
                         </form>
                     </td>
                 </tr>

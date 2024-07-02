@@ -11,6 +11,7 @@ use App\Models\bitacora;
 use App\Models\Horario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CitaController extends Controller
 {
@@ -19,20 +20,28 @@ class CitaController extends Controller
      */
     public function index()
     {
-        $citas = Cita::with('odontologo', 'servicio','reserva')->get();
+        $user = Auth::user();
+        if ($user->hasRole("Recepcionista") || $user->hasRole("Administrador")){
+            $reservas = Reserva::where('estado', 'pendiente');
+        }else{
+            $odontologo = Odontologo::find($user->id);
+            $reservas = Reserva::where('id_odontologo', $odontologo->id)->where('estado', 'pendiente');
+        }
         return view('admin.citas.index', compact('citas'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //$pacientes = Paciente::all();
-        $odontologos = Odontologo::all();
-        $servicios = Servicio::all();
-        $reservas = Reserva::where('estado', 'pendiente')->get();
-        return view('admin.citas.create', compact( 'odontologos', 'servicios','reservas'));
+
+        $reserva = Reserva::find($request->reserva);
+        // $odontologos = Odontologo::all();
+        // $servicios = Servicio::all();
+        // $reservas = Reserva::where('estado', 'pendiente')->get();
+        return view('admin.citas.create', compact('reserva'));
     }
 
     /**
@@ -50,9 +59,9 @@ class CitaController extends Controller
         $nombreDia = $fechaEs->locale('es')->dayName;
         $horario = Horario::where('odontologo_id', $reserva->id_odontologo)
         ->where('dia', $nombreDia)->first();
-        if ($horario!=null and $request->estado=="aceptada"){
-            if ($horario->horaInicio<=$reserva->hora && $horario->horaFin>=$reserva->hora && $horario!=null){
-                $reserva->estado = $request->estado;
+        if ($horario!=null){
+            if ($horario->horaInicio<=$reserva->hora && $horario->horaFin>=$reserva->hora && $horario!=null){                
+                $reserva->estado = 'aceptada';
                 $reserva->save();
         
                 $cita = new Cita();
@@ -61,7 +70,7 @@ class CitaController extends Controller
                 $cita->ci_odontologo = $reserva->id_odontologo;
                 $cita->id_reserva = $reserva->id;
                 $cita->id_servicio = $reserva->servicio->id;
-                $cita->id_historialclinico = $request->reserva->paciente->historial_clinico->id;
+                $cita->id_historialclinico = 1;//$reserva->paciente->historial_clinico->id;
                 $cita->save();
         
                 $bitacora = new Bitacora();
@@ -71,9 +80,9 @@ class CitaController extends Controller
                 $bitacora->user_id = auth()->id();
                 $bitacora->save();
     
-                return redirect()->route('admin.citas.index')->with('success', 'Cita creada correctamente');
+                return redirect()->route('admin.reservas.index')->with('success', 'Cita creada correctamente');
             }
-            return redirect()->route('admin.citas.create')->withErrors(['mensaje' => 'El horario seleccionado no existe']);
+            return redirect()->route('admin.reservas.create')->withErrors(['mensaje' => 'El horario seleccionado no existe']);
         }
         $bitacora = new Bitacora();
         $bitacora->accion = 'Error de reserva';
@@ -82,7 +91,7 @@ class CitaController extends Controller
         $bitacora->user_id = auth()->id();
         $bitacora->save();
 
-        return redirect()->route('admin.citas.create')->withErrors(['mensaje' => 'Reserva no valida']);
+        return redirect()->route('admin.reservas.create')->withErrors(['mensaje' => 'Reserva no valida']);
     }
 
     /**

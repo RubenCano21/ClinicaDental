@@ -3,7 +3,7 @@
 @section('title', 'Bitacora')
 
 @section('content_header')
-    <h1>Lista de actividades en el server</h1>
+    <h1>Lista de actividades en el servidor</h1>
 @stop
 
 @section('content')
@@ -32,9 +32,9 @@
                             <td>{{$bitacora->accion}}</td>
                             <td>{{$bitacora->fecha_hora}}</td>
                             <td>
-                                {{ $bitacora->paciente->nombre ?? 
-                                    $bitacora->odontologo->nombre ?? 
-                                    $bitacora->recepcionista->nombre ?? 
+                                {{ $bitacora->user->paciente->nombre ?? 
+                                    $bitacora->user->odontologo->nombre ?? 
+                                    $bitacora->user->recepcionista->nombre ?? 
                                     $bitacora->user_id }}
                             </td>
                             <td>{{$bitacora->user->getRoleNames()}}</td>
@@ -101,15 +101,55 @@
 @stop
 
 @section('js')
+
 <script src="{{url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{url('https://cdn.datatables.net/2.0.7/js/dataTables.js')}}"></script>
 <script src="{{url('https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js')}}"></script>
 
 <script>
-    $(document).ready(function(){
-        $('pacientes').DataTable({
-            "lengthMenu":[[1, 10, 50, -1], [5, 10, 50, "All"]]
-        });
+    $(function () {
+        $("#example1").DataTable({
+            "pageLength": 10,
+            "language": {
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Acciones",
+                "infoEmpty": "Mostrando 0 a 0 de 0 Usuarios",
+                "infoFiltered": "(Filtrado de _MAX_ total Usuarios)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Usuarios",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+            "responsive": true,
+            "lengthChange": true,
+            "autoWidth": false,
+            "buttons": [
+                {
+                    extend: 'collection',
+                    text: 'Reportes',
+                    orientation: 'landscape',
+                    buttons: [
+                        { extend: 'pdf' },
+                        { extend: 'excel' },
+                        { extend: 'print', text: 'Imprimir' }
+                    ]
+                },
+                {
+                    extend: 'colvis',
+                    text: 'Visor de columnas',
+                    collectionLayout: 'fixed three-column'
+                }
+            ],
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>
 @stop

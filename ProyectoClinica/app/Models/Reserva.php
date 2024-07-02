@@ -27,7 +27,7 @@ class Reserva extends Model
     }
 
     public function cita(){
-        return $this->hasMany(Cita::class, 'id_reserva');
+        return $this->hasMany(Cita::class);
     }
 
     public function paciente(){

@@ -38,6 +38,6 @@ class Odontologo extends Model
     }
 
     public function horarios(){
-        return $this->hasMany(Horario::class, 'id_odontologo');
+        return $this->hasMany(Horario::class, 'odontologo_id');
     }
 }

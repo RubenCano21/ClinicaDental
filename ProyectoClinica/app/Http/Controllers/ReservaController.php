@@ -7,11 +7,13 @@ use App\Models\Paciente;
 use App\Models\Reserva;
 use Illuminate\Http\Request;
 use App\Models\Servicio;
-use App\Models\User;
 use App\Models\Bitacora;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
+use App\Models\Horario;
+use DateTime;
 
 class ReservaController extends Controller
 {
@@ -20,8 +22,6 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        // $paciente = Paciente::where('id_user', auth()->id())->first();
-        // $reservas = Reserva::where('id_paciente', $paciente->id)->get();
         $reservas = Reserva::all();
         return view('admin.reservas.index', compact('reservas'));
     }
@@ -60,7 +60,7 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        $fecha = now()->addDay()->format('Y-m-d');
+        $fechaHoy = now()->addDay()->format('Y-m-d');
         // Valida los datos del formulario
         $request->validate([
             'fecha' => 'required|date',
@@ -70,7 +70,7 @@ class ReservaController extends Controller
         ]);
 
         $validarFecha = Validator::make($request->all(),[
-            'fecha' => ['required','date', 'after:' . $fecha]
+            'fecha' => ['required','date', 'after:' . $fechaHoy]
         ]);
 
         if ($validarFecha->fails()){
@@ -83,26 +83,83 @@ class ReservaController extends Controller
             $paciente = Paciente::find($request->id_paciente);
         }
         
-        // Crea una nueva instancia de reserva
-        Reserva::create([
-            'fecha' => $request->input('fecha'),
-            'hora' => $request->input('hora'),
-            'estado' => 'pendiente', // Estado inicial de la reserva
-            'id_paciente' => $paciente->id,
-            'id_servicio' => $request->input('id_servicio'),
-            'id_odontologo' => $request->input('id_odontologo'),
-        ]);
+        $fecha = $request->fecha;
+        $fechaEs = Carbon::parse($fecha);
+        $nombreDia = $fechaEs->locale('es')->dayName;
+        $horario = Horario::where('odontologo_id', $request->id_odontologo)
+        ->where('dia', $nombreDia)->first();
+        if ($horario!=null){
+            if ($horario->horaInicio<=$request->hora && $horario->horaFin>$request->hora){                
+                $ultimaReservaOcupada = Reserva::whereHas('odontologo.horarios', function ($query) use ($fecha){
+                    $query->whereRaw('reservas.fecha = ? AND reservas.hora BETWEEN horarios.horaInicio AND horarios.horaFin', [$fecha]);
+                })
+                ->orderBy('id', 'desc')
+                ->first();
+                if ($ultimaReservaOcupada == null){
+                    $reserva = new Reserva();
+                    $reserva->fecha = $request->fecha;
+                    $reserva->hora = $horario->horaInicio;
+                    $reserva->estado = 'pendiente';
+                    $reserva->id_paciente = $paciente->id;
+                    $reserva->id_odontologo = $request->id_odontologo;
+                    $reserva->id_servicio = $request->id_servicio;
+                    $reserva->save();
 
-        
+                    $bitacora = new Bitacora();
+                    $bitacora->accion = 'Creacion de Reserva';
+                    $bitacora->fecha_hora = now();
+                    $bitacora->fecha = now()->format('Y-m-d');
+                    $bitacora->user_id = auth()->id();
+                    $bitacora->save();
+
+                    return redirect()->route('admin.reservas.index')->with('success', 'Cita creada correctamente');
+                }else{
+                    $hora = $ultimaReservaOcupada->hora;
+                    $horaAux = DateTime::createFromFormat('H:i:s', $hora);
+                    //dd($horaAux);
+                    $horaAux->modify('+1 hour');
+                    //dd($ultimaReservaOcupada);
+                    if ($horaAux->format('H:i:s')>=$horario->horaFin){
+                        $bitacora = new Bitacora();
+                        $bitacora->accion = 'Error de Reserva';
+                        $bitacora->fecha_hora = now();
+                        $bitacora->fecha = now()->format('Y-m-d');
+                        $bitacora->user_id = auth()->id();
+                        $bitacora->save();
+
+                        return redirect()->route('admin.reservas.create')->with('mensaje', 'La hora y fecha seleccionada ya esta llena!');
+                    }else{  
+                        $reserva = new Reserva();
+                        $reserva->fecha = $request->fecha;
+                        $reserva->hora = $horaAux;
+                        $reserva->estado = 'pendiente';
+                        $reserva->id_paciente = $paciente->id;
+                        $reserva->id_odontologo = $request->id_odontologo;
+                        $reserva->id_servicio = $request->id_servicio;
+                        $reserva->save();
+
+                        $bitacora = new Bitacora();
+                        $bitacora->accion = 'Creacion de Reserva';
+                        $bitacora->fecha_hora = now();
+                        $bitacora->fecha = now()->format('Y-m-d');
+                        $bitacora->user_id = auth()->id();
+                        $bitacora->save();
+                    }
+
+                }
+                return redirect()->route('admin.reservas.index')->with('success', 'Cita creada correctamente');
+            }
+            return redirect()->route('admin.reservas.create')->withErrors(['mensaje' => 'La hora y fecha seleccionada no trabaja el odontologo']);
+        }
         $bitacora = new Bitacora();
-        $bitacora->accion = 'Creacion de reserva';
+        $bitacora->accion = 'Error de reserva';
         $bitacora->fecha_hora = now();
         $bitacora->fecha = now()->format('Y-m-d');
         $bitacora->user_id = auth()->id();
         $bitacora->save();
 
         // Redirecciona con un mensaje de éxito
-        return redirect()->route('admin.reservas.create')->with('success', '¡Reserva realizada con éxito!');
+        return redirect()->route('admin.reservas.create', compact('reserva'))->with('success', 'El odontologo no tiene ningun horario');
     }
 
 
@@ -117,9 +174,9 @@ class ReservaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Reserva $reserva)
+    public function edit($id)
     {
-        //
+        
     }
 
     /**

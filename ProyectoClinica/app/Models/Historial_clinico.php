@@ -19,6 +19,6 @@ class Historial_clinico extends Model
     }
 
     public function citas(){
-        return $this->hasMany(Cita::class);
+        return $this->hasMany(Cita::class, 'id_historialclinico');
     }
 }

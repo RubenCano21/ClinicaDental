@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Llene los datos</h3>
+                        <h3 class="card-title">Confirmar cita</h3>
                     </div>
                     <div class="card-body">
                         <form action="{{ url('/admin/citas/create') }}" method="POST">
@@ -26,14 +26,35 @@
                                 <div class="col-md-6">
                                     <div class="form group">
                                         <label for="">Paciente</label><b>*</b>
-                                        <select name="reserva_id" id="reserva_id" class="form-control rounded-pill search-path">
-                                            @foreach($reservas as $reserva)
-                                                <option value="{{$reserva->id}}">{{$reserva->paciente->nombre." ".$reserva->paciente->apellido."/".$reserva->servicio->nombre."/".$reserva->hora."/".$reserva->fecha}}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" value="{{$reserva->paciente->nombre." ".$reserva->paciente->apellido}}" name="nombre" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <input type="hidden" value="{{$reserva->id}}" name="reserva_id" class="form-control">
+                                <div class="col-md-6">
+                                    <div class="form group">
+                                        <label for="">Servicio</label><b>*</b>
+                                        <input type="text" value="{{$reserva->servicio->nombre}}" name="paciente" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form group">
+                                        <label for="">Precio del servicio</label><b>*</b>
+                                        <input type="text" value="{{$reserva->servicio->precio}}" name="precio" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form group">
+                                        <label for="">Odontologo</label><b>*</b>
+                                        <input type="text" value="{{$reserva->odontologo->nombre." ".$reserva->odontologo->apellido}}" name="odontologo" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form group">
+                                        <label for="">Fecha</label><b>*</b>
+                                        <input type="text" value="{{$reserva->fecha}}" name="echa" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-md-3">
                                     <div class="form group">
                                         <label for="">Estado de la reserva</label><b>*</b>
                                         <select name="estado" id="" class="form-control rounded-pill">
@@ -41,7 +62,7 @@
                                             <option value="rechazada">rechazar</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <hr>
                             {{-- <div class="row">

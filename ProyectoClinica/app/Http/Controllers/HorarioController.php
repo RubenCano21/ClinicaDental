@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Especialidad;
 use App\Models\Horario;
 use App\Models\Odontologo;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Models\Bitacora;
 
@@ -14,8 +16,10 @@ class HorarioController extends Controller
      */
     public function index()
     {
-        $horarios = Horario::with('odontologo')->get();
-        return view('admin.horarios.index', compact('horarios'));
+
+        $horarios = Horario::with('odontologo.especialidades')->get();
+        $especialidades = Especialidad::all();
+        return view('admin.horarios.index', compact('horarios', 'especialidades'));
     }
 
     /**
@@ -23,8 +27,21 @@ class HorarioController extends Controller
      */
     public function create()
     {
+
         $odontologos = Odontologo::all();
-        return view('admin.horarios.create', compact('odontologos'));
+        $horarios = Horario::with('odontologo')->get();
+        $especialidad = Especialidad::all();
+        return view('admin.horarios.create', compact('odontologos', 'horarios', 'especialidad'));
+    }
+
+    //ajax
+    public function CargarEspecialidad($id) {
+        try {
+            $horarios = Horario::with('odontologo.especialidades')->where('especialidad_id',$id)->get();
+            print_r($horarios);
+        }catch (\Exception $e) {
+            return response()->json(['error' => 'No se ha podido cargar la especialidad'], 500);
+        }
     }
 
     /**

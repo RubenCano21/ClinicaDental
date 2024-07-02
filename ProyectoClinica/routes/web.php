@@ -126,6 +126,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::put('horarios/{id}', [HorarioController::class, 'update'])->name('admin.horarios.update');
     Route::get('horarios/{id}/confirm-delete', [HorarioController::class, 'confirmDelete'])->name('admin.horarios.confirmDelete');
     Route::delete('horarios/{id}', [HorarioController::class, 'destroy'])->name('admin.horarios.destroy');
+    // ajax
+    Route::get('horarios/odontologos/{id}', [HorarioController::class, 'CargarEspecialidad'])->name('admin.horarios.CargarEspecialidad');
 });
 
 //admin- citas

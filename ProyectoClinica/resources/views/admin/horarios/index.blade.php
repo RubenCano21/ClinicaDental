@@ -62,6 +62,20 @@
                     <h3 class="card-title">Calendario de Atencion de Odontologos</h3>
                 </div>
                 <div class="card-body">
+                    <div class="col-md-3">
+                        <div class="form group">
+                            <label for="">Especialidades</label>
+                            <select name="especialidades_select" id="especialidades_select" class="form-control rounded-pill">
+                                    @foreach($especialidades as $especialidade)
+                                        <option value="especialidades">{{$especialidade->nombre}}</option>
+                                    @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div id="especialidad_info">
+
+                    </div>
+                    <hr>
                     <table style="font-size: 15px" class="table table-striped table-hover table-sm table-bordered">
                         <thead>
                         <tr style="text-align: center; background-color: #4f6883;" class="text-light">
@@ -167,6 +181,30 @@
                     }
                 ],
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+
+    {{--Codigo para la especialidad  --}}
+    <script>
+        $('#especialidades_select').on('change', function () {
+           var especialidad_id = $('#especialidades_select').val();
+           var url = "{{route('admin.horarios.CargarEspecialidad',':id')}}";
+           url = url.replace(':id', especialidad_id);
+
+            if (especialidad_id){
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (data){
+                        $('#especialidad_info').html(data);
+                    },
+                    error: function (){
+                        alert('Error al obtener la especialidad');
+                    }
+                });
+            }else {
+                $('#especialidad_info').html('');
+            }
         });
     </script>
 @stop

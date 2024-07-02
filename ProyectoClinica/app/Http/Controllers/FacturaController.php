@@ -105,7 +105,7 @@ class FacturaController extends Controller
 
     public function show($id)
     {
-        $factura = Factura::with(['paciente', 'pagos'])->findOrFail($id);
+        $factura = Factura::with([ 'paciente', 'pagos'])->findOrFail($id);
 
         $descargarURL = route('facturas.download', ['id' => $id]);
 

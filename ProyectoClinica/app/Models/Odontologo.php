@@ -24,7 +24,7 @@ class Odontologo extends Model
     public function user(){
         return $this->belongsTo(User::class, 'id_user');
     }
-    
+
     public function especialidades(){
         return $this->belongsToMany(Especialidad::class, 'ejerces');
     }
@@ -35,5 +35,9 @@ class Odontologo extends Model
 
     public function reservas(){
         return $this->hasMany(Reserva::class, 'id_odontologo');
+    }
+
+    public function horarios(){
+        return $this->hasMany(Horario::class, 'id_odontologo');
     }
 }

@@ -427,43 +427,9 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
-            'text' => 'Historial Clinico',
-            'icon' => 'fas fa-fw fa-sign-out-alt',
-            'label_color' => 'info',
-            'submenu' => [
-                [
-                    'text' => 'Ver historial',
-                    'url' => 'historial',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
+            'text' => 'Historiales Clinicos',
+            'route' => 'historial_clinico.index',
+            'icon' => 'fas fa-fw fa-lock',
         ],
         ['header' => 'Facturacion'],
         [

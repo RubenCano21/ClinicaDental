@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('historial_clinicos', function (Blueprint $table) {
             $table->id();
-            $table->text('descripcion')->nullable();
-            $table->unsignedBigInteger('ci_paciente');
+            $table->string('Diagnostico')->nullable();
+            $table->date('Fecha_Cita')->nullable();
+            $table->string('Tratamiento')->nullable();
+            $table->json('odontograma');
 
-            $table->foreign('ci_paciente')->references('id')->on('pacientes')->onDelete('cascade');
+            $table->unsignedBigInteger('id_odontologo');
+            $table->foreign('id_odontologo')->references('id')->on('odontologos')->onDelete('cascade');
+            $table->unsignedBigInteger('id_paciente');
+            $table->foreign('id_paciente')->references('id')->on('pacientes')->onDelete('cascade');
             $table->timestamps();
         });
     }

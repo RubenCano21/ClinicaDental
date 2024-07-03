@@ -1624,16 +1624,16 @@
         },
         {
             "name": "laravel/fortify",
-            "version": "v1.21.3",
+            "version": "v1.21.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/fortify.git",
-                "reference": "a725684d17959c4750f3b441ff2e94ecde7793a1"
+                "reference": "5c2e9cdf589e439feb1ed2911d4acc7ece0ec49e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/fortify/zipball/a725684d17959c4750f3b441ff2e94ecde7793a1",
-                "reference": "a725684d17959c4750f3b441ff2e94ecde7793a1",
+                "url": "https://api.github.com/repos/laravel/fortify/zipball/5c2e9cdf589e439feb1ed2911d4acc7ece0ec49e",
+                "reference": "5c2e9cdf589e439feb1ed2911d4acc7ece0ec49e",
                 "shasum": ""
             },
             "require": {
@@ -1685,20 +1685,20 @@
                 "issues": "https://github.com/laravel/fortify/issues",
                 "source": "https://github.com/laravel/fortify"
             },
-            "time": "2024-05-08T18:07:38+00:00"
+            "time": "2024-06-27T07:55:32+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v11.13.0",
+            "version": "v11.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "92deaa4f037ff100e36809443811301819a8cf84"
+                "reference": "657e8464e13147d56bc3a399115c8c26f38d4821"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/92deaa4f037ff100e36809443811301819a8cf84",
-                "reference": "92deaa4f037ff100e36809443811301819a8cf84",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/657e8464e13147d56bc3a399115c8c26f38d4821",
+                "reference": "657e8464e13147d56bc3a399115c8c26f38d4821",
                 "shasum": ""
             },
             "require": {
@@ -1751,6 +1751,7 @@
             },
             "provide": {
                 "psr/container-implementation": "1.1|2.0",
+                "psr/log-implementation": "1.0|2.0|3.0",
                 "psr/simple-cache-implementation": "1.0|2.0|3.0"
             },
             "replace": {
@@ -1890,7 +1891,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-06-27T09:04:50+00:00"
+            "time": "2024-07-02T17:23:58+00:00"
         },
         {
             "name": "laravel/jetstream",
@@ -7571,16 +7572,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.30.0",
+            "version": "v1.30.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "e08b594052385ab9891dd86047e52da8a953c827"
+                "reference": "8ba049b6c06e0330b6aa1fb7af2746fb4da445e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/e08b594052385ab9891dd86047e52da8a953c827",
-                "reference": "e08b594052385ab9891dd86047e52da8a953c827",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/8ba049b6c06e0330b6aa1fb7af2746fb4da445e4",
+                "reference": "8ba049b6c06e0330b6aa1fb7af2746fb4da445e4",
                 "shasum": ""
             },
             "require": {
@@ -7630,7 +7631,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2024-06-18T17:36:56+00:00"
+            "time": "2024-07-01T20:55:03+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -8415,16 +8416,16 @@
         },
         {
             "name": "sebastian/cli-parser",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/cli-parser.git",
-                "reference": "00a74d5568694711f0222e54fb281e1d15fdf04a"
+                "reference": "15c5dd40dc4f38794d383bb95465193f5e0ae180"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/cli-parser/zipball/00a74d5568694711f0222e54fb281e1d15fdf04a",
-                "reference": "00a74d5568694711f0222e54fb281e1d15fdf04a",
+                "url": "https://api.github.com/repos/sebastianbergmann/cli-parser/zipball/15c5dd40dc4f38794d383bb95465193f5e0ae180",
+                "reference": "15c5dd40dc4f38794d383bb95465193f5e0ae180",
                 "shasum": ""
             },
             "require": {
@@ -8460,7 +8461,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/cli-parser/issues",
                 "security": "https://github.com/sebastianbergmann/cli-parser/security/policy",
-                "source": "https://github.com/sebastianbergmann/cli-parser/tree/3.0.1"
+                "source": "https://github.com/sebastianbergmann/cli-parser/tree/3.0.2"
             },
             "funding": [
                 {
@@ -8468,20 +8469,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-02T07:26:58+00:00"
+            "time": "2024-07-03T04:41:36+00:00"
         },
         {
             "name": "sebastian/code-unit",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/code-unit.git",
-                "reference": "6634549cb8d702282a04a774e36a7477d2bd9015"
+                "reference": "6bb7d09d6623567178cf54126afa9c2310114268"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/code-unit/zipball/6634549cb8d702282a04a774e36a7477d2bd9015",
-                "reference": "6634549cb8d702282a04a774e36a7477d2bd9015",
+                "url": "https://api.github.com/repos/sebastianbergmann/code-unit/zipball/6bb7d09d6623567178cf54126afa9c2310114268",
+                "reference": "6bb7d09d6623567178cf54126afa9c2310114268",
                 "shasum": ""
             },
             "require": {
@@ -8517,7 +8518,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/code-unit/issues",
                 "security": "https://github.com/sebastianbergmann/code-unit/security/policy",
-                "source": "https://github.com/sebastianbergmann/code-unit/tree/3.0.0"
+                "source": "https://github.com/sebastianbergmann/code-unit/tree/3.0.1"
             },
             "funding": [
                 {
@@ -8525,20 +8526,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-02T05:50:41+00:00"
+            "time": "2024-07-03T04:44:28+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
-            "version": "4.0.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/code-unit-reverse-lookup.git",
-                "reference": "df80c875d3e459b45c6039e4d9b71d4fbccae25d"
+                "reference": "183a9b2632194febd219bb9246eee421dad8d45e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/code-unit-reverse-lookup/zipball/df80c875d3e459b45c6039e4d9b71d4fbccae25d",
-                "reference": "df80c875d3e459b45c6039e4d9b71d4fbccae25d",
+                "url": "https://api.github.com/repos/sebastianbergmann/code-unit-reverse-lookup/zipball/183a9b2632194febd219bb9246eee421dad8d45e",
+                "reference": "183a9b2632194febd219bb9246eee421dad8d45e",
                 "shasum": ""
             },
             "require": {
@@ -8573,7 +8574,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/issues",
                 "security": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/security/policy",
-                "source": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/tree/4.0.0"
+                "source": "https://github.com/sebastianbergmann/code-unit-reverse-lookup/tree/4.0.1"
             },
             "funding": [
                 {
@@ -8581,20 +8582,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-02T05:52:17+00:00"
+            "time": "2024-07-03T04:45:54+00:00"
         },
         {
             "name": "sebastian/comparator",
-            "version": "6.0.0",
+            "version": "6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "bd0f2fa5b9257c69903537b266ccb80fcf940db8"
+                "reference": "131942b86d3587291067a94f295498ab6ac79c20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/bd0f2fa5b9257c69903537b266ccb80fcf940db8",
-                "reference": "bd0f2fa5b9257c69903537b266ccb80fcf940db8",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/131942b86d3587291067a94f295498ab6ac79c20",
+                "reference": "131942b86d3587291067a94f295498ab6ac79c20",
                 "shasum": ""
             },
             "require": {
@@ -8650,7 +8651,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/comparator/issues",
                 "security": "https://github.com/sebastianbergmann/comparator/security/policy",
-                "source": "https://github.com/sebastianbergmann/comparator/tree/6.0.0"
+                "source": "https://github.com/sebastianbergmann/comparator/tree/6.0.1"
             },
             "funding": [
                 {
@@ -8658,7 +8659,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-02T05:53:45+00:00"
+            "time": "2024-07-03T04:48:07+00:00"
         },
         {
             "name": "sebastian/complexity",

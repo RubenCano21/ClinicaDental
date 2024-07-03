@@ -230,6 +230,7 @@ Route::prefix('nota-compra')->middleware('auth')->group(function (){
 // Route::get('cursos/{variable}', function($variable) {
 //     return "Bienvenido al curso: $variable";
 // });
+Route::resource('historial_clinico', HistorialClinicoController::class);
 
 Route::get('/registro', [RegistroController::class,'index']);
 Route::post('/registro', [RegistroController::class,'store'])->name('registro.store');

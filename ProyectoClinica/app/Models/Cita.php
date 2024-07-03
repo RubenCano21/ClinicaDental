@@ -17,7 +17,6 @@ class Cita extends Model
         'ci_odontologo',
         'id_reserva',
         'id_servicio',
-        'id_historialclinico'
     ];
 
     public function odontologo(){
@@ -36,7 +35,7 @@ class Cita extends Model
         return $this->hasMany(Pago::class);
     }
 
-    public function historialclinico(){
+    /*public function historialclinico(){
         return $this->belongsTo(Historial_clinico::class, 'ci_paciente');
-    }
+    }*/
 }

@@ -50,8 +50,8 @@
 <br>
 <div class="row">
     <address>
-        <strong>Paciente: {{$boletaPago->user->name}}</strong><br>
-        Correo electrónico: {{$boletaPago->user->email}}
+        <strong>Paciente: {{$boletaPago->paciente->nombre}}</strong><br>
+        Correo electrónico: {{$boletaPago->paciente->email}}
     </address>
 </div>
 <h3>Detalles de Pago</h3>
@@ -73,7 +73,6 @@
         <td colspan="3"></td>
         <th>Total:</th>
         <td>{{ $factura->monto}}</td>
-
     </tr>
 </table>
 </body>

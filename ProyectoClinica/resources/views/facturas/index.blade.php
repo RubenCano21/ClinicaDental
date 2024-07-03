@@ -15,11 +15,10 @@
             <thead>
             <tr>
                 <th>Número</th>
-                <th>NIT</th>
+                <th>Paciente</th>
+                <th>Fecha</th>
                 <th>Detalle</th>
                 <th>Monto</th>
-                <th>Fecha</th>
-                <th>Paciente</th>
                 <th>Acciones</th>
             </tr>
             </thead>
@@ -27,14 +26,12 @@
             @foreach($facturas as $factura)
                 <tr>
                     <td>{{ $factura->numero }}</td>
-                    <td>{{ $factura->nit }}</td>
+                    <td>{{ $factura->paciente->nombre }}</td>
+                    <td>{{ $factura->fecha }}</td>
                     <td>{{ $factura->detalle }}</td>
                     <td>{{ $factura->monto }}</td>
-                    <td>{{ $factura->fecha }}</td>
-                    <td>{{ $factura->paciente->nombre }}</td>
                     <td>
-                        <a href="{{ route('facturas.reporte')}}" class="btn btn-info">Ver</a>
-                        <a href="{{ route('facturas.pdf', $factura->id) }}" class="btn btn-primary">Descargar</a>
+                        <a href="{{ route('facturas.pdf', $factura->id) }}" class="btn btn-danger "><i class=""></i>Descargar</a>
                     </td>
                 </tr>
             @endforeach

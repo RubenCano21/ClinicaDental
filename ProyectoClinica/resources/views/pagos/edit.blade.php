@@ -26,10 +26,10 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="user_id">Usuario</label>
-                                        <select name="user_id" id="user_id" class="form-control rounded-pill">
-                                            @foreach($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        <label for="paciente_id">Paciente</label>
+                                        <select name="paciente_id" id="paciente_id" class="form-control rounded-pill">
+                                            @foreach($pacientes as $paciente)
+                                                <option value="{{ $paciente->id }}">{{ $paciente->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

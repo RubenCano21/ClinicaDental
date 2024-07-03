@@ -40,4 +40,9 @@ class Paciente extends Model
     public function reservas(){
         return $this->hasMany(Reserva::class, 'id_paciente');
     }
+
+    public function pagos()
+    {
+        return $this->hasMany(Pago::class);
+    }
 }

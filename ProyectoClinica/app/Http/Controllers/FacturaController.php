@@ -17,28 +17,6 @@ class FacturaController extends Controller
     /**
      * Display a listing of the resource.
      */
-   /* public function index()
-    {
-        $userId = Auth::id();
-
-        $facturas = Factura::whereHas('paciente', function ($query) use ($userId){
-            $query->where('id_user', $userId);
-        })->with('paciente', 'pagos')->get();
-        return view('facturas.index', compact('facturas'));
-    }
-
-    public function show($id)
-    {
-        $factura = Factura::with('paciente', 'pagos')->findOrFail($id);
-        return view('facturas.show', compact('factura'));
-    }
-
-    public function download($id)
-    {
-        $factura = Factura::with('paciente', 'pagos')->findOrFail($id);
-        $pdf = PDF::loadView('facturas.pdf', compact('factura'));
-        return $pdf->download('factura_'.$factura->id.'.pdf');
-    }*/
 
     public function index()
     {
@@ -61,7 +39,7 @@ class FacturaController extends Controller
 
         $pdf = PDF::loadView('facturas.reporte', compact('factura'));
 
-        $filename = 'Factura_' . $factura->paciente->nombre . '.pdf';
+        $filename = 'Factura_' . $factura->paciente->nombre .'.pdf';
         return $pdf->download($filename);
     }
 

@@ -27,30 +27,30 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="user_id">Usuario</label>
-                                        <select name="user_id" id="user_id" class="form-control rounded-pill">
-                                            @foreach($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        <label for="paciente_id">Paciente</label>
+                                        <select name="paciente_id" id="paciente_id" class="form-control rounded-pill">
+                                            @foreach($pacientes as $paciente)
+                                                <option value="{{ $paciente->id }}">{{ $paciente->nombre }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="tipo_pago_id">Tipo de Pago</label>
-                                        <select name="tipo_pago_id" id="tipo_pago_id" class="form-control rounded-pill">
+                                        <label for="tipoPago_id">Tipo de Pago</label>
+                                        <select name="tipoPago_id" id="tipoPago_id" class="form-control rounded-pill">
                                             @foreach($tipoPagos as $tipoPago)
-                                                <option value="{{ $tipoPago->id }}">{{ $tipoPago->nombre }}</option>
+                                                <option value="{{$tipoPago->id}}">{{ $tipoPago->nombre }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="plan_pago_id">Plan de Pago</label>
-                                        <select name="plan_pago_id" id="plan_pago_id" class="form-control rounded-pill">
+                                        <label for="planPagos_id">Plan de Pago</label>
+                                        <select name="planPagos_id" id="planPagos_id" class="form-control rounded-pill">
                                             @foreach($planPagos as $planPago)
-                                                <option value="{{ $planPago->id }}">{{ $planPago->nombre }}</option>
+                                                <option value="{{$planPago->id}}">{{ $planPago->nombre }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -89,7 +89,16 @@
                                         </select>
                                     </div>
                                 </div>
-
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="factura_id">Factura</label>
+                                        <select name="factura_id" id="factura_id" class="form-control rounded-pill">
+                                            @foreach($facturas as $factura)
+                                                <option value="{{ $factura->id }}">{{$factura->numero}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <hr>
                             <div class="row">

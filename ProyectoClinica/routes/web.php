@@ -143,7 +143,18 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('citas/{id}', [CitaController::class, 'destroy'])->name('admin.citas.destroy');
 });
 
-Route::resource('pagos', PagoController::class)->middleware('auth');
+//pagos
+Route::prefix('pagos')->middleware('auth')->group(function (){
+    Route::get('/', [PagoController::class, 'index'])->name('pagos.index');
+    Route::get('/create', [PagoController::class, 'create'])->name('pagos.create');
+    Route::post('/create', [PagoController::class, 'store'])->name('pagos.store');
+    Route::get('/{id}', [PagoController::class, 'show'])->name('pagos.show');
+    Route::get('/{id}/edit', [PagoController::class, 'edit'])->name('pagos.edit');
+    Route::put('pagos/{id}', [PagoController::class, 'update'])->name('pagos.update');
+    Route::put('pagos/{id}', [PagoController::class, 'destroy'])->name('pagos.destroy');
+    Route::post('/reporte', [PagoController::class, 'generarReporte'])->name('pagos.reporte');
+    Route::get('/{id}/pdf', [PagoController::class, 'generarPDF'])->name('pagos.pdf');
+});
 
    Route::prefix('planPagos')->middleware('auth')->group(function () {
        Route::get('/', [PlanPagoController::class, 'index'])->name('planPagos.index');

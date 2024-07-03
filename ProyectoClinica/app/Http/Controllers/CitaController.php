@@ -29,11 +29,7 @@ class CitaController extends Controller
             $citas = Cita::where('ci_odontologo', $odontologo->id)->where('estado', 'pendiente')->get();
             $bandera = "false";
         }
-<<<<<<< HEAD
         return view('admin.citas.index', compact('citas','bandera'));
-=======
-        return view('admin.citas.index', compact('reservas'));
->>>>>>> ec5272547bb93a64482390a4a2a26ce7aa2cd94e
     }
 
     /**
@@ -131,14 +127,6 @@ class CitaController extends Controller
      */
     public function update(Request $request, $id)
     {
-<<<<<<< HEAD
-=======
-                // Validar los datos del formulario
-                $request->validate([
-                    'nombre' => 'required|string|max:255',
-                ]);
-
->>>>>>> ec5272547bb93a64482390a4a2a26ce7aa2cd94e
                 // Buscar la especialidad por su ID
                 $cita = Cita::findOrFail($id);
 

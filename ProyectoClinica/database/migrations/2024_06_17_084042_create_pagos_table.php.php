@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->date('fecha');
             $table->decimal('monto', 10, 2);
-            $table->string('stado');
+            $table->string('estado');
 
-            //agregando las llaves foraneas
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            // Agregando las llaves foráneas
             $table->unsignedBigInteger('planPagos_id');
             $table->unsignedBigInteger('tipoPago_id');
             $table->unsignedBigInteger('cita_id');
             $table->unsignedBigInteger('factura_id');
+            $table->foreignId('paciente_id')->constrained('pacientes')->onDelete('cascade');
 
             $table->foreign('planPagos_id')->references('id')->on('plan_pagos')->onDelete('cascade');
             $table->foreign('tipoPago_id')->references('id')->on('tipo_pagos')->onDelete('cascade');
@@ -31,6 +31,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

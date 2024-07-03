@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cita;
+use App\Models\Factura;
 use App\Models\Pago;
 use App\Models\PlanPago;
 use App\Models\Servicio;
 use App\Models\TipoPago;
-use App\Models\User;
+use App\Models\Paciente;
 use App\Models\Bitacora;
 use Illuminate\Http\Request;
 
@@ -20,12 +21,12 @@ class PagoController extends Controller
 
     public function index()
     {
-        $pagos = Pago::with(['user','tipoPago','planPago', 'citas.servicio'])->get();
+        $pagos = Pago::with(['paciente','tipoPago','planPago','citas', 'citas.servicio'])->get();
         return view('pagos.index', compact('pagos'));
     }
 
     public function generarPDF($id){
-        $boletaPago = Pago::with(['user','tipoPago','planPago', 'citas.servicio'])->find($id);
+        $boletaPago = Pago::with(['pacientes','tipoPago','planPagos', 'citas.servicio'])->find($id);
 
         $pdf = PDF::loadView('pagos.pdf', compact('boletaPago'));
 
@@ -35,37 +36,38 @@ class PagoController extends Controller
 
     public function create()
     {
-        $users = User::all();
+        $pacientes = Paciente::all();
         $servicios = Servicio::all();
         $tipoPagos = TipoPago::all();
         $planPagos = PlanPago::all();
         $citas = Cita::all();
-        return view('pagos.create', compact('users','servicios','tipoPagos','planPagos','citas'));
+        $facturas = Factura::all();
+
+
+        return view('pagos.create', compact('pacientes','servicios','tipoPagos','planPagos','citas', 'facturas'));
     }
 
     public function store(Request $request)
     {
         // Validar la solicitud
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'tipo_pago_id' => 'required|exists:tipo_pagos,id',
-            'plan_pago_id' => 'required|exists:plan_pagos,id',
-            'cita_id' => 'required|exists:citas,id',
+            'paciente_id' => 'required|exists:pacientes,id',
+            'tipoPago_id' => 'required|exists:tipo_pagos,id',
+            'planPagos_id' => 'required|exists:plan_pagos,id',
+            'cita_id' => 'exists:citas,id|nullable', // Si 'cita_id' no es obligatorio
             'fecha' => 'required|date',
             'monto' => 'required|numeric',
-            'estado' => 'required|string'
+            'estado' => 'required|string',
+            'factura_id' => 'exists:facturas,id|nullable', // Asegúrate de validar 'factura_id'
         ]);
 
         // Crear el pago
-        $pago = new Pago();
-        $pago->user_id = $validated['user_id'];
-        $pago->tipo_pago_id = $validated['tipo_pago_id'];
-        $pago->plan_pago_id = $validated['plan_pago_id'];
-        $pago->cita_id = $validated['cita_id'];
-        $pago->fecha = $validated['fecha'];
-        $pago->monto = $validated['monto'];
-        $pago->estado = $validated['estado'];
-        $pago->save();
+        $pago = Pago::create($validated);
+
+        // Actualizar el monto total de la factura
+        $factura = Factura::find($validated['factura_id']);
+        $factura->monto += $validated['monto'];
+        $factura->save();
 
         $bitacora = new Bitacora();
         $bitacora->accion = 'Creacion de pago';
@@ -74,7 +76,7 @@ class PagoController extends Controller
         $bitacora->user_id = auth()->id();
         $bitacora->save();
 
-        return redirect()->route('pagos.index')->with('success', 'Pago creado correctamente');
+        return redirect()->route('pagos.index', compact('pago'))->with('success', 'Pago creado correctamente');
     }
 
     public function show($id)
@@ -92,13 +94,13 @@ class PagoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'tipo_pago_id' => 'required|exists:tipo_pagos,id',
-            'plan_pago_id' => 'required|exists:plan_pagos,id',
-            'cita_id' => 'required|exists:citas,id',
+            'paciente_id' => 'required|exists:pacientes,id',
+            'tipoPago_id' => 'required|exists:tipoPago,id',
+            'planPagos_id' => 'required|exists:planPago,id',
+            'cita_id' => 'exists:citas,id',
             'fecha' => 'required|date',
             'monto' => 'required|numeric',
-            'estado' => 'required|string'
+            'estado' => 'string'
         ]);
 
         $pago = Pago::findOrFail($id);
@@ -127,5 +129,28 @@ class PagoController extends Controller
         $bitacora->save();
 
         return redirect()->route('pagos.index')->with('success', 'Pago eliminado exitosamente');
+    }
+
+    public function generarReporte(Request $request){
+        $desde = $request->desde;
+        $hasta = $request->hasta;
+        $paciente = $request->paciente;
+
+        $query = Pago::query();
+
+        if (!empty($paciente)) {
+            $query = $query->where('paciente_id', $paciente);
+        }
+        if (!empty($desde)) {
+            $query = $query->whereDate('fecha', '>=', $desde);
+        }
+        if (!empty($hasta)) {
+            $query = $query->whereDate('fecha', '<=', $hasta);
+        }
+
+        $pagos = $query->orderBy('id','DESC')->get();
+
+        $pdf = PDF::loadView('pagos.pdf',['pago' => $pagos]);
+        return $pdf->download('pagosReporte.pdf');
     }
 }

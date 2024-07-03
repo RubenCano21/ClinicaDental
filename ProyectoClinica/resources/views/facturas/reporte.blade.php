@@ -61,22 +61,20 @@
     <tr>
         <th>Item</th>
         <th>Fecha</th>
-        <th>Tipo de Servicio</th>
-        <th>Descripción</th>
+        <th>Detalle</th>
         <th>Total parcial</th>
     </tr>
     <tr>
         <td>1</td>
         <td>{{$factura->created_at}}</td>
-        <td>[NA]</td>
-        <td>pago normal</td>
+        <td>{{$factura->detalle}}</td>
         <td>{{ $factura->monto}}</td>
     </tr>
     <!-- Fila para mostrar el monto total -->
     <tr>
-        <td colspan="3"></td>
+        <td colspan="2"></td>
         <th>Total:</th>
-        <td>{{ $factura->monto}}</td>
+        <td>{{number_format($factura->monto, 2) }}</td>
 
     </tr>
 </table>

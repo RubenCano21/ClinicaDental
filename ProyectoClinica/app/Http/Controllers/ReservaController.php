@@ -84,14 +84,14 @@ class ReservaController extends Controller
         }else{
             $paciente = Paciente::find($request->id_paciente);
         }
-        
+
         $fecha = $request->fecha;
         $fechaEs = Carbon::parse($fecha);
         $nombreDia = $fechaEs->locale('es')->dayName;
         $horario = Horario::where('odontologo_id', $request->id_odontologo)
         ->where('dia', $nombreDia)->first();
         if ($horario!=null){
-            if ($horario->horaInicio<=$request->hora && $horario->horaFin>$request->hora){                
+            if ($horario->horaInicio<=$request->hora && $horario->horaFin>$request->hora){
                 $ultimaReservaOcupada = Reserva::whereHas('odontologo.horarios', function ($query) use ($fecha){
                     $query->whereRaw('reservas.fecha = ? AND reservas.hora BETWEEN horarios.horaInicio AND horarios.horaFin', [$fecha]);
                 })
@@ -115,8 +115,8 @@ class ReservaController extends Controller
                     $cita->ci_odontologo = $request->id_odontologo;
                     $cita->id_reserva = $reserva->id;
                     $cita->id_servicio = $request->id_servicio;
-                    $historial = Historial_clinico::where('ci_paciente', $paciente->id)->first();
-                    $cita->id_historialclinico = $historial->id;
+                    /*$historial = Historial_clinico::where('ci_paciente', $paciente->id)->first();
+                    $cita->id_historialclinico = $historial->id;*/
                     $cita->save();
 
                     $bitacora = new Bitacora();
@@ -142,7 +142,7 @@ class ReservaController extends Controller
                         $bitacora->save();
 
                         return redirect()->route('admin.reservas.create')->with('mensaje', 'La hora y fecha seleccionada ya esta llena!');
-                    }else{  
+                    }else{
                         $reserva = new Reserva();
                         $reserva->fecha = $request->fecha;
                         $reserva->hora = $horaAux;
@@ -160,8 +160,8 @@ class ReservaController extends Controller
                         $cita->ci_odontologo = $request->id_odontologo;
                         $cita->id_reserva = $reserva->id;
                         $cita->id_servicio = $request->id_servicio;
-                        $historial = Historial_clinico::where('ci_paciente', $paciente->id)->first();
-                        $cita->id_historialclinico = $historial->id;
+                        /*$historial = Historial_clinico::where('ci_paciente', $paciente->id)->first();
+                        $cita->id_historialclinico = $historial->id;*/
                         $cita->save();
 
                         $bitacora = new Bitacora();
@@ -185,7 +185,7 @@ class ReservaController extends Controller
         $bitacora->save();
 
         // Redirecciona con un mensaje de éxito
-        return redirect()->route('admin.reservas.create', compact('reserva'))->with('success', 'El odontologo no tiene ningun horario');
+        return redirect()->route('admin.reservas.create')->with('success', 'El odontologo no tiene ningun horario');
     }
 
 
@@ -202,7 +202,7 @@ class ReservaController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**

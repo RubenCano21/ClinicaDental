@@ -20,8 +20,17 @@ class PagoController extends Controller
 
     public function index()
     {
-        $pagos = Pago::with(['user','tipoPagos','planPagos', 'cita.servicio'])->get();
+        $pagos = Pago::with(['user','tipoPago','planPago', 'citas.servicio'])->get();
         return view('pagos.index', compact('pagos'));
+    }
+
+    public function generarPDF($id){
+        $boletaPago = Pago::with(['user','tipoPago','planPago', 'citas.servicio'])->find($id);
+
+        $pdf = PDF::loadView('pagos.pdf', compact('boletaPago'));
+
+        $filename = 'Boleta '.$boletaPago->id.'.pdf';
+        return $pdf->download($filename);
     }
 
     public function create()

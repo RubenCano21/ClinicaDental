@@ -25,6 +25,7 @@ use App\Http\Controllers\HistorialClinicoController;
 use App\Http\Controllers\OdontogramaController;
 use App\Http\Controllers\TipoPagoController;
 use App\Http\Controllers\PlanPagoController;
+use App\Http\Controllers\NotaCompraController;
 
 
 Route::get('/', function(){
@@ -185,7 +186,8 @@ Route::prefix('facturas')->middleware('auth')->group(function () {
     Route::get('/invoice', [FacturaController::class, 'showInvoice'])->name('facturas.invoice');
     Route::get('/{id}', [FacturaController::class, 'show'])->name('facturas.show');
     Route::get('/download', [FacturaController::class, 'download'])->name('facturas.download');
-    Route::get('/download/{id}', [FacturaController::class, 'download'])->name('facturas.download'); // Agregado parámetro {id}
+    Route::post('/reporte', [FacturaController::class, 'generarReporte'])->name('facturas.reporte');
+    Route::get('/{id}/pdf', [FacturaController::class, 'generarPDF'])->name('facturas.pdf'); // Agregado parámetro {id}
 });
 
 Route::prefix('historial')->middleware('auth')->group(function () {
@@ -209,6 +211,16 @@ Route::prefix('reservas')->middleware('auth')->group(function (){
     Route::get('/{id}/confirm-delete', [ReservaController::class, 'confirmDelete'])->name('admin.reservas.confirmDelete');
     Route::delete('/{id}', [ReservaController::class, 'destroy'])->name('admin.reservas.destroy');
 });
+Route::prefix('nota-compra')->middleware('auth')->group(function (){
+    Route::get('', [NotaCompraController::class, 'index'])->name('nota_compra.index');
+    Route::get('/create', [NotaCompraController::class, 'create'])->name('nota_compra.create');
+    Route::post('', [NotaCompraController::class, 'store'])->name('nota_compra.store');
+    Route::get('/{nota_compra}', [NotaCompraController::class, 'show'])->name('nota_compra.show');
+    Route::get('/{nota_compra}/edit', [NotaCompraController::class, 'edit'])->name('nota_compra.edit');
+    Route::put('/{nota_compra}', [NotaCompraController::class, 'update'])->name('nota_compra.update');
+    Route::delete('/{nota_compra}', [NotaCompraController::class, 'destroy'])->name('nota_compra.destroy');
+});
+
 
 //ruta para imprimir
 //Route::get('invoice', [InvoiceController::class, 'showInvoice'])->name('invoice.show');

@@ -37,10 +37,10 @@
                         @foreach($pagos as $pago)
                             <tr>
                                 <td>{{ $contador++}}</td>
-                                <td>{{ $pago->cita->id}}</td>
+                                <td>{{ $pago->cita->id ?? 'N/A'}}</td>
                                 <td>{{ $pago->user->name}}</td>
-                                <td>{{ $pago->tipoPagos->nombre}}</td>
-                                <td>{{ $pago->planPagos->nombre}}</td>
+                                <td>{{ $pago->tipoPago->nombre ?? 'N/A'}}</td>
+                                <td>{{ $pago->planPago->nombre ?? 'N/A'}}</td>
                                 <td>{{ $pago->fecha }}</td>
                                 <td>{{ $pago->estado }}</td>
                                 <td>{{ $pago->cita->servicio->precio ?? 'N/A'}}</td>

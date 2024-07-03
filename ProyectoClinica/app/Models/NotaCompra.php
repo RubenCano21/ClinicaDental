@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Nota_compra extends Model
+class NotaCompra extends Model
 {
     use HasFactory;
 
@@ -18,4 +18,15 @@ class Nota_compra extends Model
         'id_producto',
         'id_inventario'
     ];
+
+    public function proveedor(){
+        return $this->belongsTo(Proveedor::class);
+    }
+
+    public function producto(){
+        return $this->belongsTo(Producto::class);
+    }
+    public function inventario(){
+        return $this->belongsTo(Inventario::class);
+    }
 }

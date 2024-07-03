@@ -13,4 +13,9 @@ class Producto extends Model
         'descripcion',
         'modelo'
     ];
+
+    public function notasCompra()
+    {
+        return $this->hasMany(Nota_compra::class);
+    }
 }

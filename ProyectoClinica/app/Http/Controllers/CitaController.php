@@ -29,7 +29,11 @@ class CitaController extends Controller
             $citas = Cita::where('ci_odontologo', $odontologo->id)->where('estado', 'pendiente')->get();
             $bandera = "false";
         }
+<<<<<<< HEAD
         return view('admin.citas.index', compact('citas','bandera'));
+=======
+        return view('admin.citas.index', compact('reservas'));
+>>>>>>> ec5272547bb93a64482390a4a2a26ce7aa2cd94e
     }
 
     /**
@@ -54,7 +58,7 @@ class CitaController extends Controller
         $request->validate([
             'reserva_id' => 'required|exists:reservas,id'
         ]);
-        
+
         $reserva = Reserva::find($request->input('reserva_id'));
         $fecha = $reserva->fecha;
         $fechaEs = Carbon::parse($fecha);
@@ -62,10 +66,10 @@ class CitaController extends Controller
         $horario = Horario::where('odontologo_id', $reserva->id_odontologo)
         ->where('dia', $nombreDia)->first();
         if ($horario!=null){
-            if ($horario->horaInicio<=$reserva->hora && $horario->horaFin>=$reserva->hora && $horario!=null){                
+            if ($horario->horaInicio<=$reserva->hora && $horario->horaFin>=$reserva->hora && $horario!=null){
                 $reserva->estado = 'aceptada';
                 $reserva->save();
-        
+
                 $cita = new Cita();
                 $cita->fecha = $reserva->fecha;
                 $cita->hora = $reserva->hora;
@@ -74,14 +78,14 @@ class CitaController extends Controller
                 $cita->id_servicio = $reserva->servicio->id;
                 $cita->id_historialclinico = 1;//$reserva->paciente->historial_clinico->id;
                 $cita->save();
-        
+
                 $bitacora = new Bitacora();
                 $bitacora->accion = 'Creacion de cita';
                 $bitacora->fecha_hora = now();
                 $bitacora->fecha = now()->format('Y-m-d');
                 $bitacora->user_id = auth()->id();
                 $bitacora->save();
-    
+
                 return redirect()->route('admin.reservas.index')->with('success', 'Cita creada correctamente');
             }
             return redirect()->route('admin.reservas.create')->withErrors(['mensaje' => 'El horario seleccionado no existe']);
@@ -127,14 +131,22 @@ class CitaController extends Controller
      */
     public function update(Request $request, $id)
     {
+<<<<<<< HEAD
+=======
+                // Validar los datos del formulario
+                $request->validate([
+                    'nombre' => 'required|string|max:255',
+                ]);
+
+>>>>>>> ec5272547bb93a64482390a4a2a26ce7aa2cd94e
                 // Buscar la especialidad por su ID
                 $cita = Cita::findOrFail($id);
-        
+
                 // Actualizar los datos de la especialidad
                 $cita->descripcion = $request->input('descripcion');
                 $cita->estado = 'atendido';
                 $cita->save();
-        
+
                 // Redirigir con un mensaje de éxito
                 return redirect()->route('admin.citas.index')->with('success', 'Especialidad actualizada exitosamente.');
     }

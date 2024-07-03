@@ -33,8 +33,8 @@
                     <td>{{ $factura->fecha }}</td>
                     <td>{{ $factura->paciente->nombre }}</td>
                     <td>
-                        <a href="{{ route('facturas.invoice', $factura->id) }}" class="btn btn-info">Ver</a>
-                        <a href="{{ route('facturas.download', $factura->id) }}" class="btn btn-primary">Descargar</a>
+                        <a href="{{ route('facturas.reporte')}}" class="btn btn-info">Ver</a>
+                        <a href="{{ route('facturas.pdf', $factura->id) }}" class="btn btn-primary">Descargar</a>
                     </td>
                 </tr>
             @endforeach

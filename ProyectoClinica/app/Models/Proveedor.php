@@ -13,4 +13,8 @@ class Proveedor extends Model
         'nombre',
         'direccion'
     ];
+
+    public function notasCompra(){
+        return $this->hasMany(Nota_compra::class);
+    }
 }

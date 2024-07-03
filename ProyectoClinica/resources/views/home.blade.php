@@ -125,12 +125,12 @@
                 <div class="small-box bg-blue">
                     <div class="inner">
                         <h3> 230</h3>
-                        <p> Sales</p>
+                        <p> Inventarios</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-ios7-cart-outline"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{route('nota_compra.index')}}" class="small-box-footer">Mas informacion<i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div><!-- ./col -->
             <div class="col-lg-3 col-xs-6">

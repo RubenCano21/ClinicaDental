@@ -22,12 +22,14 @@ class CitaController extends Controller
     {
         $user = Auth::user();
         if ($user->hasRole("Recepcionista") || $user->hasRole("Administrador")){
-            $reservas = Reserva::where('estado', 'pendiente');
+            $citas = Cita::where('estado', 'pendiente')->get();
+            $bandera = "true";
         }else{
-            $odontologo = Odontologo::find($user->id);
-            $reservas = Reserva::where('id_odontologo', $odontologo->id)->where('estado', 'pendiente');
+            $odontologo = Odontologo::where('id_user', $user->id)->first();
+            $citas = Cita::where('ci_odontologo', $odontologo->id)->where('estado', 'pendiente')->get();
+            $bandera = "false";
         }
-        return view('admin.citas.index', compact('citas'));
+        return view('admin.citas.index', compact('citas','bandera'));
     }
 
     /**
@@ -106,7 +108,7 @@ class CitaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
         $cita = Cita::findOrFail($id);
 
@@ -125,20 +127,16 @@ class CitaController extends Controller
      */
     public function update(Request $request, $id)
     {
-                // Validar los datos del formulario
-                $request->validate([
-                    'nombre' => 'required|string|max:255',
-                ]);
-        
                 // Buscar la especialidad por su ID
                 $cita = Cita::findOrFail($id);
         
                 // Actualizar los datos de la especialidad
-                $cita->nombre = $request->input('nombre');
+                $cita->descripcion = $request->input('descripcion');
+                $cita->estado = 'atendido';
                 $cita->save();
         
                 // Redirigir con un mensaje de éxito
-                return redirect()->route('admin.especialidades.index')->with('success', 'Especialidad actualizada exitosamente.');
+                return redirect()->route('admin.citas.index')->with('success', 'Especialidad actualizada exitosamente.');
     }
 
     public function confirmDelete($id){

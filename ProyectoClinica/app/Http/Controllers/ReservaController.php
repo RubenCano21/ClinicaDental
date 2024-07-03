@@ -8,6 +8,8 @@ use App\Models\Reserva;
 use Illuminate\Http\Request;
 use App\Models\Servicio;
 use App\Models\Bitacora;
+use App\Models\Cita;
+use App\Models\Historial_clinico;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
@@ -105,6 +107,18 @@ class ReservaController extends Controller
                     $reserva->id_servicio = $request->id_servicio;
                     $reserva->save();
 
+                    $cita = new Cita();
+                    $cita->fecha = $request->fecha;
+                    $cita->hora = $horario->horaInicio;
+                    $cita->estado = 'pendiente';
+                    $cita->descripcion = "";
+                    $cita->ci_odontologo = $request->id_odontologo;
+                    $cita->id_reserva = $reserva->id;
+                    $cita->id_servicio = $request->id_servicio;
+                    $historial = Historial_clinico::where('ci_paciente', $paciente->id)->first();
+                    $cita->id_historialclinico = $historial->id;
+                    $cita->save();
+
                     $bitacora = new Bitacora();
                     $bitacora->accion = 'Creacion de Reserva';
                     $bitacora->fecha_hora = now();
@@ -137,6 +151,18 @@ class ReservaController extends Controller
                         $reserva->id_odontologo = $request->id_odontologo;
                         $reserva->id_servicio = $request->id_servicio;
                         $reserva->save();
+
+                        $cita = new Cita();
+                        $cita->fecha = $request->fecha;
+                        $cita->hora = $horaAux;
+                        $cita->estado = 'pendiente';
+                        $cita->descripcion = "";
+                        $cita->ci_odontologo = $request->id_odontologo;
+                        $cita->id_reserva = $reserva->id;
+                        $cita->id_servicio = $request->id_servicio;
+                        $historial = Historial_clinico::where('ci_paciente', $paciente->id)->first();
+                        $cita->id_historialclinico = $historial->id;
+                        $cita->save();
 
                         $bitacora = new Bitacora();
                         $bitacora->accion = 'Creacion de Reserva';
@@ -190,8 +216,9 @@ class ReservaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reserva $reserva)
+    public function destroy($id)
     {
+        $reserva = Reserva::findOrFail($id);
         $reserva->delete();
 
         $bitacora = new Bitacora();

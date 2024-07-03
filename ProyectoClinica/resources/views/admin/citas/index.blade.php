@@ -27,7 +27,9 @@
                             <th scope="col" style="text-align: center">Fecha</th>
                             <th scope="col" style="text-align: center">Hora</th>
                             <th scope="col" style="text-align: center">Servicio</th>
-                            <th scope="col" style="text-align: center">Odontologo</th>
+                            @if ($bandera == "true")
+                                <th scope="col" style="text-align: center">Odontologo</th>
+                            @endif
                             <th scope="col" style="text-align: center">Acciones</th>
                         </tr>
                         </thead>
@@ -40,12 +42,14 @@
                                 <td>{{$cita->fecha}}</td>
                                 <td>{{$cita->hora}}</td>
                                 <td>{{$cita->servicio->nombre}}</td>
-                                <td>{{$cita->odontologo->nombre." ".$cita->odontologo->apellido}}</td>
+                                @if ($bandera == "true")
+                                    <td>{{$cita->odontologo->nombre." ".$cita->odontologo->apellido}}</td>
+                                @endif
                                 <td style="text-align: center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{url('admin/citas/'.$cita->id)}}" type="button" class="btn btn-info btn-sm">Ver</a>
-                                        <a href="{{url('admin/citas/'.$cita->id.'/edit')}}" type="button" class="btn btn-success btn-sm">Editar</a>
-                                        <a href="{{url('admin/citas/'.$cita->id.'/confirm-delete')}}" type="button" class="btn btn-danger btn-sm">Eliminar</a>
+                                        <a href="{{url('admin/citas/'.$cita->id)}}" type="button" class="btn btn-info btn-sm">Ver Cita</a>
+                                        {{-- <a href="{{url('admin/citas/'.$cita->id.'/edit')}}" type="button" class="btn btn-success btn-sm">Editar</a> --}}
+                                        <a href="{{url('admin/citas/'.$cita->id.'/edit')}}" type="button" class="btn btn-danger btn-sm">Atender cita</a>
                                     </div>
                                 </td>
                             </tr>

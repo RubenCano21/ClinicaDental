@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->date('fecha');
             $table->time('hora');
+            $table->string('estado')->nullable();
+            $table->text('descripcion')->nullable();
             $table->unsignedBigInteger('ci_odontologo');
             $table->unsignedBigInteger('id_reserva');
             $table->unsignedBigInteger('id_servicio');

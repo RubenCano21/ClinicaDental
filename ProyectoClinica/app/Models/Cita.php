@@ -12,6 +12,8 @@ class Cita extends Model
     protected $fillable = [
         'fecha',
         'hora',
+        'estado',
+        'descripcion',
         'ci_odontologo',
         'id_reserva',
         'id_servicio',
